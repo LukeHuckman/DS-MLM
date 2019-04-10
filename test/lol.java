@@ -21,6 +21,14 @@ public class lol {
         Scanner s = new Scanner(System.in);
         System.out.println(s.nextInt());
         System.out.println("");
+        
+        
+    }
+    
+    
+    public int add(){
+    
+    return 0;
     }
     
 }
