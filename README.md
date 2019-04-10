@@ -1,6 +1,4 @@
-# DS-MLM
-Data Structures project: An MLM System
-
+# Data Structure Assignment - Multilevel Marketing
 
 ## Weekly Target
 
