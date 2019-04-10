@@ -1,3 +1,6 @@
+
+import java.util.Scanner;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,7 +18,8 @@ public class lol {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+        Scanner s = new Scanner(System.in);
+        System.out.println(s.nextInt());
         System.out.println("");
     }
     
