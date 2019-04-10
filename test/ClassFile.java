@@ -1,11 +1,26 @@
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Scanner;
 
-public class ClassFile<E> implements MLM<E> {
+
+
+public class ClassFile<E> extends Node<E> implements MLM<E> {
     private int COMPANY_REVENUE;
+    private String username;
+    private String[] name;
+    //private int[] id;
+    
 
+    public ClassFile(E data) {
+        super(data);
+        Node<E> root = new Node(3);
+    }
+    
     @Override
     public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Scanner s1 = new Scanner(System.in);
+        
     }
 
     @Override
@@ -35,7 +50,14 @@ public class ClassFile<E> implements MLM<E> {
 
     @Override
     public void save() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            Scanner scan = new Scanner(new FileInputStream("data.txt"));
+            scan.close();
+        }catch(IOException e){
+            System.out.println("File output Error");
+        }
+
+        
     }
 
     @Override
@@ -62,5 +84,6 @@ public class ClassFile<E> implements MLM<E> {
     public void setFee(Number fee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
     
 }
