@@ -3,7 +3,7 @@ public interface MLM<E> {
     //create new user information
     public void create();
     //retrieve the user information
-    public String retrieve();
+    public String retrieve(Node user);
     //update the user information
     public void update();
     //delete the user information
