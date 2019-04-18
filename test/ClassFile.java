@@ -1,31 +1,48 @@
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 
-public class ClassFile<E> extends Node<E> implements MLM<E> {
+public class ClassFile<E> implements MLM<E> {
     private int COMPANY_REVENUE;
     private String username;
-    private String[] name;
-    //private int[] id;
-    
+    private ArrayList<String> usernames;
+    private ArrayList<Double> useramount;
+    private ArrayList<String> encrypted;
+    private ArrayList<Integer> id;
+    private Node root;
 
-    public ClassFile(E data) {
-        super(data);
-        Node<E> root = new Node(3);
+    public ClassFile() {
+        this.COMPANY_REVENUE = 0;
+        this.root = new Node("admin");
+        this.usernames = new ArrayList();
+        this.useramount = new ArrayList();
+        this.encrypted = new ArrayList();
+        this.id = new ArrayList();
     }
+    
+    
     
     @Override
     public void create() {
+        System.out.print("Enter the new username: ");
         Scanner s1 = new Scanner(System.in);
+        Node newNode = new Node(s1.nextLine());
+        System.out.println();
+        System.out.print("Enter the user who recommend the user: ");
+        String user = s1.nextLine();
+        root.getChildren();
         
     }
 
     @Override
-    public String retrieve() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String retrieve(Node user) {
+        String temp = "RM ";
+        temp += useramount.get(useramount.indexOf(user));
+        return temp;
     }
 
     @Override
