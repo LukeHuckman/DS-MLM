@@ -1,3 +1,4 @@
+package dsassignmenttesting;
 
 public interface MLM<E> {
     //create new user information
