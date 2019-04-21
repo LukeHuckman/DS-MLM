@@ -3,8 +3,6 @@ package Main;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class Node<E> {
     E data;
     List<Node<E>> children = new ArrayList();
@@ -12,8 +10,6 @@ public class Node<E> {
 
     public Node() {
     }
-
-    
     
     public Node(E data) {
         this.data = data;
@@ -29,8 +25,6 @@ public class Node<E> {
         children.forEach(each -> each.setParent(this));
         this.children.addAll(children);
     }
-
-    
     
     public List<Node<E>> getChildren() {
         return children;
@@ -54,9 +48,5 @@ public class Node<E> {
 
     public void setParent(Node<E> parent) {
         this.parent = parent;
-    }
-    
-    
-    
-    
+    }    
 }
