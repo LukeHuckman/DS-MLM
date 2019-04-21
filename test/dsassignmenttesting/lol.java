@@ -30,7 +30,7 @@ public class lol {
                 //update method
             }
             else if(mark == 4){
-                //delete method
+                mlm.delete();
             }
             else if(mark == 5){
                 mlm.display();
