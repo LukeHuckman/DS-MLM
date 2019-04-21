@@ -1,6 +1,5 @@
-package dsassignmenttesting;
+package Main;
 
-import Main.*;
 import java.util.Scanner;
 
 public class lol {

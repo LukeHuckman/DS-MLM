@@ -1,6 +1,5 @@
-package dsassignmenttesting;
+package Main;
 
-import Main.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;

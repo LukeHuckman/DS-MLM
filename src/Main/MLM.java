@@ -1,6 +1,4 @@
-package dsassignmenttesting;
-
-import Main.*;
+package Main;
 
 public interface MLM<E> {
     //create new user information
