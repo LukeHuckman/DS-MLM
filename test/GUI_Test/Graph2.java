@@ -26,6 +26,7 @@ public class Graph2 {
         graph.addNode(2+"");
         graph.addEdge("AB", "A", "B",true);
         graph.addEdge(1+""+2+"", 1+"", 2+"",true);
+        graph.addEdge(1+""+"A", 1+"", "A",true);
         graph.addEdge("BC", "B", "C",true);
         graph.addEdge("CA", "C", "A",true);
         graph.addEdge("CD", "C", "D",true);
