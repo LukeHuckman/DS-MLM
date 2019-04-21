@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-
 public class ClassFile<E> implements MLM<E> {
     private int COMPANY_REVENUE;
     private double fee;
@@ -27,8 +25,6 @@ public class ClassFile<E> implements MLM<E> {
         this.encrypted = new ArrayList();
         this.id = new ArrayList();
     }
-    
-    
     
     @Override
     public void create() {
