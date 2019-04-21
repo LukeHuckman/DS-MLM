@@ -3,6 +3,7 @@ package dsassignmenttesting;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -11,7 +12,7 @@ public class ClassFile<E> implements MLM<E> {
     private int COMPANY_REVENUE;
     private double fee;
     private String username;
-    private ArrayList<Node> usernames;
+    private ArrayList<String> usernames;
     private ArrayList<Double> useramount;
     private ArrayList<String> encrypted;
     private ArrayList<Integer> id;
@@ -34,48 +35,137 @@ public class ClassFile<E> implements MLM<E> {
         System.out.print("Enter the new username: ");
         Scanner s1 = new Scanner(System.in);
         String newUser = s1.nextLine();
+        boolean mark1 = false;
+        boolean mark2 = false;
         Node<String> newNode = new Node<String>(newUser);
-        for(int a = 0;a<usernames.size()-1;a++){
-            if(usernames.get(a).equals(newUser)){
-                System.out.println("The user already exist.");
-                break;
-            }
-            usernames.add(newNode);
-        }
-        
-        //encrypted.add(encrypt(newUser));
-        if(id.isEmpty()){
-            id.add(1);
-        }
-        else{
-            id.add((id.get(id.size()-1))+1);
-        }
-        System.out.println();
+        if(usernames.isEmpty()){
+            usernames.add(newUser);
+                if(id.isEmpty()){
+                id.add(1);
+                }
+                else{
+                    id.add((id.get(id.size()-1))+1);
+                }
+                System.out.println();
         
         //link to its parents
-        System.out.print("Enter the user who recommend the user: ");
-        String userParent = s1.nextLine();
-        Node<String> newPar = new Node<String>(userParent);
-        if(userParent.equals("admin")){
-            root.addChild(newNode);
+                System.out.print("Enter the user who recommend the user: ");
+                String userParent = s1.nextLine();
+                Node<String> newPar = new Node<String>(userParent);
+                for(int a = 0;a<usernames.size();a++){
+                    String temp = usernames.get(a);
+                    mark2 = false;
+                    if(temp.equals(userParent)){
+                        mark2 = true;
+                        break;
+                    }
+                }
+                if(userParent.equals("admin")){
+                    root.addChild(newNode);
+                }
+                else{
+                    if(search(root,userParent)){
+                        insert(root,newNode,userParent);
+                    }
+                    else{
+                        System.out.println("There is no such user.");
+                    }
+                }
         }
         else{
-            if(usernames.contains(newPar)){
-                newPar.addChild(newNode);
-                //how to link the parent node name with the child
-                
-            }
-            else{
-                System.out.println("There is no such user.");
+        for(int a = 0;a<usernames.size();a++){
+            String temp = usernames.get(a);
+            mark1 = false;
+            if(temp.equals(newUser)){
+                mark1 = true;
+                break;
             }
         }
+            //System.out.println();
+            if(mark1){
+                System.out.println("The username already exist.");
+
+            }
+            else{
+                usernames.add(newUser);
+                if(id.isEmpty()){
+                id.add(1);
+                }
+                else{
+                    id.add((id.get(id.size()-1))+1);
+                }
+                System.out.println();
         
-        //System.out.println(newNode.data);
-        //System.out.println(userParent);
-        
-        
+        //link to its parents
+                System.out.print("Enter the user who recommend the user: ");
+                String userParent = s1.nextLine();
+                Node<String> newPar = new Node<String>(userParent);
+                for(int a = 0;a<usernames.size();a++){
+                    String temp = usernames.get(a);
+                    mark2 = false;
+                    if(temp.equals(userParent)){
+                        mark2 = true;
+                        break;
+                    }
+                }
+                if(userParent.equals("admin")){
+                    root.addChild(newNode);
+                }
+                else{
+                    if(mark2){
+                        insert(root,newNode,userParent);
+                    }
+                    else{
+                        System.out.println("There is no such user.");
+                    }
+                }
+            }
+        //normal create done, left calculation of revenue and encryption
+        }
+        //encrypted.add(encrypt(newUser));
     }
 
+    public boolean search(Node<String> current,String data){
+        for(int a=0;a<current.getChildren().size();a++){
+            if(current.getChildren().get(a).data.equals(data)){
+                return true;
+            }
+        }
+        current.getChildren().forEach(each -> search(each,data));
+        return false;
+    }
+    
+    public void insert(Node<String> current,Node<String> newUser,String data){
+        for(int a=0;a<current.getChildren().size();a++){
+            if(current.getChildren().get(a).data.equals(data)){
+                current.getChildren().get(a).addChild(newUser);
+                break;
+            }
+        }
+        current.getChildren().forEach(each -> insert(each,newUser,data));
+    }
+    
+    public void takeout(Node<String> current,Node<String> newUser,String data){
+        List<Node<String>> list;
+        List<Node<String>> list2 = new ArrayList();
+        int b = current.getChildren().size();
+        //while(current.getChildren()!=null){
+        for(int a=0;a<b;a++){
+            if(current.getChildren().get(a).data.equals(data)){
+                list2 = current.getChildren().get(a).parent.getChildren();
+                list = current.getChildren().get(a).getChildren();
+                list2.remove(newUser);
+                current.getChildren().get(a).parent.setChildren(list2);
+                
+                root.addChildren(list);
+                a++;
+            }
+            //takeout(current.children.get(a),newUser,data);
+        }
+        current.getChildren().forEach(each -> takeout(each,newUser,data));
+        //}
+    }
+    
     @Override
     public String retrieve(Node user) {
         String temp = "RM ";
@@ -85,12 +175,34 @@ public class ClassFile<E> implements MLM<E> {
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        /*System.out.println("Enter the username: ");
+        Scanner s2 = new Scanner(System.in);
+        if(){
+            System.out.print("Enter new username: ");
+        }*/
     }
 
     @Override
-    public String delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete() {
+        System.out.print("Enter the username that need to be deleted:");
+        Scanner s3 = new Scanner(System.in);
+        String temp1 = s3.nextLine();
+        Node<String> target = new Node(temp1);
+        boolean mark = false;
+        int position = usernames.indexOf(temp1);
+        for(int a = 0;a<usernames.size();a++){
+            String temp = usernames.get(a);
+            mark = false;
+            if(temp.equals(temp1)){
+                mark = true;
+                break;
+            }
+        }
+        if(mark){
+            takeout(root,target,temp1);
+        }
+        usernames.remove(position);
+        id.remove(position);
     }
 
     @Override
@@ -126,8 +238,9 @@ public class ClassFile<E> implements MLM<E> {
     }
 
     public void print(Node<String> node,String appender){
+        String appender2 = " ";
         System.out.println(appender + node.getData());
-        node.getChildren().forEach(each -> print(each, appender + appender));
+        node.getChildren().forEach(each -> print(each, appender + appender2));
     }
     @Override
     public double getRevenue(int gen) {
