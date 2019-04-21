@@ -10,9 +10,9 @@ public interface MLM<E> {
     //delete the user information
     public String delete();
     //encrypt the username
-    public String encrypt();
+    public String encrypt(String name);
     //decrypt the username
-    public String decrypt();
+    public String decrypt(String name);
     //save the users data in txt file
     public void save();
     //get the company revenue
@@ -24,6 +24,6 @@ public interface MLM<E> {
     //check the user revenue
     public double getUserRevenue(String encryptname);
     //change the registration fee
-    public void setFee(Number fee);
+    public void setFee(double fee);
     
 }

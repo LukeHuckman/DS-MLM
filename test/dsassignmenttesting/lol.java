@@ -21,7 +21,7 @@ public class lol {
             System.out.print("Enter the input: ");
             mark = s.nextInt();
             if(mark == 1){
-                //create method
+                mlm.create();
             }
             else if(mark == 2){
                 //retrieve method
@@ -33,13 +33,15 @@ public class lol {
                 //delete method
             }
             else if(mark == 5){
-                //display method
+                mlm.display();
             }
             else if(mark == 6){
                 //get revenue for each generations method
             }
             else if(mark == 7){
-                //change fees method
+                System.out.println("Enter new fee amount: ");
+                double newFee = s.nextDouble();
+                mlm.setFee(newFee);
             }
             else if(mark == 0){
                 System.out.println("The server will shut down.");
@@ -52,10 +54,6 @@ public class lol {
         
     }
     
-    
-    public int add(){
-    
-    return 0;
-    }
+
     
 }
