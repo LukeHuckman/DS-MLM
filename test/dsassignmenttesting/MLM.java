@@ -8,7 +8,7 @@ public interface MLM<E> {
     //update the user information
     public void update();
     //delete the user information
-    public String delete();
+    public void delete();
     //encrypt the username
     public String encrypt(String name);
     //decrypt the username
@@ -27,3 +27,4 @@ public interface MLM<E> {
     public void setFee(double fee);
     
 }
+
