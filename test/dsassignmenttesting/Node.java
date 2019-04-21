@@ -6,10 +6,15 @@ import java.util.List;
 
 
 public class Node<E> {
-    protected E data;
-    protected List<Node<E>> children = new ArrayList();
-    protected Node<E> parent;
+    E data;
+    List<Node<E>> children = new ArrayList();
+    Node<E> parent;
 
+    public Node() {
+    }
+
+    
+    
     public Node(E data) {
         this.data = data;
     }
@@ -25,6 +30,8 @@ public class Node<E> {
         this.children.addAll(children);
     }
 
+    
+    
     public List<Node<E>> getChildren() {
         return children;
     }
