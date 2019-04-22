@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class begin {
     public static void main(String[] args) {
-        ClassFile mlm = new ClassFile(); int mark = -1;
+        ClassFile mlm = new ClassFile(); String mark = "-1";
         Scanner s = new Scanner(System.in);
         System.out.println("Welcome to main page of MLM!!!");
-        while(mark != 0){
+        while(!mark.equals("0")){
             System.out.print("1 Create new user."
                     + "\n2 Retrieve the data of the user chosen."
                     + "\n3 Update the data of the user chosen."
@@ -17,29 +17,33 @@ public class begin {
                     + "\n7 Change the registration fees."
                     + "\n0 Close the program."
                     + "\nEnter the input: ");
-            mark = s.nextInt();
+            mark = s.nextLine();
             switch (mark) {
-                case 1:
+                case "1":
                     mlm.create();
                     break;
-                case 2://retrieve method
+                case "2":
+                    System.out.print("Enter the username: ");
+                    Node <String> user = new Node (s.nextLine());
+                    System.out.println(mlm.retrieve(user));
+                        //retrieve method
                     break;
-                case 3://update method
+                case "3"://update method
                     break;
-                case 4:
+                case "4":
                     mlm.delete();
                     break;
-                case 5:
+                case "5":
                     mlm.display();
                     break;
-                case 6://get revenue for each generations method
+                case "6"://get revenue for each generations method
                     break;
-                case 7:
+                case "7":
                     System.out.println("Enter new fee amount: ");
                     double newFee = s.nextDouble();
                     mlm.setFee(newFee);
                     break;
-                case 0:
+                case "0":
                     System.out.println("The server will shut down.");
                     break;
                 default:
