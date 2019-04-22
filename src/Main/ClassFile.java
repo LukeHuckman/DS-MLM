@@ -7,21 +7,21 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ClassFile<E> implements MLM<E> {
-    private int COMPANY_REVENUE;
+    private double COMPANY_REVENUE;
     private double fee;
     private String username;
     private ArrayList<String> usernames;
-    private ArrayList<Double> useramount;
+    //private ArrayList<Double> useramount;
     private ArrayList<String> encrypted;
     private ArrayList<Integer> id;
-    private Node<String> root;
+    private Node<String> root;//check the calculations part
 
     public ClassFile() {
         this.COMPANY_REVENUE = 0;
         this.fee = 50;
         this.root = new Node<String>("admin");
         this.usernames = new ArrayList();
-        this.useramount = new ArrayList();
+        //this.useramount = new ArrayList();
         this.encrypted = new ArrayList();
         this.id = new ArrayList();
     }
@@ -58,10 +58,12 @@ public class ClassFile<E> implements MLM<E> {
                 }
                 if(userParent.equals("admin")){
                     root.addChild(newNode);
+                    income(newNode); 
                 }
                 else{
                     if(search(root,userParent)){
                         insert(root,newNode,userParent);
+                        income(newNode); 
                     }
                     else{
                         System.out.println("There is no such user.");
@@ -106,10 +108,12 @@ public class ClassFile<E> implements MLM<E> {
                 }
                 if(userParent.equals("admin")){
                     root.addChild(newNode);
+                    income(newNode); 
                 }
                 else{
                     if(mark2){
                         insert(root,newNode,userParent);
+                        income(newNode); 
                     }
                     else{
                         System.out.println("There is no such user.");
@@ -121,7 +125,7 @@ public class ClassFile<E> implements MLM<E> {
         //encrypted.add(encrypt(newUser));
     }
 
-    public boolean search(Node<String> current,String data){
+    public boolean search(Node<String> current,String data){//problem
         for(int a=0;a<current.getChildren().size();a++){
             if(current.getChildren().get(a).data.equals(data)){
                 return true;
@@ -162,13 +166,63 @@ public class ClassFile<E> implements MLM<E> {
         //}
     }
     
-    @Override
-    public String retrieve(Node user) {
-        String temp = "RM ";
-        temp += useramount.get(useramount.indexOf(user));
-        return temp;
+    @Override//retrieve the revenue of the user only(need what extra??)
+    public String retrieve(Node<String> user) {
+        if(user.data.equals(root.data)){
+            return "RM " + COMPANY_REVENUE;
+        }
+        else{
+            return retrieve2(user,root);
+        }
     }
 
+    public String retrieve2(Node<String> user,Node<String> ROOT) {
+        String temp = "RM ";
+        for(int a=0;a<ROOT.getChildren().size();a++){
+            if(ROOT.getChildren().get(a).data.equals(user.getData())){
+                temp += ROOT.getChildren().get(a).amount;
+                break;
+            }
+        }
+        ROOT.getChildren().forEach(each -> retrieve2(user, each));
+        
+        return temp;
+    }
+    
+    public void income(Node user){
+        double money = 0;
+        if(user.parent != null){
+            user.parent.amount += fee/2;
+            money += fee/2;
+            if(user.parent.parent == null || user.parent.parent == root){
+                root.amount += fee - money;
+            }
+            else{
+                user.parent.parent.amount += fee/100*12;
+                money += fee/100*12;
+                if(user.parent.parent.parent == null || user.parent.parent.parent == root){
+                    root.amount += fee - money;
+                }
+                else{
+                    user.parent.parent.parent.amount += fee/100*9;
+                    money += fee/100*9;
+                    if(user.parent.parent.parent.parent == null || user.parent.parent.parent.parent == root){
+                        root.amount += fee - money;
+                    }
+                    else{
+                        user.parent.parent.parent.parent.amount += fee/100*6;
+                        money += fee/100*6;
+                        root.amount += fee - money;
+                    }
+                }
+            }
+        }
+        else if(user.parent == root){
+            root.amount += fee - money;
+        }
+        COMPANY_REVENUE = root.amount;
+    }
+    
     @Override
     public void update() {
         /*System.out.println("Enter the username: ");
