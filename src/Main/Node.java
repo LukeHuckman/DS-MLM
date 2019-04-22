@@ -5,14 +5,18 @@ import java.util.List;
 
 public class Node<E> {
     E data;
+    double amount;
     List<Node<E>> children = new ArrayList();
     Node<E> parent;
 
     public Node() {
+        this.data = null;
+        this.amount = 0;
     }
     
     public Node(E data) {
         this.data = data;
+        this.amount = 0;
     }
     
     public Node<E> addChild(Node<E> child){
