@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
 
 public class ClassFile<E> implements MLM<E> {
     private double COMPANY_REVENUE;
@@ -15,6 +17,7 @@ public class ClassFile<E> implements MLM<E> {
     private ArrayList<String> encrypted;
     private ArrayList<Integer> id;
     private Node<String> root;//check the calculations part
+    private Graph graph = new SingleGraph("MLM Graph",false,true);
 
     public ClassFile() {
         this.COMPANY_REVENUE = 0;
@@ -284,6 +287,7 @@ public class ClassFile<E> implements MLM<E> {
 
     @Override
     public void display() {
+        graph.display();
         print(root," ");
     }
 
