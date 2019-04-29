@@ -24,7 +24,7 @@ public class begin {
                     break;
                 case "2":
                     System.out.print("Enter the username: ");
-                    Node <String> user = new Node (s.nextLine());
+                    TreeNode <String> user = new TreeNode (s.nextLine());
                     System.out.println(mlm.retrieve(user));
                         //retrieve method
                     break;
@@ -45,6 +45,7 @@ public class begin {
                     break;
                 case "0":
                     System.out.println("The server will shut down.");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Invalid input. Please enter the input again.");

@@ -3,34 +3,34 @@ package Main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node<E> {
+public class TreeNode<E> {
     E data;
     double amount;
-    List<Node<E>> children = new ArrayList();
-    Node<E> parent;
+    List<TreeNode<E>> children = new ArrayList();
+    TreeNode<E> parent;
 
-    public Node() {
+    public TreeNode() {
         this.data = null;
         this.amount = 0;
     }
     
-    public Node(E data) {
+    public TreeNode(E data) {
         this.data = data;
         this.amount = 0;
     }
     
-    public Node<E> addChild(Node<E> child){
+    public TreeNode<E> addChild(TreeNode<E> child){
         child.setParent(this);
         this.children.add(child);
         return child;
     }
     
-    public void addChildren(List<Node<E>> children){
+    public void addChildren(List<TreeNode<E>> children){
         children.forEach(each -> each.setParent(this));
         this.children.addAll(children);
     }
     
-    public List<Node<E>> getChildren() {
+    public List<TreeNode<E>> getChildren() {
         return children;
     }
 
@@ -38,7 +38,7 @@ public class Node<E> {
         return data;
     }
 
-    public Node<E> getParent() {
+    public TreeNode<E> getParent() {
         return parent;
     }
 
@@ -46,11 +46,11 @@ public class Node<E> {
         this.data = data;
     }
 
-    public void setChildren(List<Node<E>> children) {
+    public void setChildren(List<TreeNode<E>> children) {
         this.children = children;
     }
 
-    public void setParent(Node<E> parent) {
+    public void setParent(TreeNode<E> parent) {
         this.parent = parent;
     }    
 }

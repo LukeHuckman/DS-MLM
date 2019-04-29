@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.view.Viewer;
 
 public class ClassFile<E> implements MLM<E> {
     private double COMPANY_REVENUE;
@@ -16,17 +18,21 @@ public class ClassFile<E> implements MLM<E> {
     //private ArrayList<Double> useramount;
     private ArrayList<String> encrypted;
     private ArrayList<Integer> id;
-    private Node<String> root;//check the calculations part
+    private TreeNode<String> root;//check the calculations part
     private Graph graph = new SingleGraph("MLM Graph",false,true);
 
     public ClassFile() {
         this.COMPANY_REVENUE = 0;
         this.fee = 50;
-        this.root = new Node<String>("admin");
+        this.root = new TreeNode<String>("admin");
         this.usernames = new ArrayList();
         //this.useramount = new ArrayList();
         this.encrypted = new ArrayList();
         this.id = new ArrayList();
+        graph.addNode("admin");
+        Node graphnode = graph.getNode("admin");
+        graphnode.addAttribute("ui.style", "shape:circle;fill-color: red;size: 90px; text-alignment: center;");
+        graphnode.addAttribute("ui.label", "Admin");
     }
     
     @Override
@@ -36,7 +42,11 @@ public class ClassFile<E> implements MLM<E> {
         String newUser = s1.nextLine();
         boolean mark1 = false;
         boolean mark2 = false;
-        Node<String> newNode = new Node<String>(newUser);
+        TreeNode<String> newNode = new TreeNode<String>(newUser);
+        graph.addNode(newUser);
+        Node graphnode = graph.getNode(newUser);
+        graphnode.addAttribute("ui.style", "shape:circle;fill-color: green;size: 90px; text-alignment: center;");
+        graphnode.addAttribute("ui.label", newUser);
         if(usernames.isEmpty()){
             usernames.add(newUser);
                 if(id.isEmpty()){
@@ -50,7 +60,9 @@ public class ClassFile<E> implements MLM<E> {
         //link to its parents
                 System.out.print("Enter the user who recommend the user: ");
                 String userParent = s1.nextLine();
-                Node<String> newPar = new Node<String>(userParent);
+                TreeNode<String> newPar = new TreeNode<String>(userParent);
+                if(!userParent.equalsIgnoreCase("admin"))
+                    graph.addEdge(userParent+"->"+newUser, userParent, newUser,true);
                 for(int a = 0;a<usernames.size();a++){
                     String temp = usernames.get(a);
                     mark2 = false;
@@ -59,7 +71,8 @@ public class ClassFile<E> implements MLM<E> {
                         break;
                     }
                 }
-                if(userParent.equals("admin")){
+                if(userParent.equalsIgnoreCase("admin")){
+                    graph.addEdge("Admin->"+newUser, "admin", newUser,true);
                     root.addChild(newNode);
                     income(newNode); 
                 }
@@ -100,7 +113,9 @@ public class ClassFile<E> implements MLM<E> {
         //link to its parents
                 System.out.print("Enter the user who recommend the user: ");
                 String userParent = s1.nextLine();
-                Node<String> newPar = new Node<String>(userParent);
+                TreeNode<String> newPar = new TreeNode<String>(userParent);
+                if(!userParent.equalsIgnoreCase("admin"))
+                    graph.addEdge(userParent+"->"+newUser, userParent, newUser,true);
                 for(int a = 0;a<usernames.size();a++){
                     String temp = usernames.get(a);
                     mark2 = false;
@@ -109,7 +124,8 @@ public class ClassFile<E> implements MLM<E> {
                         break;
                     }
                 }
-                if(userParent.equals("admin")){
+                if(userParent.equalsIgnoreCase("admin")){
+                    graph.addEdge("Admin->"+newUser, "admin", newUser,true);
                     root.addChild(newNode);
                     income(newNode); 
                 }
@@ -128,7 +144,7 @@ public class ClassFile<E> implements MLM<E> {
         //encrypted.add(encrypt(newUser));
     }
 
-    public boolean search(Node<String> current,String data){//problem
+    public boolean search(TreeNode<String> current,String data){//problem
         for(int a=0;a<current.getChildren().size();a++){
             if(current.getChildren().get(a).data.equals(data)){
                 return true;
@@ -138,7 +154,7 @@ public class ClassFile<E> implements MLM<E> {
         return false;
     }
     
-    public void insert(Node<String> current,Node<String> newUser,String data){
+    public void insert(TreeNode<String> current,TreeNode<String> newUser,String data){
         for(int a=0;a<current.getChildren().size();a++){
             if(current.getChildren().get(a).data.equals(data)){
                 current.getChildren().get(a).addChild(newUser);
@@ -148,9 +164,9 @@ public class ClassFile<E> implements MLM<E> {
         current.getChildren().forEach(each -> insert(each,newUser,data));
     }
     
-    public void takeout(Node<String> current,Node<String> newUser,String data){
-        List<Node<String>> list;
-        List<Node<String>> list2 = new ArrayList();
+    public void takeout(TreeNode<String> current,TreeNode<String> newUser,String data){
+        List<TreeNode<String>> list;
+        List<TreeNode<String>> list2 = new ArrayList();
         int b = current.getChildren().size();
         //while(current.getChildren()!=null){
         for(int a=0;a<b;a++){
@@ -170,7 +186,7 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     @Override//retrieve the revenue of the user only(need what extra??)
-    public String retrieve(Node<String> user) {
+    public String retrieve(TreeNode<String> user) {
         if(user.data.equals(root.data)){
             return "RM " + COMPANY_REVENUE;
         }
@@ -179,7 +195,7 @@ public class ClassFile<E> implements MLM<E> {
         }
     }
 
-    public String retrieve2(Node<String> user,Node<String> ROOT) {
+    public String retrieve2(TreeNode<String> user,TreeNode<String> ROOT) {
         String temp = "RM ";
         for(int a=0;a<ROOT.getChildren().size();a++){
             if(ROOT.getChildren().get(a).data.equals(user.getData())){
@@ -192,7 +208,7 @@ public class ClassFile<E> implements MLM<E> {
         return temp;
     }
     
-    public void income(Node user){
+    public void income(TreeNode user){
         double money = 0;
         if(user.parent != null){
             user.parent.amount += fee/2;
@@ -240,7 +256,7 @@ public class ClassFile<E> implements MLM<E> {
         System.out.print("Enter the username that need to be deleted:");
         Scanner s3 = new Scanner(System.in);
         String temp1 = s3.nextLine();
-        Node<String> target = new Node(temp1);
+        TreeNode<String> target = new TreeNode(temp1);
         boolean mark = false;
         int position = usernames.indexOf(temp1);
         for(int a = 0;a<usernames.size();a++){
@@ -287,11 +303,13 @@ public class ClassFile<E> implements MLM<E> {
 
     @Override
     public void display() {
-        graph.display();
-        print(root," ");
+        System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+        Viewer viewer = graph.display();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
+        //print(root," ");
     }
 
-    public void print(Node<String> node,String appender){
+    public void print(TreeNode<String> node,String appender){
         String appender2 = " ";
         System.out.println(appender + node.getData());
         node.getChildren().forEach(each -> print(each, appender + appender2));
