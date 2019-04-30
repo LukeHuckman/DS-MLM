@@ -257,6 +257,7 @@ public class ClassFile<E> implements MLM<E> {
         Scanner s3 = new Scanner(System.in);
         String temp1 = s3.nextLine();
         TreeNode<String> target = new TreeNode(temp1);
+        graph.removeNode(temp1);
         boolean mark = false;
         int position = usernames.indexOf(temp1);
         for(int a = 0;a<usernames.size();a++){
