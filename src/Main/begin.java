@@ -6,7 +6,7 @@ public class begin {
     public static void main(String[] args) {
         ClassFile mlm = new ClassFile(); String mark = "-1";
         Scanner s = new Scanner(System.in);
-        System.out.println("Welcome to main page of MLM!!!");
+        System.out.println("Welcome to main page of DreamCorporation!!!");
         while(!mark.equals("0")){
             System.out.print("1 Create new user."
                     + "\n2 Retrieve the data of the user chosen."
@@ -20,7 +20,10 @@ public class begin {
             mark = s.nextLine();
             switch (mark) {
                 case "1":
-                    mlm.create();
+                    System.out.print("Enter the new username: ");
+                    String newUser = s.nextLine();
+                    mlm.create(newUser);
+                    
                     break;
                 case "2":
                     System.out.print("Enter the username: ");
@@ -29,9 +32,12 @@ public class begin {
                         //retrieve method
                     break;
                 case "3"://update method
+                    
                     break;
                 case "4":
-                    mlm.delete();
+                    System.out.print("Enter the username that need to be deleted:");
+                    String tempUser = s.nextLine();
+                    mlm.delete(tempUser);
                     break;
                 case "5":
                     mlm.display();

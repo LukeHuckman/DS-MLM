@@ -13,12 +13,9 @@ import org.graphstream.ui.view.Viewer;
 public class ClassFile<E> implements MLM<E> {
     private double COMPANY_REVENUE;
     private double fee;
-    private String username;
     private ArrayList<String> usernames;
-    //private ArrayList<Double> useramount;
-    private ArrayList<String> encrypted;
-    private ArrayList<Integer> id;
     private TreeNode<String> root;//check the calculations part
+    private int idnumber;
     private Graph graph = new SingleGraph("MLM Graph",false,true);
 
     public ClassFile() {
@@ -26,9 +23,7 @@ public class ClassFile<E> implements MLM<E> {
         this.fee = 50;
         this.root = new TreeNode<String>("admin");
         this.usernames = new ArrayList();
-        //this.useramount = new ArrayList();
-        this.encrypted = new ArrayList();
-        this.id = new ArrayList();
+        this.idnumber = 0;
         graph.addNode("admin");
         Node graphnode = graph.getNode("admin");
         graphnode.addAttribute("ui.style", "shape:circle;fill-color: red;size: 90px; text-alignment: center;");
@@ -36,122 +31,81 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     @Override
-    public void create() {
-        System.out.print("Enter the new username: ");
+    public void create(String newUser) {
         Scanner s1 = new Scanner(System.in);
-        String newUser = s1.nextLine();
-        boolean mark1 = false;
         boolean mark2 = false;
         TreeNode<String> newNode = new TreeNode<String>(newUser);
         graph.addNode(newUser);
         Node graphnode = graph.getNode(newUser);
         graphnode.addAttribute("ui.style", "shape:circle;fill-color: green;size: 90px; text-alignment: center;");
         graphnode.addAttribute("ui.label", newUser);
-        if(usernames.isEmpty()){
-            usernames.add(newUser);
-                if(id.isEmpty()){
-                id.add(1);
-                }
-                else{
-                    id.add((id.get(id.size()-1))+1);
-                }
-                System.out.println();
-        
-        //link to its parents
-                System.out.print("Enter the user who recommend the user: ");
-                String userParent = s1.nextLine();
-                TreeNode<String> newPar = new TreeNode<String>(userParent);
-                if(!userParent.equalsIgnoreCase("admin"))
-                    graph.addEdge(userParent+"->"+newUser, userParent, newUser,true);
-                for(int a = 0;a<usernames.size();a++){
-                    String temp = usernames.get(a);
-                    mark2 = false;
-                    if(temp.equals(userParent)){
-                        mark2 = true;
-                        break;
-                    }
-                }
-                if(userParent.equalsIgnoreCase("admin")){
-                    graph.addEdge("Admin->"+newUser, "admin", newUser,true);
-                    root.addChild(newNode);
-                    income(newNode); 
-                }
-                else{
-                    if(search(root,userParent)){
-                        insert(root,newNode,userParent);
-                        income(newNode); 
-                    }
-                    else{
-                        System.out.println("There is no such user.");
-                    }
-                }
+        //System.out.println(search(root,newUser));
+        if(search(root,newUser)){
+            System.out.println("The username already exist.");
         }
         else{
-        for(int a = 0;a<usernames.size();a++){
-            String temp = usernames.get(a);
-            mark1 = false;
-            if(temp.equals(newUser)){
-                mark1 = true;
-                break;
-            }
-        }
-            //System.out.println();
-            if(mark1){
-                System.out.println("The username already exist.");
-
-            }
-            else{
-                usernames.add(newUser);
-                if(id.isEmpty()){
-                id.add(1);
-                }
-                else{
-                    id.add((id.get(id.size()-1))+1);
-                }
-                System.out.println();
-        
+            usernames.add(newUser);                
+            System.out.println();
         //link to its parents
-                System.out.print("Enter the user who recommend the user: ");
-                String userParent = s1.nextLine();
-                TreeNode<String> newPar = new TreeNode<String>(userParent);
-                if(!userParent.equalsIgnoreCase("admin"))
+            System.out.print("Enter the user who recommend the user: ");
+            String userParent = s1.nextLine();
+            if(!userParent.equalsIgnoreCase("admin"))
                     graph.addEdge(userParent+"->"+newUser, userParent, newUser,true);
-                for(int a = 0;a<usernames.size();a++){
-                    String temp = usernames.get(a);
-                    mark2 = false;
-                    if(temp.equals(userParent)){
-                        mark2 = true;
-                        break;
-                    }
+            for(int a = 0;a<usernames.size();a++){
+                String temp = usernames.get(a);
+                if(temp.equals(userParent)){
+                    mark2 = true;
+                    break;
                 }
-                if(userParent.equalsIgnoreCase("admin")){
+            }
+            
+            if(userParent.equalsIgnoreCase("admin")){
                     graph.addEdge("Admin->"+newUser, "admin", newUser,true);
                     root.addChild(newNode);
                     income(newNode); 
                 }
+            else{
+                if(mark2){
+                    insert(root,newNode,userParent);
+                    income(newNode); 
+                }
                 else{
-                    if(mark2){
-                        insert(root,newNode,userParent);
-                        income(newNode); 
-                    }
-                    else{
-                        System.out.println("There is no such user.");
-                    }
+                    System.out.println("There is no such user.");
                 }
             }
-        //normal create done, left calculation of revenue and encryption
         }
+        //normal create done, left calculation of revenue and encryption
         //encrypted.add(encrypt(newUser));
     }
 
-    public boolean search(TreeNode<String> current,String data){//problem
-        for(int a=0;a<current.getChildren().size();a++){
-            if(current.getChildren().get(a).data.equals(data)){
-                return true;
+    public boolean search(TreeNode<String> current,String newUser){//problem
+        if(current.data.equals(newUser)){
+            return true;
+        }
+        else{
+            for(TreeNode child:current.children){
+                boolean sub = search(child,newUser);
+                if(sub==true){
+                    return sub;
+                }
             }
         }
-        current.getChildren().forEach(each -> search(each,data));
         return false;
+    }
+    
+    public TreeNode getNode(TreeNode<String> current,String newUser){//problem
+        if(current.data.equals(newUser)){
+            return current;
+        }
+        else{
+            for(TreeNode child:current.children){
+                TreeNode sub = getNode(child,newUser);
+                if(sub!=null){
+                    return sub;
+                }
+            }
+        }
+        return null;
     }
     
     public void insert(TreeNode<String> current,TreeNode<String> newUser,String data){
@@ -164,25 +118,38 @@ public class ClassFile<E> implements MLM<E> {
         current.getChildren().forEach(each -> insert(each,newUser,data));
     }
     
-    public void takeout(TreeNode<String> current,TreeNode<String> newUser,String data){
-        List<TreeNode<String>> list;
-        List<TreeNode<String>> list2 = new ArrayList();
-        int b = current.getChildren().size();
-        //while(current.getChildren()!=null){
-        for(int a=0;a<b;a++){
-            if(current.getChildren().get(a).data.equals(data)){
-                list2 = current.getChildren().get(a).parent.getChildren();
-                list = current.getChildren().get(a).getChildren();
-                list2.remove(newUser);
-                current.getChildren().get(a).parent.setChildren(list2);
-                
-                root.addChildren(list);
-                a++;
+    public void deleteNode(TreeNode<String> current){
+        if(current.parent!=null){
+            int index = current.parent.getChildren().indexOf(current);
+            current.parent.getChildren().remove(current);
+            for(TreeNode<String> each:current.getChildren()){
+                each.setParent(root);
             }
-            //takeout(current.children.get(a),newUser,data);
+            root.getChildren().addAll(index, current.getChildren());
         }
-        current.getChildren().forEach(each -> takeout(each,newUser,data));
-        //}
+        current.getChildren().clear();;
+    }
+    
+    @Override
+    public void delete(String tempUser) {
+        if(root.getChildren().isEmpty()){
+            System.out.println("There is nothing to deleted.");
+        }
+        else{
+            TreeNode<String> target = new TreeNode(tempUser);
+            graph.removeNode(tempUser);
+            int position = usernames.indexOf(tempUser);        
+            if(search(root,tempUser)){
+                System.out.println("have");
+                deleteNode(getNode(root,tempUser));
+                usernames.remove(position);
+            }
+            else{
+                System.out.println("The user is not-exist.");
+            }
+        }
+        
+        //id.remove(position);
     }
     
     @Override//retrieve the revenue of the user only(need what extra??)
@@ -252,30 +219,6 @@ public class ClassFile<E> implements MLM<E> {
     }
 
     @Override
-    public void delete() {
-        System.out.print("Enter the username that need to be deleted:");
-        Scanner s3 = new Scanner(System.in);
-        String temp1 = s3.nextLine();
-        TreeNode<String> target = new TreeNode(temp1);
-        graph.removeNode(temp1);
-        boolean mark = false;
-        int position = usernames.indexOf(temp1);
-        for(int a = 0;a<usernames.size();a++){
-            String temp = usernames.get(a);
-            mark = false;
-            if(temp.equals(temp1)){
-                mark = true;
-                break;
-            }
-        }
-        if(mark){
-            takeout(root,target,temp1);
-        }
-        usernames.remove(position);
-        id.remove(position);
-    }
-
-    @Override
     public String encrypt(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -307,7 +250,7 @@ public class ClassFile<E> implements MLM<E> {
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         Viewer viewer = graph.display();
         viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
-        //print(root," ");
+        print(root," ");
     }
 
     public void print(TreeNode<String> node,String appender){

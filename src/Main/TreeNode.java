@@ -5,17 +5,21 @@ import java.util.List;
 
 public class TreeNode<E> {
     E data;
+    E encrypteddata;
+    int id;
     double amount;
     List<TreeNode<E>> children = new ArrayList();
     TreeNode<E> parent;
 
     public TreeNode() {
         this.data = null;
+        this.encrypteddata = null;
         this.amount = 0;
     }
     
     public TreeNode(E data) {
         this.data = data;
+        this.encrypteddata = null;
         this.amount = 0;
     }
     

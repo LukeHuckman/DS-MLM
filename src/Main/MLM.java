@@ -2,13 +2,13 @@ package Main;
 
 public interface MLM<E> {
     //create new user information
-    public void create();
+    public void create(String newUser);
     //retrieve the user information
     public String retrieve(TreeNode<String> user);
     //update the user information
     public void update();
     //delete the user information
-    public void delete();
+    public void delete(String tempUser);
     //encrypt the username
     public String encrypt(String name);
     //decrypt the username
