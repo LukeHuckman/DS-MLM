@@ -1,7 +1,9 @@
 package Main;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -44,7 +46,7 @@ public class ClassFile<E> implements MLM<E> {
             System.out.println("The username already exist.");
         }
         else{
-            usernames.add(newUser);                
+            idnumber++;          
             System.out.println();
         //link to its parents
             System.out.print("Enter the user who recommend the user: ");
@@ -60,22 +62,25 @@ public class ClassFile<E> implements MLM<E> {
             }
             
             if(userParent.equalsIgnoreCase("admin")){
-                    graph.addEdge("Admin->"+newUser, "admin", newUser,true);
-                    root.addChild(newNode);
-                    income(newNode); 
-                }
+                newNode.id = idnumber;
+                graph.addEdge("Admin->"+newUser, "admin", newUser,true);  
+                root.addChild(newNode); 
+                income(newNode); 
+                usernames.add(newUser);              
+            }
             else{
                 if(mark2){
+                    newNode.id = idnumber;
                     insert(root,newNode,userParent);
                     income(newNode); 
+                    usernames.add(newUser);   
                 }
                 else{
                     System.out.println("There is no such user.");
                 }
             }
         }
-        //normal create done, left calculation of revenue and encryption
-        //encrypted.add(encrypt(newUser));
+        //encrypted.add(encrypt(newUser));left encryption
     }
 
     public boolean search(TreeNode<String> current,String newUser){//problem
@@ -140,7 +145,6 @@ public class ClassFile<E> implements MLM<E> {
             graph.removeNode(tempUser);
             int position = usernames.indexOf(tempUser);        
             if(search(root,tempUser)){
-                System.out.println("have");
                 deleteNode(getNode(root,tempUser));
                 usernames.remove(position);
             }
@@ -158,21 +162,13 @@ public class ClassFile<E> implements MLM<E> {
             return "RM " + COMPANY_REVENUE;
         }
         else{
-            return retrieve2(user,root);
+            String a = "Username: " + getNode(root,user.data).data + "\n";
+            //user in encrypted
+            a += "ID: " + getNode(root,user.data).id;
+            //parent in encrypted
+            return a;
+            
         }
-    }
-
-    public String retrieve2(TreeNode<String> user,TreeNode<String> ROOT) {
-        String temp = "RM ";
-        for(int a=0;a<ROOT.getChildren().size();a++){
-            if(ROOT.getChildren().get(a).data.equals(user.getData())){
-                temp += ROOT.getChildren().get(a).amount;
-                break;
-            }
-        }
-        ROOT.getChildren().forEach(each -> retrieve2(user, each));
-        
-        return temp;
     }
     
     public void income(TreeNode user){
@@ -230,14 +226,35 @@ public class ClassFile<E> implements MLM<E> {
 
     @Override
     public void save() {
+        String b = "";
+        savepart2(root,b);
+        System.out.println(b);
         try{
             Scanner scan = new Scanner(new FileInputStream("data.txt"));
+            PrintWriter print = new PrintWriter(new FileOutputStream("data.txt"));
+            String a = "ID\tUsername\tEncrypted Username\tRevenue";
+            print.write(a);
+            print.write(b);
             scan.close();
+            print.close();
         }catch(IOException e){
             System.out.println("File output Error");
         }
-
-        
+    }
+    
+    public void savepart2(TreeNode<String> current,String b){
+        if(current.equals(root)){
+            for(TreeNode child:current.children){
+                b += child.id + "\t" + child.data + "\t" + "\t" + child.amount + "\n";
+                savepart2(child,b);
+            }
+        }
+        else{
+            for(TreeNode child:current.children){
+                b += child.id + "\t" + child.data + "\t" + "\t" + child.amount + "\n";
+                savepart2(child,b);
+            }
+        }
     }
 
     @Override

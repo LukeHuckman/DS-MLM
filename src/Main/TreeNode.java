@@ -15,12 +15,14 @@ public class TreeNode<E> {
         this.data = null;
         this.encrypteddata = null;
         this.amount = 0;
+        this.id = 0;
     }
     
     public TreeNode(E data) {
         this.data = data;
         this.encrypteddata = null;
         this.amount = 0;
+        this.id = 0;
     }
     
     public TreeNode<E> addChild(TreeNode<E> child){

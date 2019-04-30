@@ -15,6 +15,7 @@ public class begin {
                     + "\n5 View the tree of the hierachy."
                     + "\n6 Get the revenue of each generations."
                     + "\n7 Change the registration fees."
+                    + "\n8 Save and obtain the directory of data file (in txt.file)."
                     + "\n0 Close the program."
                     + "\nEnter the input: ");
             mark = s.nextLine();
@@ -47,8 +48,13 @@ public class begin {
                 case "7":
                     System.out.println("Enter new fee amount: ");
                     double newFee = s.nextDouble();
+                    s.nextLine();
                     mlm.setFee(newFee);
                     break;
+                case "8":
+                    System.out.println("The data are saved.");
+                    mlm.save();
+                    System.out.println();
                 case "0":
                     System.out.println("The server will shut down.");
                     System.exit(0);
