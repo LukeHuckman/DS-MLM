@@ -1,1 +1,6 @@
-ID	Username	Encrypted Username	Revenue
+|ID	|Username	|Encrypted Username	|Revenue (RM)  |
+|-------+---------------+-----------------------+--------------|
+|1	|q		|AAUg			|35.5		|
+|2	|w		|AA{h			|31.0		|
+|3	|e		|AAU^			|25.0		|
+|4	|r		|AAkg			|0.0		|

@@ -12,7 +12,7 @@ public interface MLM<E> {
     //encrypt the username
     public String encrypt(String name);
     //decrypt the username
-    public String decrypt(String name);
+    public String decrypt(String encryptedname,int password);
     //save the users data in txt file
     public void save();
     //get the company revenue

@@ -55,6 +55,7 @@ public class begin {
                     System.out.println("The data are saved.");
                     mlm.save();
                     System.out.println();
+                    break;
                 case "0":
                     System.out.println("The server will shut down.");
                     System.exit(0);

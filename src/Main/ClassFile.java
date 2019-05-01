@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Scanner;
 import org.graphstream.graph.Graph;
@@ -15,7 +16,7 @@ import org.graphstream.ui.view.Viewer;
 public class ClassFile<E> implements MLM<E> {
     private double COMPANY_REVENUE;
     private double fee;
-    private ArrayList<String> usernames;
+    private ArrayList<String> usernames;//for reference (save method)
     private TreeNode<String> root;//check the calculations part
     private int idnumber;
     private Graph graph = new SingleGraph("MLM Graph",false,true);
@@ -35,7 +36,6 @@ public class ClassFile<E> implements MLM<E> {
     @Override
     public void create(String newUser) {
         Scanner s1 = new Scanner(System.in);
-        boolean mark2 = false;
         TreeNode<String> newNode = new TreeNode<String>(newUser);
         graph.addNode(newUser);
         Node graphnode = graph.getNode(newUser);
@@ -53,24 +53,18 @@ public class ClassFile<E> implements MLM<E> {
             String userParent = s1.nextLine();
             if(!userParent.equalsIgnoreCase("admin"))
                     graph.addEdge(userParent+"->"+newUser, userParent, newUser,true);
-            for(int a = 0;a<usernames.size();a++){
-                String temp = usernames.get(a);
-                if(temp.equals(userParent)){
-                    mark2 = true;
-                    break;
-                }
-            }
-            
             if(userParent.equalsIgnoreCase("admin")){
                 newNode.id = idnumber;
+                newNode.encrypteddata = encrypt(newUser);
                 graph.addEdge("Admin->"+newUser, "admin", newUser,true);  
                 root.addChild(newNode); 
                 income(newNode); 
                 usernames.add(newUser);              
             }
             else{
-                if(mark2){
+                if(search(root,userParent)){
                     newNode.id = idnumber;
+                    newNode.encrypteddata = encrypt(newUser);
                     insert(root,newNode,userParent);
                     income(newNode); 
                     usernames.add(newUser);   
@@ -80,7 +74,6 @@ public class ClassFile<E> implements MLM<E> {
                 }
             }
         }
-        //encrypted.add(encrypt(newUser));left encryption
     }
 
     public boolean search(TreeNode<String> current,String newUser){//problem
@@ -163,7 +156,7 @@ public class ClassFile<E> implements MLM<E> {
         }
         else{
             String a = "Username: " + getNode(root,user.data).data + "\n";
-            //user in encrypted
+            a += "Encrypted name: " + getNode(root,user.data).encrypteddata + "\n";
             a += "ID: " + getNode(root,user.data).id;
             //parent in encrypted
             return a;
@@ -216,26 +209,55 @@ public class ClassFile<E> implements MLM<E> {
 
     @Override
     public String encrypt(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String encoded = Base64.getEncoder().encodeToString(name.getBytes());
+   // Reverse the string
+        String reverse = new StringBuffer(encoded).reverse().toString();
+
+        StringBuilder tmp = new StringBuilder();
+        final int OFFSET = 4;
+        for (int i = 0; i < reverse.length(); i++) {
+            tmp.append((char)(reverse.charAt(i) + OFFSET));
+        }
+        return tmp.toString();
     }
 
     @Override
-    public String decrypt(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String decrypt(String encryptedname,int password) {
+        if (password == 1234){
+            StringBuilder tmp = new StringBuilder();
+        final int OFFSET = 4;
+        for (int i = 0; i < encryptedname.length(); i++) {
+            tmp.append((char)(encryptedname.charAt(i) - OFFSET));
+        }
+
+        String reversed = new StringBuffer(tmp.toString()).reverse().toString();
+        return new String(Base64.getDecoder().decode(reversed));
+        }
+        else
+            return "The Key is Incorrect!";
     }
 
     @Override
     public void save() {
         String b = "";
-        savepart2(root,b);
+        //savepart2(root,b);
         System.out.println(b);
         try{
-            Scanner scan = new Scanner(new FileInputStream("data.txt"));
+            //Scanner scan = new Scanner(new FileInputStream("data.txt"));
             PrintWriter print = new PrintWriter(new FileOutputStream("data.txt"));
-            String a = "ID\tUsername\tEncrypted Username\tRevenue";
+            String a = "|ID\t|Username\t|Encrypted Username\t|Revenue (RM)  |";
             print.write(a);
-            print.write(b);
-            scan.close();
+            print.println();
+            String c = "|-------+---------------+-----------------------+--------------|";
+            print.write(c);
+            print.println();
+            for(int i=0;i<usernames.size();i++){
+                b = "|" + getNode(root,usernames.get(i)).id + "\t|" + getNode(root,usernames.get(i)).data + "\t\t|" + getNode(root,usernames.get(i)).encrypteddata + "\t\t\t|" + getNode(root,usernames.get(i)).amount + "\t\t|";
+                print.write(b);
+                print.println();
+            }
+            
+            //scan.close();
             print.close();
         }catch(IOException e){
             System.out.println("File output Error");
@@ -243,18 +265,19 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     public void savepart2(TreeNode<String> current,String b){
-        if(current.equals(root)){
+        
+        /*if(current.equals(root)){
             for(TreeNode child:current.children){
-                b += child.id + "\t" + child.data + "\t" + "\t" + child.amount + "\n";
+                b += child.id + "\t" + child.data + "\t" + child.encrypteddata + "\t" + child.amount + "\n";
                 savepart2(child,b);
             }
         }
         else{
             for(TreeNode child:current.children){
-                b += child.id + "\t" + child.data + "\t" + "\t" + child.amount + "\n";
+                b += child.id + "\t" + child.data + "\t" + child.encrypteddata + "\t" + child.amount + "\n";
                 savepart2(child,b);
             }
-        }
+        }*/
     }
 
     @Override
