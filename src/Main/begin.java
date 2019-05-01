@@ -7,6 +7,10 @@ public class begin {
     public static void main(String[] args) { String mark = "-1";
         Scanner s = new Scanner(System.in);
         Frame GUI = new Frame();
+        /**GUI NOTICE:
+         * Only display is working for now.
+         * -Luqman
+         */
         GUI.setLocationRelativeTo(null);
         GUI.setVisible(true);
         System.out.println("Welcome to main page of DreamCorporation!!!");
