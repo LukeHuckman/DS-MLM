@@ -5,6 +5,7 @@
  */
 package GUI_Test;
 
+import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JFrame;
@@ -15,13 +16,14 @@ import javax.swing.JFrame;
  */
 public class WindowTest {
     public static void main(String[] args){
-        Window test = new Window();
-        test.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Frame test = new Frame();
+        //test.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         test.setLocationRelativeTo(null);
-        test.setSize(300,300);
-        test.setResizable(false);
+        //test.setSize(300,300);
+        //test.setResizable(false);
         test.setVisible(true);
-        test.addWindowListener(new WindowListener() {
+        //test.setLayout(new FlowLayout());
+        /*test.addWindowListener(new WindowListener() {
             @Override
             public void windowClosing(WindowEvent e) {}
             @Override 
@@ -36,6 +38,6 @@ public class WindowTest {
             public void windowActivated(WindowEvent e) {}
             @Override 
             public void windowDeactivated(WindowEvent e) {}
-        });
+        });*/
     }
 }
