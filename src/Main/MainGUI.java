@@ -9,13 +9,13 @@ package Main;
  *
  * @author User
  */
-public class Frame extends java.awt.Frame {
+public class MainGUI extends java.awt.Frame {
 
     /**
      * Creates new form Frame
      */
     //ClassFile mlm = new ClassFile();
-    public Frame() {
+    public MainGUI() {
         initComponents();
     }
 
@@ -55,6 +55,11 @@ public class Frame extends java.awt.Frame {
         jButton5.setText("Retrieve the data of a user");
 
         jButton6.setText("Delete a user");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Create new user");
         jButton3.setPreferredSize(new java.awt.Dimension(121, 32));
@@ -129,12 +134,20 @@ public class Frame extends java.awt.Frame {
     }//GEN-LAST:event_exitForm
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        NewUser window = new NewUser(this,true);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         begin.mlm.display();
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        DeleteUser window = new DeleteUser(this,true);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,7 +155,7 @@ public class Frame extends java.awt.Frame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Frame().setVisible(true);
+                new MainGUI().setVisible(true);
             }
         });
     }

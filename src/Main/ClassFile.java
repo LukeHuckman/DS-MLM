@@ -33,7 +33,7 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     @Override
-    public void create(String newUser) {
+    public void create(String newUser,String parent) {
         Scanner s1 = new Scanner(System.in);
         TreeNode<String> newNode = new TreeNode<String>(newUser);
         graph.addNode(newUser);
@@ -47,8 +47,8 @@ public class ClassFile<E> implements MLM<E> {
             idnumber++;          
             System.out.println();
         //link to its parents
-            System.out.print("Enter the user who recommend the user: ");
-            String userParent = s1.nextLine();
+            System.out.print("Enter the user who recommend the user: "+parent);
+            String userParent = parent;
             if(!userParent.equalsIgnoreCase("admin"))
                     graph.addEdge(userParent+"->"+newUser, userParent, newUser,true);
             if(userParent.equalsIgnoreCase("admin")){
@@ -57,7 +57,7 @@ public class ClassFile<E> implements MLM<E> {
                 graph.addEdge("Admin->"+newUser, "admin", newUser,true);  
                 root.addChild(newNode); 
                 income(newNode); 
-                usernames.add(newUser);              
+                usernames.add(newUser);
             }
             else{
                 if(search(root,userParent)){

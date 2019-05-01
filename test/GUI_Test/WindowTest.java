@@ -5,7 +5,7 @@
  */
 package GUI_Test;
 
-import Main.Frame;
+import Main.MainGUI;
 import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -17,7 +17,7 @@ import javax.swing.JFrame;
  */
 public class WindowTest {
     public static void main(String[] args){
-        Frame test = new Frame();
+        MainGUI test = new MainGUI();
         //test.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         test.setLocationRelativeTo(null);
         //test.setSize(300,300);

@@ -6,9 +6,9 @@ public class begin {
     public static ClassFile mlm = new ClassFile();
     public static void main(String[] args) { String mark = "-1";
         Scanner s = new Scanner(System.in);
-        Frame GUI = new Frame();
+        MainGUI GUI = new MainGUI();
         /**GUI NOTICE:
-         * Only display is working for now.
+         * Only create, delete, and display are working for now.
          * -Luqman
          */
         GUI.setLocationRelativeTo(null);
@@ -30,7 +30,7 @@ public class begin {
                 case "1":
                     System.out.print("Enter the new username: ");
                     String newUser = s.nextLine();
-                    mlm.create(newUser);
+                    //mlm.create(newUser);
                     
                     break;
                 case "2":

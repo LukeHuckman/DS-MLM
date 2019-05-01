@@ -2,7 +2,7 @@ package Main;
 
 public interface MLM<E> {
     //create new user information
-    public void create(String newUser);
+    public void create(String newUser, String parent);
     //retrieve the user information
     public String retrieve(TreeNode<String> user);
     //update the user information
