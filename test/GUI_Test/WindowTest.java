@@ -5,6 +5,7 @@
  */
 package GUI_Test;
 
+import Main.Frame;
 import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;

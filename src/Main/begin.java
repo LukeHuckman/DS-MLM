@@ -3,9 +3,12 @@ package Main;
 import java.util.Scanner;
 
 public class begin {
-    public static void main(String[] args) {
-        ClassFile mlm = new ClassFile(); String mark = "-1";
+    public static ClassFile mlm = new ClassFile();
+    public static void main(String[] args) { String mark = "-1";
         Scanner s = new Scanner(System.in);
+        Frame GUI = new Frame();
+        GUI.setLocationRelativeTo(null);
+        GUI.setVisible(true);
         System.out.println("Welcome to main page of DreamCorporation!!!");
         while(!mark.equals("0")){
             System.out.print("1 Create new user."
