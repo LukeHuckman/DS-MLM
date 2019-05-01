@@ -1,6 +1,5 @@
 package Main;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,7 +40,6 @@ public class ClassFile<E> implements MLM<E> {
         Node graphnode = graph.getNode(newUser);
         graphnode.addAttribute("ui.style", "shape:circle;fill-color: green;size: 90px; text-alignment: center;");
         graphnode.addAttribute("ui.label", newUser);
-        //System.out.println(search(root,newUser));
         if(search(root,newUser)){
             System.out.println("The username already exist.");
         }
@@ -240,10 +238,8 @@ public class ClassFile<E> implements MLM<E> {
     @Override
     public void save() {
         String b = "";
-        //savepart2(root,b);
         System.out.println(b);
         try{
-            //Scanner scan = new Scanner(new FileInputStream("data.txt"));
             PrintWriter print = new PrintWriter(new FileOutputStream("data.txt"));
             String a = "|ID\t|Username\t|Encrypted Username\t|Revenue (RM)  |";
             print.write(a);
@@ -262,22 +258,6 @@ public class ClassFile<E> implements MLM<E> {
         }catch(IOException e){
             System.out.println("File output Error");
         }
-    }
-    
-    public void savepart2(TreeNode<String> current,String b){
-        
-        /*if(current.equals(root)){
-            for(TreeNode child:current.children){
-                b += child.id + "\t" + child.data + "\t" + child.encrypteddata + "\t" + child.amount + "\n";
-                savepart2(child,b);
-            }
-        }
-        else{
-            for(TreeNode child:current.children){
-                b += child.id + "\t" + child.data + "\t" + child.encrypteddata + "\t" + child.amount + "\n";
-                savepart2(child,b);
-            }
-        }*/
     }
 
     @Override
