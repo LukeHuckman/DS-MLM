@@ -1,5 +1,6 @@
-package Main;
+package OtherTests;
 
+import Main.EncryptDecrypt;
 import java.util.Scanner;
 
 public class testing_omar {
