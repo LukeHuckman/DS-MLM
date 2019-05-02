@@ -37,7 +37,10 @@ public class begin {
                     System.out.print("Enter the username: ");
                     TreeNode <String> user = new TreeNode (s.nextLine());
                     System.out.println(mlm.retrieve(user));
-                        //retrieve method
+                    System.out.print("Enter password to decrypt the parent username: ");
+                    int password = s.nextInt();
+                    System.out.println("Parent name: " + mlm.decrypt((String)mlm.getNode(mlm.root,user.data).parent.encrypteddata, password));
+                    s.nextLine();
                     break;
                 case "3"://update method
                     

@@ -16,7 +16,7 @@ public class ClassFile<E> implements MLM<E> {
     private double COMPANY_REVENUE;
     private double fee;
     private ArrayList<String> usernames;//for reference (save method)
-    private TreeNode<String> root;//check the calculations part
+    TreeNode<String> root;//check the calculations part
     private int idnumber;
     private Graph graph = new SingleGraph("MLM Graph",false,true);
 
@@ -155,8 +155,8 @@ public class ClassFile<E> implements MLM<E> {
         else{
             String a = "Username: " + getNode(root,user.data).data + "\n";
             a += "Encrypted name: " + getNode(root,user.data).encrypteddata + "\n";
-            a += "ID: " + getNode(root,user.data).id;
-            //parent in encrypted
+            a += "ID: " + getNode(root,user.data).id + "\n";
+            a += "Encrypted parent name: " + encrypt((String)getNode(root,user.data).parent.data) + "\n";
             return a;
             
         }
