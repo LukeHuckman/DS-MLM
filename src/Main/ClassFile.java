@@ -133,6 +133,8 @@ public class ClassFile<E> implements MLM<E> {
         }
         else{
             TreeNode<String> target = new TreeNode(tempUser);
+            for(int i=0;i<getNode(root,tempUser).getChildren().size();i++)
+                //graph.addEdge((String) getNode(root,tempUser).getParent().getData()+"->"+(String) getNode(root,tempUser).getChildren().get(i), (String) getNode(root,tempUser).getParent().getData(), (String) getNode(root,tempUser).getChildren().get(i)., true);
             graph.removeNode(tempUser);
             int position = usernames.indexOf(tempUser);        
             if(search(root,tempUser)){
