@@ -132,9 +132,9 @@ public class ClassFile<E> implements MLM<E> {
             System.out.println("There is nothing to deleted.");
         }
         else{
-            TreeNode<String> target = new TreeNode(tempUser);
+            TreeNode<String> target = getNode(root,tempUser);
             for(int i=0;i<getNode(root,tempUser).getChildren().size();i++)
-                //graph.addEdge((String) getNode(root,tempUser).getParent().getData()+"->"+(String) getNode(root,tempUser).getChildren().get(i), (String) getNode(root,tempUser).getParent().getData(), (String) getNode(root,tempUser).getChildren().get(i)., true);
+                graph.addEdge(target.parent.data +"->"+ target.getChildren().get(i), (String) target.parent.data , (String) target.getChildren().get(i).data, true);
             graph.removeNode(tempUser);
             int position = usernames.indexOf(tempUser);        
             if(search(root,tempUser)){
