@@ -74,7 +74,7 @@ public class ClassFile<E> implements MLM<E> {
         }
     }
 
-    public boolean search(TreeNode<String> current,String newUser){//problem
+    public boolean search(TreeNode<String> current,String newUser){
         if(current.data.equals(newUser)){
             return true;
         }
@@ -199,12 +199,55 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     @Override
-    public void update() {
-        /*System.out.println("Enter the username: ");
-        Scanner s2 = new Scanner(System.in);
-        if(){
-            System.out.print("Enter new username: ");
-        }*/
+    public void update(TreeNode<String> user) {
+        if(search(root,user.data)){
+            TreeNode<String> target = getNode(root,user.data);
+            Scanner s = new Scanner(System.in);
+            String option1 = "";
+            String option2 = "";
+            while(!option1.equalsIgnoreCase("yes")||!option1.equalsIgnoreCase("no")){
+                System.out.print("Do you wish to change the name of the username? (Yes / No): ");
+                option1 = s.nextLine();
+                if(option1.equalsIgnoreCase("yes")){
+                    System.out.print("Enter new username: ");
+                    String newData = s.nextLine();
+                    usernames.set(usernames.indexOf(target.data), newData);
+                    target.data = newData;
+                    target.encrypteddata = encrypt(newData);
+                    break;
+                }
+                else if(option1.equalsIgnoreCase("no")){
+                    break;  
+                }
+                else{
+                    System.out.println("Error input.");
+                }
+            }
+
+            while(!option2.equalsIgnoreCase("yes")||!option2.equalsIgnoreCase("no")){
+                System.out.print("Do you wish to change the parent of the user? (Yes / No): ");
+                option2 = s.nextLine();
+                if(option2.equalsIgnoreCase("yes")){
+                    System.out.print("Enter new parent: ");
+                    String userParent = s.nextLine();
+                    TreeNode<String> targetParent = getNode(root,userParent);
+                    target.parent.getChildren().remove(target);
+                    targetParent.addChild(target);
+                    target.setParent(targetParent);
+                    break;
+                }
+                else if(option2.equalsIgnoreCase("no")){
+                    break;  
+                }
+                else{
+                    System.out.println("Error input.");
+                }
+            }
+        }
+        else{
+            System.out.println("There is no such user.");
+        }
+        
     }
 
     @Override
