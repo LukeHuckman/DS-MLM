@@ -6,7 +6,7 @@ public interface MLM<E> {
     //retrieve the user information
     public String retrieve(TreeNode<String> user);
     //update the user information
-    public void update();
+    public void update(TreeNode<String> user);
     //delete the user information
     public void delete(String tempUser);
     //encrypt the username
