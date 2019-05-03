@@ -51,6 +51,11 @@ public class MainGUI extends java.awt.Frame {
 
         jButton4.setText("Update the data of a user");
         jButton4.setToolTipText("");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Retrieve the data of a user");
 
@@ -148,6 +153,12 @@ public class MainGUI extends java.awt.Frame {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        UpdateUser window = new UpdateUser(this,true);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

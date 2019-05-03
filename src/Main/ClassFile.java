@@ -16,7 +16,7 @@ public class ClassFile<E> implements MLM<E> {
     private double COMPANY_REVENUE;
     private double fee;
     private ArrayList<String> usernames;//for reference (save method)
-    TreeNode<String> root;//check the calculations part
+    static TreeNode<String> root;//check the calculations part
     private int idnumber;
     private Graph graph = new SingleGraph("MLM Graph",false,true);
 
@@ -198,25 +198,29 @@ public class ClassFile<E> implements MLM<E> {
         COMPANY_REVENUE = root.amount;
     }
     
+    //@Override
     @Override
-    public void update(TreeNode<String> user) {
+    public void update(TreeNode<String> user, boolean nameChange, String newData, boolean ParentChange, String newParent) {
         if(search(root,user.data)){
             TreeNode<String> target = getNode(root,user.data);
             Scanner s = new Scanner(System.in);
-            String option1 = "";
-            String option2 = "";
-            while(!option1.equalsIgnoreCase("yes")||!option1.equalsIgnoreCase("no")){
-                System.out.print("Do you wish to change the name of the username? (Yes / No): ");
-                option1 = s.nextLine();
-                if(option1.equalsIgnoreCase("yes")){
-                    System.out.print("Enter new username: ");
-                    String newData = s.nextLine();
+            //String option1 = "";
+            //String option2 = "";
+            //while(!option1.equalsIgnoreCase("yes")||!option1.equalsIgnoreCase("no")){
+            while(true){
+                //System.out.print("Do you wish to change the name of the username? (Yes / No): ");
+                //option1 = s.nextLine();
+                //if(option1.equalsIgnoreCase("yes")){
+                if(nameChange){
+                    //System.out.print("Enter new username: ");
+                    //String newData = s.nextLine();
                     usernames.set(usernames.indexOf(target.data), newData);
                     target.data = newData;
                     target.encrypteddata = encrypt(newData);
                     break;
                 }
-                else if(option1.equalsIgnoreCase("no")){
+                //else if(option1.equalsIgnoreCase("no")){
+                else if(nameChange){
                     break;  
                 }
                 else{
@@ -224,19 +228,22 @@ public class ClassFile<E> implements MLM<E> {
                 }
             }
 
-            while(!option2.equalsIgnoreCase("yes")||!option2.equalsIgnoreCase("no")){
-                System.out.print("Do you wish to change the parent of the user? (Yes / No): ");
-                option2 = s.nextLine();
-                if(option2.equalsIgnoreCase("yes")){
-                    System.out.print("Enter new parent: ");
-                    String userParent = s.nextLine();
-                    TreeNode<String> targetParent = getNode(root,userParent);
+            //while(!option2.equalsIgnoreCase("yes")||!option2.equalsIgnoreCase("no")){
+            while(true){
+                //System.out.print("Do you wish to change the parent of the user? (Yes / No): ");
+                //option2 = s.nextLine();
+                //if(option2.equalsIgnoreCase("yes")){
+                if(ParentChange){
+                    //System.out.print("Enter new parent: ");
+                    //String userParent = s.nextLine();
+                    TreeNode<String> targetParent = getNode(root,newParent);
                     target.parent.getChildren().remove(target);
                     targetParent.addChild(target);
                     target.setParent(targetParent);
                     break;
                 }
-                else if(option2.equalsIgnoreCase("no")){
+                //else if(option2.equalsIgnoreCase("no")){
+                else if(!ParentChange){
                     break;  
                 }
                 else{
@@ -337,6 +344,4 @@ public class ClassFile<E> implements MLM<E> {
     public void setFee(double fee) {
         this.fee = fee;
     }
-    
-    
 }
