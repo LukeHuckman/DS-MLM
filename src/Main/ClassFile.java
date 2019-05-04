@@ -16,7 +16,7 @@ public class ClassFile<E> implements MLM<E> {
     private double COMPANY_REVENUE;
     private double fee;
     private ArrayList<String> usernames;//for reference (save method)
-    static TreeNode<String> root;//check the calculations part
+    private TreeNode<String> root;//check the calculations part
     private int idnumber;
     private Graph graph = new SingleGraph("MLM Graph",false,true);
 
@@ -33,7 +33,7 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     @Override
-    public void create(String newUser,String parent) {
+    public void create(String newUser,String userParent) {
         Scanner s1 = new Scanner(System.in);
         TreeNode<String> newNode = new TreeNode<String>(newUser);
         graph.addNode(newUser);
@@ -47,8 +47,6 @@ public class ClassFile<E> implements MLM<E> {
             idnumber++;          
             System.out.println();
         //link to its parents
-            System.out.print("Enter the user who recommend the user: "+parent);
-            String userParent = parent;
             if(!userParent.equalsIgnoreCase("admin"))
                     graph.addEdge(userParent+"->"+newUser, userParent, newUser,true);
             if(userParent.equalsIgnoreCase("admin")){
@@ -131,19 +129,23 @@ public class ClassFile<E> implements MLM<E> {
         if(root.getChildren().isEmpty()){
             System.out.println("There is nothing to deleted.");
         }
-        else{
-            TreeNode<String> target = getNode(root,tempUser);
-            for(int i=0;i<getNode(root,tempUser).getChildren().size();i++)
-                graph.addEdge(target.parent.data +"->"+ target.getChildren().get(i).data, (String) target.parent.data , (String) target.getChildren().get(i).data, true);
-            graph.removeNode(tempUser);
-            int position = usernames.indexOf(tempUser);        
+        else if(!tempUser.equalsIgnoreCase("admin")){            
             if(search(root,tempUser)){
+                TreeNode<String> target = getNode(root,tempUser);
+                for(int i=0;i<getNode(root,tempUser).getChildren().size();i++){
+                    graph.addEdge(target.parent.data +"->"+ target.getChildren().get(i).data, (String) target.parent.data , (String) target.getChildren().get(i).data, true);
+                }
+                graph.removeNode(tempUser);
+                int position = usernames.indexOf(tempUser);
                 deleteNode(getNode(root,tempUser));
                 usernames.remove(position);
             }
             else{
                 System.out.println("The user is not-exist.");
             }
+        }
+        else{
+            System.out.println("The user is not-exist.");
         }
         
         //id.remove(position);
@@ -187,7 +189,14 @@ public class ClassFile<E> implements MLM<E> {
                     else{
                         user.parent.parent.parent.parent.amount += fee/100*6;
                         money += fee/100*6;
-                        root.amount += fee - money;
+                        if(user.parent.parent.parent.parent.parent == null || user.parent.parent.parent.parent.parent == root){
+                            root.amount += fee - money;
+                        }
+                        else{
+                            user.parent.parent.parent.parent.amount += fee/100*3;
+                            money += fee/100*3;
+                            root.amount += fee - money;
+                        }
                     }
                 }
             }
@@ -198,52 +207,72 @@ public class ClassFile<E> implements MLM<E> {
         COMPANY_REVENUE = root.amount;
     }
     
-    //@Override
+    //@Override, boolean nameChange, String newData, boolean ParentChange, String newParent
     @Override
-    public void update(TreeNode<String> user, boolean nameChange, String newData, boolean ParentChange, String newParent) {
-        if(search(root,user.data)){
+    public void update(TreeNode<String> user) {
+        if(search(root,user.data)&&!user.data.equals("admin")){
             TreeNode<String> target = getNode(root,user.data);
             Scanner s = new Scanner(System.in);
-            //String option1 = "";
-            //String option2 = "";
-            //while(!option1.equalsIgnoreCase("yes")||!option1.equalsIgnoreCase("no")){
-            while(true){
-                //System.out.print("Do you wish to change the name of the username? (Yes / No): ");
-                //option1 = s.nextLine();
-                //if(option1.equalsIgnoreCase("yes")){
-                if(nameChange){
-                    //System.out.print("Enter new username: ");
-                    //String newData = s.nextLine();
-                    usernames.set(usernames.indexOf(target.data), newData);
-                    target.data = newData;
-                    target.encrypteddata = encrypt(newData);
+            String option1 = "";
+            String option2 = "";
+            while(!option1.equalsIgnoreCase("yes")||!option1.equalsIgnoreCase("no")){
+            //while(true){
+                System.out.print("Do you wish to change the name of the username? (Yes / No): ");
+                option1 = s.nextLine();
+                if(option1.equalsIgnoreCase("yes")){
+                //if(nameChange){
+                    System.out.print("Enter new username: ");
+                    String newData = s.nextLine();
+                    if(!search(root,newData)){
+                        usernames.set(usernames.indexOf(target.data), newData);
+                        target.data = newData;
+                        target.encrypteddata = encrypt(newData);
+                    }
+                    else{
+                        System.out.println("The user already exist.");
+                    }
                     break;
                 }
-                //else if(option1.equalsIgnoreCase("no")){
-                else if(nameChange){
+                else if(option1.equalsIgnoreCase("no")){
+                //else if(nameChange){
                     break;  
                 }
                 else{
                     System.out.println("Error input.");
                 }
             }
-
-            //while(!option2.equalsIgnoreCase("yes")||!option2.equalsIgnoreCase("no")){
-            while(true){
-                //System.out.print("Do you wish to change the parent of the user? (Yes / No): ");
-                //option2 = s.nextLine();
-                //if(option2.equalsIgnoreCase("yes")){
-                if(ParentChange){
-                    //System.out.print("Enter new parent: ");
-                    //String userParent = s.nextLine();
-                    TreeNode<String> targetParent = getNode(root,newParent);
-                    target.parent.getChildren().remove(target);
-                    targetParent.addChild(target);
-                    target.setParent(targetParent);
+            
+            while(!option2.equalsIgnoreCase("yes")||!option2.equalsIgnoreCase("no")){
+            //while(true){
+                System.out.print("Do you wish to change the parent of the user? (Yes / No): ");
+                option2 = s.nextLine();
+                if(option2.equalsIgnoreCase("yes")){
+                //if(ParentChange){
+                    System.out.print("Enter new parent: ");
+                    String userParent = s.nextLine();
+                    if(search(root,userParent)&&!userParent.equalsIgnoreCase("admin")){
+                        TreeNode<String> targetParent = getNode(root,userParent);
+                        target.parent.getChildren().remove(target);
+                        targetParent.addChild(target);
+                        target.setParent(targetParent);
+                        if(targetParent.parent.data.equals(target.data)){
+                            targetParent.setParent(root);
+                            target.getChildren().remove(targetParent);
+                            root.addChild(targetParent);
+                        }
+                    }
+                    else if(userParent.equalsIgnoreCase("admin")){
+                        target.parent.getChildren().remove(target);
+                        root.addChild(target);
+                        target.setParent(root);
+                    }
+                    else{
+                        System.out.println("The user is not exist.");
+                    }
                     break;
                 }
-                //else if(option2.equalsIgnoreCase("no")){
-                else if(!ParentChange){
+                else if(option2.equalsIgnoreCase("no")){
+                //else if(!ParentChange){
                     break;  
                 }
                 else{
@@ -255,8 +284,8 @@ public class ClassFile<E> implements MLM<E> {
             System.out.println("There is no such user.");
         }
         
+    
     }
-
     @Override
     public String encrypt(String name) {
         String encoded = Base64.getEncoder().encodeToString(name.getBytes());
@@ -312,6 +341,10 @@ public class ClassFile<E> implements MLM<E> {
         }
     }
 
+    public TreeNode<String> getRoot() {
+        return root;
+    }
+    
     @Override
     public double getRevenue() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
