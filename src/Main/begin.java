@@ -30,20 +30,28 @@ public class begin {
                 case "1":
                     System.out.print("Enter the new username: ");
                     String newUser = s.nextLine();
-                    //mlm.create(newUser);
+                    System.out.print("Enter the user who recommend the user: ");
+                    String userParent = s.nextLine();
+                    mlm.create(newUser,userParent);
                     
                     break;
                 case "2":
                     System.out.print("Enter the username: ");
-                    TreeNode <String> user = new TreeNode (s.nextLine());
+                    String userName = s.nextLine();
+                    TreeNode <String> user = new TreeNode (userName);
                     System.out.println(mlm.retrieve(user));
-                    System.out.print("Enter password to decrypt the parent username: ");
-                    int password = s.nextInt();
-                    System.out.println("Parent name: " + mlm.decrypt((String)mlm.getNode(mlm.root,user.data).parent.encrypteddata, password));
-                    s.nextLine();
+                    if(!userName.equals("admin")){
+                        System.out.print("Enter password to decrypt the parent username: ");
+                        int password = s.nextInt();
+                        System.out.println("Parent name: " + mlm.decrypt((String)mlm.getNode(mlm.getRoot(),user.data).parent.encrypteddata, password));
+                        s.nextLine();
+                    }
                     break;
-                case "3"://update method
-                    
+                case "3":
+                    System.out.print("Enter the username: ");
+                    TreeNode <String> updateUser = new TreeNode (s.nextLine());
+                    //mlm.search(, newUser)
+                    mlm.update(updateUser);
                     break;
                 case "4":
                     System.out.print("Enter the username that need to be deleted:");
