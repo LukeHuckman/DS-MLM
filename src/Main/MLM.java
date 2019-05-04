@@ -6,7 +6,7 @@ public interface MLM<E> {
     //retrieve the user information
     public String retrieve(TreeNode<String> user);
     //update the user information
-    public void update(TreeNode<String> user, boolean nameChange, String newData, boolean ParentChange, String newParent);
+    public void update(TreeNode<String> user);
     //public void update();
     //delete the user information
     public void delete(String tempUser);
