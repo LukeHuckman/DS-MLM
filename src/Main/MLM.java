@@ -2,18 +2,18 @@ package Main;
 
 public interface MLM<E> {
     //create new user information
-    public void create(String newUser, String parent);
+    public void create(String newencryptUser,String encryptuserParent);
     //retrieve the user information
     public String retrieve(TreeNode<String> user);
     //update the user information
-    public void update(TreeNode<String> user);
+    public void update(TreeNode<String> encryptuser);
     //public void update();
     //delete the user information
     public void delete(String tempUser);
     //encrypt the username
     public String encrypt(String name);
     //decrypt the username
-    public String decrypt(String encryptedname,int password);
+    public String decrypt(String encryptedname,String password);
     //save the users data in txt file
     public void save();
     //get the company revenue

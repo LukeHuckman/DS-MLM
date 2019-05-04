@@ -19,13 +19,15 @@ public class ClassFile<E> implements MLM<E> {
     private TreeNode<String> root;//check the calculations part
     private int idnumber;
     private Graph graph = new SingleGraph("MLM Graph",false,true);
+    private String key;
 
     public ClassFile() {
         this.COMPANY_REVENUE = 0;
         this.fee = 50;
-        this.root = new TreeNode<String>("admin");
+        this.root = new TreeNode<String>(encrypt("admin"));
         this.usernames = new ArrayList();
         this.idnumber = 0;
+        this.key = "0000";
         graph.addNode("admin");
         Node graphnode = graph.getNode("admin");
         graphnode.addAttribute("ui.style", "shape:circle;fill-color: red;size: 90px; text-alignment: center;");
@@ -33,37 +35,35 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     @Override
-    public void create(String newUser,String userParent) {
+    public void create(String newencryptUser,String encryptuserParent) {
         Scanner s1 = new Scanner(System.in);
-        TreeNode<String> newNode = new TreeNode<String>(newUser);
-        graph.addNode(newUser);
-        Node graphnode = graph.getNode(newUser);
+        TreeNode<String> newNode = new TreeNode<String>(newencryptUser);
+        graph.addNode(newencryptUser);
+        Node graphnode = graph.getNode(newencryptUser);
         graphnode.addAttribute("ui.style", "shape:circle;fill-color: green;size: 90px; text-alignment: center;");
-        graphnode.addAttribute("ui.label", newUser);
-        if(search(root,newUser)){
+        graphnode.addAttribute("ui.label", newencryptUser);
+        if(search(root,newencryptUser)){
             System.out.println("The username already exist.");
         }
         else{
             idnumber++;          
             System.out.println();
         //link to its parents
-            if(!userParent.equalsIgnoreCase("admin"))
-                    graph.addEdge(userParent+"->"+newUser, userParent, newUser,true);
-            if(userParent.equalsIgnoreCase("admin")){
+            if(!encryptuserParent.equalsIgnoreCase(encrypt("admin")))
+                    graph.addEdge(encryptuserParent+"->"+newencryptUser, encryptuserParent, newencryptUser,true);
+            if(encryptuserParent.equalsIgnoreCase(encrypt("admin"))){
                 newNode.id = idnumber;
-                newNode.encrypteddata = encrypt(newUser);
-                graph.addEdge("Admin->"+newUser, "admin", newUser,true);  
+                graph.addEdge("Admin->"+newencryptUser, "admin", newencryptUser,true);  
                 root.addChild(newNode); 
                 income(newNode); 
-                usernames.add(newUser);
+                usernames.add(newencryptUser);
             }
             else{
-                if(search(root,userParent)){
+                if(search(root,encryptuserParent)){
                     newNode.id = idnumber;
-                    newNode.encrypteddata = encrypt(newUser);
-                    insert(root,newNode,userParent);
+                    insert(root,newNode,encryptuserParent);
                     income(newNode); 
-                    usernames.add(newUser);   
+                    usernames.add(newencryptUser);   
                 }
                 else{
                     System.out.println("There is no such user.");
@@ -73,7 +73,7 @@ public class ClassFile<E> implements MLM<E> {
     }
 
     public boolean search(TreeNode<String> current,String newUser){
-        if(current.data.equals(newUser)){
+        if(current.encrypteddata.equals(newUser)){
             return true;
         }
         else{
@@ -88,7 +88,7 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     public TreeNode getNode(TreeNode<String> current,String newUser){//problem
-        if(current.data.equals(newUser)){
+        if(current.encrypteddata.equals(newUser)){
             return current;
         }
         else{
@@ -104,7 +104,7 @@ public class ClassFile<E> implements MLM<E> {
     
     public void insert(TreeNode<String> current,TreeNode<String> newUser,String data){
         for(int a=0;a<current.getChildren().size();a++){
-            if(current.getChildren().get(a).data.equals(data)){
+            if(current.getChildren().get(a).encrypteddata.equals(data)){
                 current.getChildren().get(a).addChild(newUser);
                 break;
             }
@@ -125,19 +125,19 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     @Override
-    public void delete(String tempUser) {
+    public void delete(String encryptUser) {
         if(root.getChildren().isEmpty()){
             System.out.println("There is nothing to deleted.");
         }
-        else if(!tempUser.equalsIgnoreCase("admin")){            
-            if(search(root,tempUser)){
-                TreeNode<String> target = getNode(root,tempUser);
-                for(int i=0;i<getNode(root,tempUser).getChildren().size();i++){
-                    graph.addEdge(target.parent.data +"->"+ target.getChildren().get(i).data, (String) target.parent.data , (String) target.getChildren().get(i).data, true);
+        else if(!encryptUser.equalsIgnoreCase(encrypt("admin"))){            
+            if(search(root,encryptUser)){
+                TreeNode<String> target = getNode(root,encryptUser);
+                for(int i=0;i<getNode(root,encryptUser).getChildren().size();i++){
+                    graph.addEdge(target.parent.encrypteddata +"->"+ target.getChildren().get(i).encrypteddata, (String) target.parent.encrypteddata , (String) target.getChildren().get(i).encrypteddata, true);
                 }
-                graph.removeNode(tempUser);
-                int position = usernames.indexOf(tempUser);
-                deleteNode(getNode(root,tempUser));
+                graph.removeNode(encryptUser);
+                int position = usernames.indexOf(encryptUser);
+                deleteNode(getNode(root,encryptUser));
                 usernames.remove(position);
             }
             else{
@@ -153,16 +153,14 @@ public class ClassFile<E> implements MLM<E> {
     
     @Override//retrieve the revenue of the user only(need what extra??)
     public String retrieve(TreeNode<String> user) {
-        if(user.data.equals(root.data)){
+        if(user.encrypteddata.equals(encrypt("admin"))){
             return "RM " + COMPANY_REVENUE;
         }
         else{
-            String a = "Username: " + getNode(root,user.data).data + "\n";
-            a += "Encrypted name: " + getNode(root,user.data).encrypteddata + "\n";
-            a += "ID: " + getNode(root,user.data).id + "\n";
-            a += "Encrypted parent name: " + encrypt((String)getNode(root,user.data).parent.data) + "\n";
+            String a = "ID: " + getNode(root,user.encrypteddata).id + "\n";
+            a += "Encrypted name: " + getNode(root,user.encrypteddata).encrypteddata + "\n";
+            a += "Encrypted parent name: " + getNode(root,user.encrypteddata).parent.encrypteddata + "\n";
             return a;
-            
         }
     }
     
@@ -209,9 +207,9 @@ public class ClassFile<E> implements MLM<E> {
     
     //@Override, boolean nameChange, String newData, boolean ParentChange, String newParent
     @Override
-    public void update(TreeNode<String> user) {
-        if(search(root,user.data)&&!user.data.equals("admin")){
-            TreeNode<String> target = getNode(root,user.data);
+    public void update(TreeNode<String> encryptuser) {
+        if(search(root,encryptuser.encrypteddata)&&!encryptuser.encrypteddata.equals(encrypt("admin"))){
+            TreeNode<String> target = getNode(root,encryptuser.encrypteddata);
             Scanner s = new Scanner(System.in);
             String option1 = "";
             String option2 = "";
@@ -223,9 +221,8 @@ public class ClassFile<E> implements MLM<E> {
                 //if(nameChange){
                     System.out.print("Enter new username: ");
                     String newData = s.nextLine();
-                    if(!search(root,newData)){
-                        usernames.set(usernames.indexOf(target.data), newData);
-                        target.data = newData;
+                    if(!search(root,encrypt(newData))){
+                        usernames.set(usernames.indexOf(target.encrypteddata), encrypt(newData));
                         target.encrypteddata = encrypt(newData);
                     }
                     else{
@@ -250,12 +247,12 @@ public class ClassFile<E> implements MLM<E> {
                 //if(ParentChange){
                     System.out.print("Enter new parent: ");
                     String userParent = s.nextLine();
-                    if(search(root,userParent)&&!userParent.equalsIgnoreCase("admin")){
-                        TreeNode<String> targetParent = getNode(root,userParent);
+                    if(search(root,encrypt(userParent))&&!userParent.equalsIgnoreCase("admin")){
+                        TreeNode<String> targetParent = getNode(root,encrypt(userParent));
                         target.parent.getChildren().remove(target);
                         targetParent.addChild(target);
                         target.setParent(targetParent);
-                        if(targetParent.parent.data.equals(target.data)){
+                        if(targetParent.parent.encrypteddata.equals(target.encrypteddata)){
                             targetParent.setParent(root);
                             target.getChildren().remove(targetParent);
                             root.addChild(targetParent);
@@ -301,16 +298,16 @@ public class ClassFile<E> implements MLM<E> {
     }
 
     @Override
-    public String decrypt(String encryptedname,int password) {
-        if (password == 1234){
+    public String decrypt(String encryptedname,String password) {
+        if (password.equals(key)){
             StringBuilder tmp = new StringBuilder();
-        final int OFFSET = 4;
-        for (int i = 0; i < encryptedname.length(); i++) {
-            tmp.append((char)(encryptedname.charAt(i) - OFFSET));
-        }
+            final int OFFSET = 4;
+            for (int i = 0; i < encryptedname.length(); i++) {
+                tmp.append((char)(encryptedname.charAt(i) - OFFSET));
+            }
 
-        String reversed = new StringBuffer(tmp.toString()).reverse().toString();
-        return new String(Base64.getDecoder().decode(reversed));
+            String reversed = new StringBuffer(tmp.toString()).reverse().toString();
+            return new String(Base64.getDecoder().decode(reversed));
         }
         else
             return "The Key is Incorrect!";
@@ -329,7 +326,7 @@ public class ClassFile<E> implements MLM<E> {
             print.write(c);
             print.println();
             for(int i=0;i<usernames.size();i++){
-                b = "|" + getNode(root,usernames.get(i)).id + "\t|" + getNode(root,usernames.get(i)).data + "\t\t|" + getNode(root,usernames.get(i)).encrypteddata + "\t\t\t|" + getNode(root,usernames.get(i)).amount + "\t\t|";
+                b = "|" + getNode(root,usernames.get(i)).id + "\t\t|" + getNode(root,usernames.get(i)).encrypteddata + "\t\t\t|" + getNode(root,usernames.get(i)).amount + "\t\t|";
                 print.write(b);
                 print.println();
             }
@@ -352,15 +349,30 @@ public class ClassFile<E> implements MLM<E> {
 
     @Override
     public void display() {
+        Scanner s = new Scanner(System.in);
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         Viewer viewer = graph.display();
         viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
-        print(root," ");
+        System.out.print("Enter the decrypt key password: ");
+        String password = s.nextLine();
+        if(password.equals(key)){
+            System.out.println("Wrong password, the server will exit to mainpage.");
+        }
+        else{
+            print(root," ");
+        }
     }
 
     public void print(TreeNode<String> node,String appender){
         String appender2 = " ";
-        System.out.println(appender + node.getData());
+        String decryptdata = "";
+        if(!node.encrypteddata.equalsIgnoreCase("admin")){
+            decryptdata = decrypt(node.getEncrypteddata(),key);
+        }
+        else{
+            decryptdata = "admin";
+        }
+        System.out.println(appender + decryptdata);
         node.getChildren().forEach(each -> print(each, appender + appender2));
     }
     @Override

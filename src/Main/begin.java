@@ -32,31 +32,31 @@ public class begin {
                     String newUser = s.nextLine();
                     System.out.print("Enter the user who recommend the user: ");
                     String userParent = s.nextLine();
-                    mlm.create(newUser,userParent);
+                    mlm.create(mlm.encrypt(newUser),mlm.encrypt(userParent));
                     
                     break;
                 case "2":
                     System.out.print("Enter the username: ");
                     String userName = s.nextLine();
-                    TreeNode <String> user = new TreeNode (userName);
+                    TreeNode <String> user = new TreeNode (mlm.encrypt(userName));
                     System.out.println(mlm.retrieve(user));
                     if(!userName.equals("admin")){
                         System.out.print("Enter password to decrypt the parent username: ");
                         int password = s.nextInt();
-                        System.out.println("Parent name: " + mlm.decrypt((String)mlm.getNode(mlm.getRoot(),user.data).parent.encrypteddata, password));
+                        System.out.println("Parent name: " + mlm.decrypt((String)mlm.getNode(mlm.getRoot(),user.encrypteddata).parent.encrypteddata, password));
                         s.nextLine();
                     }
                     break;
                 case "3":
                     System.out.print("Enter the username: ");
-                    TreeNode <String> updateUser = new TreeNode (s.nextLine());
-                    //mlm.search(, newUser)
+                    String username = s.nextLine();
+                    TreeNode <String> updateUser = new TreeNode (mlm.encrypt(username));
                     mlm.update(updateUser);
                     break;
                 case "4":
                     System.out.print("Enter the username that need to be deleted:");
                     String tempUser = s.nextLine();
-                    mlm.delete(tempUser);
+                    mlm.delete(mlm.encrypt(tempUser));
                     break;
                 case "5":
                     mlm.display();

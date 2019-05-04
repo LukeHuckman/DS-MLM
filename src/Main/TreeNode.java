@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeNode<E> {
-    E data;
     E encrypteddata;
     int id;
     double amount;
@@ -12,15 +11,13 @@ public class TreeNode<E> {
     TreeNode<E> parent;
 
     public TreeNode() {
-        this.data = null;
         this.encrypteddata = null;
         this.amount = 0;
         this.id = 0;
     }
     
-    public TreeNode(E data) {
-        this.data = data;
-        this.encrypteddata = null;
+    public TreeNode(E encrypteddata) {
+        this.encrypteddata = encrypteddata;
         this.amount = 0;
         this.id = 0;
     }
@@ -40,16 +37,16 @@ public class TreeNode<E> {
         return children;
     }
 
-    public E getData() {
-        return data;
+    public void setEncrypteddata(E encrypteddata) {
+        this.encrypteddata = encrypteddata;
+    }
+
+    public E getEncrypteddata() {
+        return encrypteddata;
     }
 
     public TreeNode<E> getParent() {
         return parent;
-    }
-
-    public void setData(E data) {
-        this.data = data;
     }
 
     public void setChildren(List<TreeNode<E>> children) {
