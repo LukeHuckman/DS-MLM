@@ -4,12 +4,12 @@ public interface MLM<E> {
     //create new user information
     public void create(String newencryptUser,String encryptuserParent);
     //retrieve the user information
-    public String retrieve(TreeNode<String> user);
+    public String retrieve(String userid);
     //update the user information
-    public void update(TreeNode<String> encryptuser);
+    public void update(String userid);
     //public void update();
     //delete the user information
-    public void delete(String tempUser);
+    public void delete(String userid);
     //encrypt the username
     public String encrypt(String name);
     //decrypt the username
