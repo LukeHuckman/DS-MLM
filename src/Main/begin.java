@@ -54,8 +54,9 @@ public class begin {
                             + "\n4 Delete the user chosen."
                             + "\n5 View the tree of the hierachy."
                             + "\n6 Get the revenue of each generations."
-                            + "\n7 Change the registration fees."
+                            + "\n7 Change the registration fees and the commissions respectively.."
                             + "\n8 Save and obtain the directory of data file (in txt.file)."
+                            + "\n9 Change the password and the decrypt key."
                             + "\n0 Close the program."
                             + "\nEnter the input: ");
                         mark = s.nextLine();
@@ -98,6 +99,16 @@ public class begin {
                                 mlm.display();
                                 break;
                             case "6"://get revenue for each generations method
+                                System.out.print("Enter the generation the company gains (Start from 1): ");  
+                                int gen = s.nextInt();
+                                s.nextLine();
+                                if(mlm.getGenerationRevenue(gen,mlm.getRoot(),0.0)==0){
+                                    System.out.println("Error input.");
+                                }
+                                else{
+                                    System.out.println(mlm.getGenerationRevenue(gen,mlm.getRoot(),0.0));
+                                }
+                                
                                 break;
                             case "7":
                                 System.out.println("Enter new fee amount: ");
@@ -109,6 +120,28 @@ public class begin {
                                 System.out.println("The data are saved.");
                                 mlm.save();
                                 System.out.println();
+                                break;
+                            case "9"://change the interface password and key
+                                String options = "";
+                                while(options.equals("0")){
+                                    System.out.print("1 Change the password."
+                                        + "\n2 Change the decrypt key password."
+                                        + "\n0 Back to homepage.");
+                                    options = s.nextLine();
+                                    switch(options){
+                                        case "1":
+                                            break;
+                                        case "2":
+                                            break;
+                                        case "0":
+                                            break;
+                                        default:
+                                            System.out.println("Invalid input. Please enter the input again.");
+                                            break;
+                                    }
+                                }
+                                options = "";
+                                
                                 break;
                             case "0":
                                 System.out.println("The server will back to homepage.");
