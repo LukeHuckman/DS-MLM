@@ -16,14 +16,10 @@ public interface MLM<E> {
     public String decrypt(String encryptedname,String password);
     //save the users data in txt file
     public void save();
-    //get the company revenue
-    public double getRevenue();
     //see the entire tree of users
     public void display();
     //see the revenue of each generation
-    public double getRevenue(int gen);
-    //check the user revenue
-    public double getUserRevenue(String encryptname);
+    public double getGenerationRevenue(int indexPlusONE,TreeNode<String> current,double companyrevenue);
     //change the registration fee
     public void setFee(double fee);
     

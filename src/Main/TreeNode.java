@@ -7,24 +7,32 @@ public class TreeNode<E> {
     E encrypteddata;
     String id;
     double amount;
+    double companyamount;
+    int generation;
     List<TreeNode<E>> children = new ArrayList();
     TreeNode<E> parent;
 
     public TreeNode() {
         this.encrypteddata = null;
         this.amount = 0;
+        this.companyamount = 0;
+        this.generation = 0;
         this.id = null;
     }
     
     public TreeNode(E encrypteddata) {
         this.encrypteddata = encrypteddata;
         this.amount = 0;
+        this.companyamount = 0;
+        this.generation = 0;
         this.id = null;
     }
     
     public TreeNode(E encrypteddata, String id) {
         this.encrypteddata = encrypteddata;
         this.amount = 0;
+        this.companyamount = 0;
+        this.generation = 0;
         this.id = id;
     }
     

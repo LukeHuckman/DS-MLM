@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import org.graphstream.graph.Graph;
@@ -15,6 +16,11 @@ import org.graphstream.ui.view.Viewer;
 public class ClassFile<E> implements MLM<E> {
     private double COMPANY_REVENUE;
     private double fee;
+    private double commissionGen1;
+    private double commissionGen2;
+    private double commissionGen3;
+    private double commissionGen4;
+    private double commissionGen5;
     private ArrayList<String> usernames;//for reference (save method)
     private TreeNode<String> root;//check the calculations part
     private int idnumber;
@@ -23,7 +29,12 @@ public class ClassFile<E> implements MLM<E> {
 
     public ClassFile() {
         this.COMPANY_REVENUE = 0;
-        this.fee = 50;
+        this.fee = 50.0;
+        this.commissionGen1 = 0.5;
+        this.commissionGen2 = 0.12;
+        this.commissionGen3 = 0.09;
+        this.commissionGen4 = 0.06;
+        this.commissionGen5 = 0.03;//later will try convert it to array
         this.root = new TreeNode<String>(encrypt("admin"),"000000");
         this.usernames = new ArrayList();
         this.idnumber = 0;
@@ -51,9 +62,11 @@ public class ClassFile<E> implements MLM<E> {
             if(userParentid.equals(root.id)){
                 idnumber++;
                 newNode.id = idConverter(idnumber) + idnumber;
+                newNode.generation = 1;
                 graph.addEdge("Admin->"+newencryptUser, "admin", newencryptUser,true);  
                 root.addChild(newNode); 
                 income(newNode); 
+                //CompanyIncomeINNODE(newNode);
                 usernames.add(newencryptUser);
             }
             
@@ -62,9 +75,11 @@ public class ClassFile<E> implements MLM<E> {
                     String encryptuserParent = (String) getNodebyID(root,userParentid).encrypteddata;
                     idnumber++;
                     newNode.id = idConverter(idnumber) + idnumber;
+                    newNode.generation = getNodebyID(root,userParentid).generation + 1;
                     graph.addEdge(encryptuserParent+"->"+newencryptUser, encryptuserParent, newencryptUser,true);
                     insert(root,newNode,encryptuserParent);
                     income(newNode); 
+                    //CompanyIncomeINNODE(newNode);
                     usernames.add(newencryptUser);   
                 }
                 else{
@@ -163,7 +178,7 @@ public class ClassFile<E> implements MLM<E> {
             }
             root.getChildren().addAll(index, current.getChildren());
         }
-        current.getChildren().clear();;
+        current.getChildren().clear();
     }
     
     @Override
@@ -180,6 +195,7 @@ public class ClassFile<E> implements MLM<E> {
                 graph.removeNode(target.encrypteddata);
                 int position = usernames.indexOf(target.encrypteddata);
                 deleteNode(target);
+                setGeneration(root);
                 usernames.remove(position);
             }
             else{
@@ -193,6 +209,18 @@ public class ClassFile<E> implements MLM<E> {
         //id.remove(position);
     }
     
+    public void setGeneration(TreeNode<String> current){
+        if(current.parent==root){
+            current.generation = 1;
+        }
+        else if(current.parent!=null){
+            current.generation = current.parent.generation + 1;
+        }
+        if(!current.children.isEmpty()){
+            current.getChildren().forEach(each -> setGeneration(each));
+        }
+    }
+    
     @Override//retrieve the revenue of the user only(need what extra??)
     public String retrieve(String userid) {
         if(userid.equals(root.id)){
@@ -200,7 +228,9 @@ public class ClassFile<E> implements MLM<E> {
         }
         else if(searchID(root,userid)){
             String a = "ID: " + getNodebyID(root,userid).id + "\n";
+            a += "Generation: " + getNodebyID(root,userid).generation + "\n";
             a += "Revenue: " + getNodebyID(root,userid).amount + "\n";
+            a += "Company Revenue: " + getNodebyID(root,userid).companyamount + "\n";
             a += "Encrypted name: " + getNodebyID(root,userid).encrypteddata + "\n";
             a += "Encrypted parent name: " + getNodebyID(root,userid).parent.encrypteddata + "\n";
             return a;
@@ -212,46 +242,62 @@ public class ClassFile<E> implements MLM<E> {
     
     public void income(TreeNode user){
         double money = 0;
-        if(user.parent != null){
-            user.parent.amount += fee/2;
-            money += fee/2;
+        if(user.parent == root){
+            root.amount += fee - money;
+            user.companyamount = fee - money;
+        }
+        else if(user.parent != null){
+            user.parent.amount += fee*commissionGen1;
+            money += fee*commissionGen1;
             if(user.parent.parent == null || user.parent.parent == root){
                 root.amount += fee - money;
+                user.companyamount = fee - money;
             }
             else{
-                user.parent.parent.amount += fee/100*12;
-                money += fee/100*12;
+                user.parent.parent.amount += fee*commissionGen2;
+                money += fee*commissionGen2;
                 if(user.parent.parent.parent == null || user.parent.parent.parent == root){
                     root.amount += fee - money;
+                    user.companyamount = fee - money;
                 }
                 else{
-                    user.parent.parent.parent.amount += fee/100*9;
-                    money += fee/100*9;
+                    user.parent.parent.parent.amount += fee*commissionGen3;
+                    money += fee*commissionGen3;
                     if(user.parent.parent.parent.parent == null || user.parent.parent.parent.parent == root){
                         root.amount += fee - money;
+                        user.companyamount = fee - money;
                     }
                     else{
-                        user.parent.parent.parent.parent.amount += fee/100*6;
-                        money += fee/100*6;
+                        user.parent.parent.parent.parent.amount += fee*commissionGen4;
+                        money += fee*commissionGen4;
                         if(user.parent.parent.parent.parent.parent == null || user.parent.parent.parent.parent.parent == root){
                             root.amount += fee - money;
+                            user.companyamount = fee - money;
                         }
                         else{
-                            user.parent.parent.parent.parent.amount += fee/100*3;
-                            money += fee/100*3;
+                            user.parent.parent.parent.parent.parent.amount += fee*commissionGen5;
+                            money += fee*commissionGen5;       
                             root.amount += fee - money;
+                            user.companyamount = fee - money;
                         }
                     }
                 }
             }
         }
-        else if(user.parent == root){
-            root.amount += fee - money;
-        }
-        COMPANY_REVENUE = root.amount;
+        COMPANY_REVENUE = root.amount; 
     }
     
-    //@Override, boolean nameChange, String newData, boolean ParentChange, String newParent
+    @Override
+    public double getGenerationRevenue(int indexPlusONE,TreeNode<String> current,double companyrevenue){
+        if(current.generation==indexPlusONE){
+            companyrevenue += current.companyamount;
+        }
+        for(TreeNode child:current.children){
+            companyrevenue = getGenerationRevenue(indexPlusONE,child,companyrevenue);
+        }
+        return companyrevenue;
+    }
+
     @Override
     public void update(String userid) {
         if(searchID(root,userid)&&!userid.equals(root.id)){
@@ -291,7 +337,7 @@ public class ClassFile<E> implements MLM<E> {
                 if(option2.equalsIgnoreCase("yes")){
                     System.out.print("Enter new ID: ");
                     String newID = s.nextLine();
-                    if(!searchID(root,newID)||newID.equals(root.id)){
+                    if(!searchID(root,newID)&&!newID.equals(root.id)){
                         target.id = newID;
                     }
                     else{
@@ -345,7 +391,7 @@ public class ClassFile<E> implements MLM<E> {
             }
         }
         else{
-            System.out.println("There is no such user.");
+            System.out.println("The admin data cannot be altered.");
         }
         
     
@@ -408,11 +454,6 @@ public class ClassFile<E> implements MLM<E> {
     public TreeNode<String> getRoot() {
         return root;
     }
-    
-    @Override
-    public double getRevenue() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void display() {
@@ -442,16 +483,7 @@ public class ClassFile<E> implements MLM<E> {
         System.out.println(appender + decryptdata);
         node.getChildren().forEach(each -> print(each, appender + appender2));
     }
-    @Override
-    public double getRevenue(int gen) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public double getUserRevenue(String encryptname) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public void setFee(double fee) {
         this.fee = fee;
