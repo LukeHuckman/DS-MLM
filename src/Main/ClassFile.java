@@ -497,6 +497,36 @@ public class ClassFile<E> implements MLM<E> {
         return key;
     }
     
+    public void setPassword(String password){
+        
+    }
     
+    public void setCommission(double newCommissionGen1,double newCommissionGen2,double newCommissionGen3,double newCommissionGen4,double newCommissionGen5){
+        this.commissionGen1=newCommissionGen1;
+        this.commissionGen2=newCommissionGen2;
+        this.commissionGen3=newCommissionGen3;
+        this.commissionGen4=newCommissionGen4;
+        this.commissionGen5=newCommissionGen5;
+    }
+    
+    public void setCommisionGen1(double newCommission){
+        this.commissionGen1=newCommission;
+    }
+    
+    public void setCommisionGen2(double newCommission){
+        this.commissionGen2=newCommission;
+    }
+    
+    public void setCommisionGen3(double newCommission){
+        this.commissionGen3=newCommission;
+    }
+    
+    public void setCommisionGen4(double newCommission){
+        this.commissionGen4=newCommission;
+    }
+    
+    public void setCommisionGen5(double newCommission){
+        this.commissionGen5=newCommission;
+    }
     
 }
