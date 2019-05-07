@@ -29,8 +29,8 @@ public class begin {
                     if(username.equals("exit")){
                         break;
                     }
-                    else if(mlm.searchDATA(mlm.getRoot(), mlm.encrypt(username))&&!username.equals("admin")){
-                        System.out.println(mlm.retrieve(mlm.getNodebyencryptUser(mlm.getRoot(), mlm.encrypt(username)).id));
+                    else if(mlm.searchDATA(mlm.getRoot(), mlm.encrypt(username,mlm.getdecryptkey()))&&!username.equals("admin")){
+                        System.out.println(mlm.retrieve(mlm.getNodebyencryptUser(mlm.getRoot(), mlm.encrypt(username,mlm.getdecryptkey())).id));
                         System.out.println("Press enter to exit.");
                         s.nextLine();
                     }
@@ -66,7 +66,7 @@ public class begin {
                                 String newUser = s.nextLine();
                                 System.out.print("Enter the user ID who recommend the user (Admin ID is 000000): ");
                                 String userParentid = s.nextLine();
-                                mlm.create(mlm.encrypt(newUser),userParentid);
+                                mlm.create(mlm.encrypt(newUser,mlm.getdecryptkey()),userParentid);
                     
                                 break;
                             case "2":
@@ -76,7 +76,7 @@ public class begin {
                                 if(mlm.searchID(mlm.getRoot(), userNameid)&&!userNameid.equals(mlm.getRoot().id)){
                                     System.out.print("Enter password to decrypt both the username and the parent's username: ");
                                     String password = s.nextLine();
-                                    if(password.equals(mlm.getKey())){
+                                    if(password.equals(mlm.getdecryptkey())){
                                         System.out.println("Username: " + mlm.decrypt((String)mlm.getNodebyID(mlm.getRoot(),userNameid).encrypteddata, password));
                                         System.out.println("Parent name: " + mlm.decrypt((String)mlm.getNodebyID(mlm.getRoot(),userNameid).parent.encrypteddata, password));
                                     }
@@ -106,9 +106,8 @@ public class begin {
                                     System.out.println("Error input.");
                                 }
                                 else{
-                                    System.out.println(mlm.getGenerationRevenue(gen,mlm.getRoot(),0.0));
+                                    System.out.println("Company's revenue for this generation: RM " + mlm.getGenerationRevenue(gen,mlm.getRoot(),0.0));
                                 }
-                                
                                 break;
                             case "7":
                                 System.out.println("Enter new fee amount: ");
@@ -145,8 +144,6 @@ public class begin {
                                 break;
                             case "0":
                                 System.out.println("The server will back to homepage.");
-                                
-                                //System.exit(0);
                                 break;
                             default:
                                 System.out.println("Invalid input. Please enter the input again.");

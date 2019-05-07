@@ -11,9 +11,9 @@ public interface MLM<E> {
     //delete the user information
     public void delete(String userid);
     //encrypt the username
-    public String encrypt(String name);
+    public String encrypt(String name,String key);
     //decrypt the username
-    public String decrypt(String encryptedname,String password);
+    public String decrypt(String encryptedname,String key);
     //save the users data in txt file
     public void save();
     //see the entire tree of users
