@@ -6,32 +6,44 @@ import java.util.List;
 public class TreeNode<E> {
     E encrypteddata;
     String id;
-    double amount;
-    double companyamount;
+    double recruitamount;
+    double salesamount;
+    double companyrecruitamount;
+    double companysalesamount;
+    int goodssell;
     int generation;
     List<TreeNode<E>> children = new ArrayList();
     TreeNode<E> parent;
 
     public TreeNode() {
         this.encrypteddata = null;
-        this.amount = 0;
-        this.companyamount = 0;
+        this.recruitamount = 0;
+        this.salesamount = 0;
+        this.goodssell = 0;
+        this.companyrecruitamount = 0;
+        this.companysalesamount = 0;
         this.generation = 0;
         this.id = null;
     }
     
     public TreeNode(E encrypteddata) {
         this.encrypteddata = encrypteddata;
-        this.amount = 0;
-        this.companyamount = 0;
+        this.recruitamount = 0;
+        this.salesamount = 0;
+        this.goodssell = 0;
+        this.companyrecruitamount = 0;
+        this.companysalesamount = 0;
         this.generation = 0;
         this.id = null;
     }
     
     public TreeNode(E encrypteddata, String id) {
         this.encrypteddata = encrypteddata;
-        this.amount = 0;
-        this.companyamount = 0;
+        this.recruitamount = 0;
+        this.salesamount = 0;
+        this.goodssell = 0;
+        this.companyrecruitamount = 0;
+        this.companysalesamount = 0;
         this.generation = 0;
         this.id = id;
     }

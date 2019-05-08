@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class begin {
     public static String password = "0000";
     public static String mark = "-1";
+    public static double temprecruit = 0.0;
+    public static double tempsales = 0.0;
     public static ClassFile mlm = new ClassFile();
     public static void main(String[] args) { 
         Scanner s = new Scanner(System.in);
@@ -30,7 +32,7 @@ public class begin {
                         break;
                     }
                     else if(mlm.searchDATA(mlm.getRoot(), mlm.encrypt(username,mlm.getdecryptkey()))&&!username.equals("admin")){
-                        System.out.println(mlm.retrieve(mlm.getNodebyencryptUser(mlm.getRoot(), mlm.encrypt(username,mlm.getdecryptkey())).id));
+                        System.out.println(mlm.retrieveUser(mlm.getNodebyencryptUser(mlm.getRoot(), mlm.encrypt(username,mlm.getdecryptkey())).id));
                         System.out.println("Press enter to exit.");
                         s.nextLine();
                     }
@@ -54,9 +56,9 @@ public class begin {
                             + "\n4 Delete the user chosen."
                             + "\n5 View the tree of the hierachy."
                             + "\n6 Get the revenue of each generations."
-                            + "\n7 Change the registration fees and the commissions respectively.."
-                            + "\n8 Save and obtain the directory of data file (in txt.file)."
-                            + "\n9 Change the password and the decrypt key."
+                            + "\n7 Enter the sales."
+                            + "\n8 Save the directory of data file (in txt.file)."
+                            + "\n9 Change the password, decrypt key, fee and commissions."
                             + "\n0 Close the program."
                             + "\nEnter the input: ");
                         mark = s.nextLine();
@@ -72,7 +74,7 @@ public class begin {
                             case "2":
                                 System.out.print("Enter the username ID: ");
                                 String userNameid = s.nextLine();
-                                System.out.println(mlm.retrieve(userNameid));
+                                System.out.println(mlm.retrieveAdmin(userNameid));
                                 if(mlm.searchID(mlm.getRoot(), userNameid)&&!userNameid.equals(mlm.getRoot().id)){
                                     System.out.print("Enter password to decrypt both the username and the parent's username: ");
                                     String password = s.nextLine();
@@ -110,27 +112,121 @@ public class begin {
                                 }
                                 break;
                             case "7":
-                                System.out.println("Enter new fee amount: ");
-                                double newFee = s.nextDouble();
-                                s.nextLine();
-                                mlm.setFee(newFee);
+                                System.out.print("Enter the sales is this format (ID/Number of goods sold/Sales): ");
+                                String a = s.nextLine();
+                                String id = "";
+                                int number = 0;
+                                double sales = 0.0;
+                                try{
+                                    id = a.substring(0, 6);
+                                    number = Integer.parseInt(a.substring(7, a.indexOf("/", 7)));
+                                    sales = Double.parseDouble(a.substring(a.indexOf("/", 7)+1));
+                                    mlm.sales(id, number, sales);
+                                }catch(Exception e){
+                                    System.out.println("Error input.");
+                                }
+                                //System.out.println(id + number + sales);
                                 break;
                             case "8":
                                 System.out.println("The data are saved.");
                                 mlm.save();
                                 System.out.println();
                                 break;
-                            case "9"://change the interface password and key
+                            case "9"://change the interface password and key,the change commission got problem
                                 String options = "";
-                                while(options.equals("0")){
+                                while(!options.equals("0")){
                                     System.out.print("1 Change the password."
                                         + "\n2 Change the decrypt key password."
-                                        + "\n0 Back to homepage.");
+                                        + "\n3 Change the recruit commissions for each generations."
+                                        + "\n4 Change the selling commissions for each generations."
+                                        + "\n5 Change the recruit fee."
+                                        + "\n0 Back to homepage."
+                                        + "\nEnter the input: ");
                                     options = s.nextLine();
                                     switch(options){
                                         case "1":
+                                            System.out.print("Enter the current password: ");
+                                            String z = s.nextLine();
+                                            if(z.equals(password)){
+                                                System.out.print("Enter the new password: ");
+                                                password = s.nextLine();
+                                            }
+                                            else{
+                                                System.out.println("Wrong password. The server will back to homepage.");
+                                            }
                                             break;
                                         case "2":
+                                            System.out.print("Enter the current key password: ");
+                                            String c = s.nextLine();
+                                            if(c.equals(mlm.getdecryptkey())){
+                                                System.out.print("Enter the new password: ");
+                                                String d = s.nextLine();
+                                                mlm.setdecryptkey(d);
+                                            }
+                                            else{
+                                                System.out.println("Wrong password. The server will back to homepage.");
+                                            }
+                                            break;
+                                        case "3":
+                                            System.out.print("Enter the generation: ");
+                                            int e = s.nextInt();
+                                            s.nextLine();
+                                            if(e-1<0||e-1>=mlm.getRecruitCommissionSize()){
+                                                System.out.println("Wrong input. The server will back to homepage.");
+                                            }
+                                            else{
+                                                double temp = 0;
+                                                for(int x=0;x<mlm.getRecruitCommissionSize();x++){
+                                                    if(x!=e-1)
+                                                    temp += mlm.getRecruitCommission(x);
+                                                }
+                                                temp+=temprecruit;
+                                                System.out.print("Enter the new commission in % (The commission cannot exceed "+ Math.round((0.8-temp-temprecruit)*100) + "%!): ");
+                                                double f = s.nextDouble();
+                                                f/=100;
+                                                double i = 0.8 - mlm.getRecruitCommission(e-1);
+                                                s.nextLine();
+                                                if(i+f>0.8){
+                                                    System.out.println("The total commission are exceed " + (Math.round(0.8-temp-temprecruit)*100) +"%. The server will back to homepage.");
+                                                }
+                                                else{
+                                                    mlm.setRecruitCommission(e-1, f);
+                                                    temprecruit = Math.round(0.5-temp-f);
+                                                }
+                                            }
+                                            break;
+                                        case "4":
+                                            System.out.print("Enter the generation: ");
+                                            int g = s.nextInt();
+                                            s.nextLine();
+                                            if(g-1<0||g-1>=mlm.getSalesCommissionSize()){
+                                                System.out.println("Wrong input. The server will back to homepage.");
+                                            }
+                                            else{
+                                                double temp = 0;
+                                                for(int x=0;x<mlm.getSalesCommissionSize();x++){
+                                                    if(x!=g-1)
+                                                    temp += mlm.getSalesCommission(x);
+                                                }
+                                                System.out.print("Enter the new commission in % (The commission cannot exceed "+ (Math.round(0.5-temp-tempsales)*100) + "%!): ");
+                                                double f = s.nextDouble();
+                                                f/=100;
+                                                double i = 0.5 - mlm.getSalesCommission(g-1);
+                                                s.nextLine();
+                                                if(i+f>0.5){
+                                                    System.out.println("The total commission are exceed " + (Math.round(0.5-temp-tempsales)*100) + "%. The server will back to homepage.");
+                                                }
+                                                else{
+                                                    mlm.setSalesCommission(g-1, f);
+                                                    tempsales = Math.round(0.5-temp-f);
+                                                }
+                                            }
+                                            break;
+                                        case "5":
+                                            System.out.print("Enter the new fee: ");
+                                            double newFee = s.nextDouble();
+                                            s.nextLine();
+                                            mlm.setFee(newFee);
                                             break;
                                         case "0":
                                             break;
@@ -140,7 +236,6 @@ public class begin {
                                     }
                                 }
                                 options = "";
-                                
                                 break;
                             case "0":
                                 System.out.println("The server will back to homepage.");

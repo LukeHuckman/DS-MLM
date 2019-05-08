@@ -14,34 +14,34 @@ import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.view.Viewer;
 
 public class ClassFile<E> implements MLM<E> {
-    private double COMPANY_REVENUE;
+    private double COMPANY_REVENUE;//recruit revenue
+    private double salesRevenue;
+    private double TOTALdeletedNodeRevenue;
     private double fee;
-    private double commissionGen1;
-    private double commissionGen2;
-    private double commissionGen3;
-    private double commissionGen4;
-    private double commissionGen5;
-    private ArrayList<Double> commission;
+    private ArrayList<Double> recruitcommission;
+    private ArrayList<Double> salescommission;
     private ArrayList<String> usernames;//for reference (save method)
     private TreeNode<String> root;//check the calculations part
     private int idnumber;
+    private int goodssold;
     private Graph graph = new SingleGraph("MLM Graph",false,true);
     private String decryptkey;
 
     public ClassFile() {
         this.COMPANY_REVENUE = 0;
         this.fee = 50.0;
-        this.commissionGen1 = 0.5;
-        this.commissionGen2 = 0.12;
-        this.commissionGen3 = 0.09;
-        this.commissionGen4 = 0.06;
-        this.commissionGen5 = 0.03;//later will try convert it to array
-        this.commission = new ArrayList();
-        commission.add(0.5);
-        commission.add(0.12);
-        commission.add(0.09);
-        commission.add(0.06);
-        commission.add(0.03);
+        this.recruitcommission = new ArrayList();
+        recruitcommission.add(0.5);
+        recruitcommission.add(0.12);
+        recruitcommission.add(0.09);
+        recruitcommission.add(0.06);
+        recruitcommission.add(0.03);
+        this.salescommission = new ArrayList();
+        salescommission.add(0.30);
+        salescommission.add(0.15);
+        salescommission.add(0.05);
+        this.TOTALdeletedNodeRevenue = 0;
+        this.goodssold = 0;
         this.root = new TreeNode<String>(encrypt("admin",decryptkey),"000000");
         this.usernames = new ArrayList();
         this.idnumber = 0;
@@ -72,7 +72,7 @@ public class ClassFile<E> implements MLM<E> {
                 newNode.generation = 1;
                 //graph.addEdge("Admin->"+newencryptUser, "admin", newencryptUser,true);  
                 root.addChild(newNode); 
-                income(newNode); 
+                recruitIncome(newNode); 
                 usernames.add(newencryptUser);
                 //GUI
                 graph.addNode(decrypt(newencryptUser,decryptkey));
@@ -90,8 +90,7 @@ public class ClassFile<E> implements MLM<E> {
                     newNode.generation = getNodebyID(root,userParentid).generation + 1;
                     //graph.addEdge(encryptuserParent+"->"+newencryptUser, encryptuserParent, newencryptUser,true);
                     insert(root,newNode,encryptuserParent);
-                    income(newNode); 
-                    //incomeTest(newNode); 
+                    recruitIncome(newNode); 
                     usernames.add(newencryptUser);   
                     //GUI
                     graph.addNode(decrypt(newencryptUser,decryptkey));
@@ -216,6 +215,8 @@ public class ClassFile<E> implements MLM<E> {
                 deleteNode(target);
                 setGeneration(root);
                 usernames.remove(position);
+                TOTALdeletedNodeRevenue += target.companyrecruitamount;
+                TOTALdeletedNodeRevenue += target.companysalesamount;
             }
             else{
                 System.out.println("The user is not-exist.");
@@ -241,102 +242,123 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     @Override//retrieve the revenue of the user only(need what extra??)
-    public String retrieve(String userid) {
+    public String retrieveAdmin(String userid) {
         if(userid.equals(root.id)){
-            return "RM " + COMPANY_REVENUE;
+            double a = COMPANY_REVENUE + salesRevenue;
+            String b = "Recruit revenue: RM " + COMPANY_REVENUE + "\n";
+            b += "Sales revenue: RM " + salesRevenue + "\n";
+            b += "Total revenue gained from deleted users: " + TOTALdeletedNodeRevenue + "\n";
+            b += "Total revenue: RM " + a + "\n";
+            b += "Total goods sold: RM " + goodssold + "\n";
+            b += "Current numbers of registered users: " + usernames.size() + "\n";
+            return b;
         }
         else if(searchID(root,userid)){
             String a = "ID: " + getNodebyID(root,userid).id + "\n";
             a += "Generation: " + getNodebyID(root,userid).generation + "\n";
-            a += "Revenue: RM " + getNodebyID(root,userid).amount + "\n";
-            a += "Company's revenue that gained from this user: RM " + getNodebyID(root,userid).companyamount + "\n";
+            a += "Recruit revenue: RM " + getNodebyID(root,userid).recruitamount + "\n";
+            a += "Sales revenue: RM " + getNodebyID(root,userid).salesamount + "\n";
+            a += "Amount of goods sold: " + getNodebyID(root,userid).goodssell + "\n";
+            a += "Company's recruit revenue that gained from this user: RM " + getNodebyID(root,userid).companyrecruitamount + "\n";
+            a += "Company's recruit revenue that gained from this user: RM " + getNodebyID(root,userid).companysalesamount + "\n";
             a += "Encrypted name: " + getNodebyID(root,userid).encrypteddata + "\n";
             a += "Encrypted parent name: " + getNodebyID(root,userid).parent.encrypteddata + "\n";
+            a += "Total number of users recruited: " + getNodebyID(root,userid).children.size() + "\n";
             return a;
         }
         else{
             return "The username is not exist.";
         }
     }
-    /*
-    public void incomeTest(TreeNode user){
-        double money = 0;
-        if(user.parent == root){
-            root.amount += fee - money;
-            user.companyamount = fee - money;
+    
+    public String retrieveUser(String userid) {
+        if(searchID(root,userid)){
+            String a = "ID: " + getNodebyID(root,userid).id + "\n";
+            a += "Generation: " + getNodebyID(root,userid).generation + "\n";
+            a += "Recruit revenue: RM " + getNodebyID(root,userid).recruitamount + "\n";
+            a += "Sales revenue: RM " + getNodebyID(root,userid).salesamount + "\n";
+            a += "Amount of goods sold: " + getNodebyID(root,userid).goodssell + "\n";
+            a += "Encrypted name: " + getNodebyID(root,userid).encrypteddata + "\n";
+            a += "Encrypted parent name: " + getNodebyID(root,userid).parent.encrypteddata + "\n";
+            a += "Total number of users recruited: " + getNodebyID(root,userid).children.size() + "\n";
+            return a;
         }
         else{
-            user.parent.amount += fee*commissionGen1;
-            money += fee*commissionGen1;
-            if(user.parent.parent == root){
-                root.amount += fee - money;
-                user.companyamount = fee - money;
+            return "The username is not exist.";
+        }
+    }
+    public void sales(String id, int goods, double sales){
+        goodssold += goods;
+        if(id.equals("000000")){
+            root.salesamount += sales;
+        }
+        else if(getNodebyID(root,id)!=null){
+            salesIncome(getNodebyID(root,id), sales);
+        }
+        else{
+            System.out.println("The user is not exist.");
+        }
+    }
+    
+    public void salesIncome(TreeNode user, double sales){
+        int cnt = 1;
+        double money = sales*(salescommission.get(0));
+        user.salesamount += sales*(salescommission.get(0));
+        TreeNode<String> temp = user;
+        while(temp.parent!=null){
+            if(temp.parent==root){
+                root.salesamount += sales - money;
+                user.companysalesamount = sales - money;
+                break;
             }
             else{
-                user.parent.parent.amount += fee*commissionGen2;
-                money += fee*commissionGen2;
-                if(user.parent.parent.parent == root){
-                    root.amount += fee - money;
-                    user.companyamount = fee - money;
+                if(cnt>=1&&cnt<salescommission.size()){
+                    temp.parent.salesamount += sales*(salescommission.get(cnt));
+                    money += sales*salescommission.get(cnt);
+                    temp = temp.parent;
+                    cnt++;
                 }
                 else{
-                    user.parent.parent.parent.amount += fee*commissionGen3;
-                    money += fee*commissionGen3;
-                    if(user.parent.parent.parent.parent == root){
-                        root.amount += fee - money;
-                        user.companyamount = fee - money;
-                    }
-                    else{
-                        user.parent.parent.parent.parent.amount += fee*commissionGen4;
-                        money += fee*commissionGen4;
-                        if(user.parent.parent.parent.parent.parent == root){
-                            root.amount += fee - money;
-                            user.companyamount = fee - money;
-                        }
-                        else{
-                            user.parent.parent.parent.parent.parent.amount += fee*commissionGen5;
-                            money += fee*commissionGen5;       
-                            root.amount += fee - money;
-                            user.companyamount = fee - money;
-                        }
-                    }
+                    root.salesamount += sales - money;
+                    user.companysalesamount = sales - money;
+                    break;
                 }
             }
         }
-        COMPANY_REVENUE = root.amount; 
+        salesRevenue = root.salesamount;
     }
-    */
-    public void income(TreeNode user){
+    
+    public void recruitIncome(TreeNode user){
         double money = 0;
         int cnt = 0;
         TreeNode<String> temp = user;
         while(temp.parent!=null){
             if(temp.parent==root){
-                root.amount += fee - money;
-                user.companyamount = fee - money;
+                root.recruitamount += fee - money;
+                user.companyrecruitamount = fee - money;
                 break;
             }
             else{
-                if(cnt>=0&&cnt<commission.size()){
-                    temp.parent.amount += fee*(commission.get(cnt));
-                    money += fee*commission.get(cnt);
+                if(cnt>=0&&cnt<recruitcommission.size()){
+                    temp.parent.recruitamount += fee*(recruitcommission.get(cnt));
+                    money += fee*recruitcommission.get(cnt);
                     temp = temp.parent;
                     cnt++;
                 }
                 else{
-                    root.amount += fee - money;
-                    user.companyamount = fee - money;
+                    root.recruitamount += fee - money;
+                    user.companyrecruitamount = fee - money;
                     break;
                 }
             }
         }
-        COMPANY_REVENUE = root.amount;
+        COMPANY_REVENUE = root.recruitamount;
     }
     
     @Override
     public double getGenerationRevenue(int indexPlusONE,TreeNode<String> current,double companyrevenue){
         if(current.generation==indexPlusONE){
-            companyrevenue += current.companyamount;
+            companyrevenue += current.companyrecruitamount;//recruit only
         }
         for(TreeNode child:current.children){
             companyrevenue = getGenerationRevenue(indexPlusONE,child,companyrevenue);
@@ -430,16 +452,16 @@ public class ClassFile<E> implements MLM<E> {
             return "The Key is Incorrect!";
     }
 
-    @Override
+    @Override//2 files
+    //userdata and companypersonal data(password,revenue)
     public void save() {
         String b = "";
         System.out.println(b);
         try{
             PrintWriter print = new PrintWriter(new FileOutputStream("data.txt"));
-            String a = "|ID\t|Username\t|Encrypted Username\t|Revenue (RM)  |";
+            String a = "ID\tUsername\tEncryptedUsername\tRevenue (RM)";
             print.write(a);
             print.println();
-            String c = "|-------+---------------+-----------------------+--------------|";
             print.write(c);
             print.println();
             for(int i=0;i<usernames.size();i++){
@@ -501,36 +523,27 @@ public class ClassFile<E> implements MLM<E> {
         return decryptkey;
     }
     
-    public void setPassword(String password){
-        
+    public double getRecruitCommission(int index){
+        return this.recruitcommission.get(index);
     }
     
-    public void setCommission(double newCommissionGen1,double newCommissionGen2,double newCommissionGen3,double newCommissionGen4,double newCommissionGen5){
-        this.commissionGen1=newCommissionGen1;
-        this.commissionGen2=newCommissionGen2;
-        this.commissionGen3=newCommissionGen3;
-        this.commissionGen4=newCommissionGen4;
-        this.commissionGen5=newCommissionGen5;
+    public double getSalesCommission(int index){
+        return this.salescommission.get(index);
     }
     
-    public void setCommisionGen1(double newCommission){
-        this.commissionGen1=newCommission;
+    public int getRecruitCommissionSize(){
+        return recruitcommission.size();
     }
     
-    public void setCommisionGen2(double newCommission){
-        this.commissionGen2=newCommission;
+    public int getSalesCommissionSize(){
+        return salescommission.size();
     }
     
-    public void setCommisionGen3(double newCommission){
-        this.commissionGen3=newCommission;
+    public void setRecruitCommission(int gen, double newCommission){
+        this.recruitcommission.set(gen, newCommission);
     }
     
-    public void setCommisionGen4(double newCommission){
-        this.commissionGen4=newCommission;
+    public void setSalesCommission(int gen, double newCommission){
+        this.salescommission.set(gen, newCommission);
     }
-    
-    public void setCommisionGen5(double newCommission){
-        this.commissionGen5=newCommission;
-    }
-    
 }

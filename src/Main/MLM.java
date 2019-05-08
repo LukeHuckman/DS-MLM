@@ -4,7 +4,7 @@ public interface MLM<E> {
     //create new user information
     public void create(String newencryptUser,String encryptuserParent);
     //retrieve the user information
-    public String retrieve(String userid);
+    public String retrieveAdmin(String userid);
     //update the user information
     public void update(String userid);
     //public void update();
