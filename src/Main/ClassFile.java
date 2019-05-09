@@ -1,5 +1,7 @@
 package Main;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,9 +28,11 @@ public class ClassFile<E> implements MLM<E> {
     private int goodssold;
     private Graph graph = new SingleGraph("MLM Graph",false,true);
     private String decryptkey;
+    private String password;
 
     public ClassFile() {
         this.COMPANY_REVENUE = 0;
+        this.salesRevenue = 0;
         this.fee = 50.0;
         this.recruitcommission = new ArrayList();
         recruitcommission.add(0.5);
@@ -42,14 +46,15 @@ public class ClassFile<E> implements MLM<E> {
         salescommission.add(0.05);
         this.TOTALdeletedNodeRevenue = 0;
         this.goodssold = 0;
-        this.root = new TreeNode<String>(encrypt("admin",decryptkey),"000000");
+        this.root = new TreeNode<String>(encrypt("DreamCompany",decryptkey),"000000");
         this.usernames = new ArrayList();
         this.idnumber = 0;
         this.decryptkey = "0000";
-        graph.addNode("admin");
-        Node graphnode = graph.getNode("admin");
+        this.password = "0000";
+        graph.addNode("DreamCompany");
+        Node graphnode = graph.getNode("DreamCompany");
         graphnode.addAttribute("ui.style", "shape:circle;fill-color: red;size: 90px; text-alignment: center;");
-        graphnode.addAttribute("ui.label", "Admin");
+        graphnode.addAttribute("ui.label", "DreamCompany");
     }
     
     @Override
@@ -79,7 +84,7 @@ public class ClassFile<E> implements MLM<E> {
                 Node graphnode = graph.getNode(decrypt(newencryptUser,decryptkey));
                 graphnode.addAttribute("ui.style", "shape:circle;fill-color: green;size: 90px; text-alignment: center;");
                 graphnode.addAttribute("ui.label", decrypt(newencryptUser,decryptkey));
-                graph.addEdge("Admin->"+decrypt(newencryptUser,decryptkey), "admin", decrypt(newencryptUser,decryptkey),true);  
+                graph.addEdge("DreamCompany->"+decrypt(newencryptUser,decryptkey), "DreamCompany", decrypt(newencryptUser,decryptkey),true);  
             }
             
             else{
@@ -456,29 +461,68 @@ public class ClassFile<E> implements MLM<E> {
 
     @Override//2 files
     //userdata and companypersonal data(password,revenue)
-    public void save() {
-        String b = "";
-        System.out.println(b);
+    public void saveUserData() {
         try{
-            PrintWriter print = new PrintWriter(new FileOutputStream("data.txt"));
-            String a = "ID\tUsername\tEncryptedUsername\tRevenue (RM)";
+            PrintWriter print = new PrintWriter(new FileOutputStream("userdata.txt"));
+            String a = "ID\tUsername\t\tEncryptedUsername\t\tGeneration\tEncryptedParentName\tRecruitRevenue(RM)\tSalesRevenue(RM)\tCompanyRecruitRevenueInThisNode\tCompanySalesRevenueInThisNode\tGoodsSold";
             print.write(a);
             print.println();
-            print.write(c);
-            print.println();
+            String b = "";
             for(int i=0;i<usernames.size();i++){
-                b = "|" + getNode(root,usernames.get(i)).id + "\t\t|" + getNode(root,usernames.get(i)).encrypteddata + "\t\t\t|" + getNode(root,usernames.get(i)).amount + "\t\t|";
+                b = getNodebyencryptUser(root,usernames.get(i)).id + "\t" + decrypt((String)getNodebyencryptUser(root,usernames.get(i)).encrypteddata,decryptkey)+ "\t\t" + getNodebyencryptUser(root,usernames.get(i)).encrypteddata + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).generation;
+                b += "\t\t" + getNodebyencryptUser(root,usernames.get(i)).parent.encrypteddata + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).recruitamount + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).salesamount + "\t\t";
+                b += getNodebyencryptUser(root,usernames.get(i)).companyrecruitamount + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).companysalesamount + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).goodssell;
                 print.write(b);
                 print.println();
             }
-            
-            //scan.close();
             print.close();
         }catch(IOException e){
             System.out.println("File output Error");
         }
     }
 
+    public void saveCompanyInfo(){
+        try{
+            PrintWriter print = new PrintWriter(new FileOutputStream("companydata.txt"));
+            String a = "RecruitRevenue\tSalesRevenue\tTotalDeletedNodeRevenue\tGoodsSold\tPassword\tDecryptKey\tFee\tRecruit1stGenCommission\tRecruit2ndGenCommission\tRecruit3rdGenCommission\tRecruit4thGenCommission\tRecruit5thGenCommission\tSales1stGenCommission\tSales2ndGenCommission\tSales3rdGenCommission";
+            print.write(a);
+            print.println();
+            print.write(COMPANY_REVENUE + "\t\t" + salesRevenue + "\t\t" + TOTALdeletedNodeRevenue + "\t\t\t" + goodssold + "\t\t" + password + "\t\t" + decryptkey + "\t\t" + fee + "\t" + recruitcommission.get(0) + "\t\t\t");
+            print.write(recruitcommission.get(1) + "\t\t\t" + recruitcommission.get(2) + "\t\t\t" + recruitcommission.get(3) + "\t\t\t" + recruitcommission.get(4) + "\t\t\t" + salescommission.get(0) + "\t\t\t" + salescommission.get(1) + "\t\t\t" + salescommission.get(2));
+            print.println();
+            print.close();
+        }catch(IOException e){
+            System.out.println("File output Error");
+        }
+    }
+    
+    public void loadCompanyInfo(){
+        try{
+            Scanner s = new Scanner(new FileInputStream("companydata.txt"));
+            while(s.hasNext()){
+                s.nextLine();
+                this.COMPANY_REVENUE = s.nextDouble();
+                this.salesRevenue = s.nextDouble();
+                this.TOTALdeletedNodeRevenue = s.nextDouble();
+                this.goodssold = s.nextInt();
+                this.password = s.next();
+                this.decryptkey = s.next();
+                this.fee = s.nextDouble();
+                this.recruitcommission.set(0, s.nextDouble());
+                this.recruitcommission.set(1, s.nextDouble());
+                this.recruitcommission.set(2, s.nextDouble());
+                this.recruitcommission.set(3, s.nextDouble());
+                this.recruitcommission.set(4, s.nextDouble());
+                this.salescommission.set(0, s.nextDouble());
+                this.salescommission.set(1, s.nextDouble());
+                this.salescommission.set(2, s.nextDouble());
+                s.nextLine();
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("File not found.");
+        }
+    }
+    
     public TreeNode<String> getRoot() {
         return root;
     }
@@ -515,6 +559,14 @@ public class ClassFile<E> implements MLM<E> {
     @Override
     public void setFee(double fee) {
         this.fee = fee;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setdecryptkey(String key) {

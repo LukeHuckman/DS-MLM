@@ -15,7 +15,7 @@ public interface MLM<E> {
     //decrypt the username
     public String decrypt(String encryptedname,String key);
     //save the users data in txt file
-    public void save();
+    public void saveUserData();
     //see the entire tree of users
     public void display();
     //see the revenue of each generation

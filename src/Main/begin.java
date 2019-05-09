@@ -3,12 +3,12 @@ package Main;
 import java.util.Scanner;
 
 public class begin {
-    public static String password = "0000";
     public static String mark = "-1";
     public static double temprecruit = 0.0;
     public static double tempsales = 0.0;
     public static ClassFile mlm = new ClassFile();
     public static void main(String[] args) { 
+        mlm.loadCompanyInfo();
         Scanner s = new Scanner(System.in);
         MainGUI GUI = new MainGUI();
         /**GUI NOTICE:
@@ -45,10 +45,10 @@ public class begin {
             }
             else if(option.equals("admin")){
                 String pass = "";
-                while(!pass.equals(password)){
+                while(!pass.equals(mlm.getPassword())){
                     System.out.print("Enter the password: ");
                     pass = s.nextLine();
-                    if(pass.equals(password)){
+                    if(pass.equals(mlm.getPassword())){
                         while(!mark.equals("0")){
                         System.out.print("1 Create new user."
                             + "\n2 Retrieve the data of the user chosen."
@@ -64,12 +64,16 @@ public class begin {
                         mark = s.nextLine();
                         switch (mark) {
                             case "1":
-                                System.out.print("Enter the new username: ");
+                                System.out.print("Enter the new username (The length of the name is between 10 to 12 characters and no spacing): ");
                                 String newUser = s.nextLine();
-                                System.out.print("Enter the user ID who recommend the user (Admin ID is 000000): ");
-                                String userParentid = s.nextLine();
-                                mlm.create(mlm.encrypt(newUser,mlm.getdecryptkey()),userParentid);
-                    
+                                if(newUser.length()>=10&&newUser.length()<=12&&!newUser.contains(" ")){
+                                    System.out.print("Enter the user ID who recommend the user (Admin ID is 000000): ");
+                                    String userParentid = s.nextLine();
+                                    mlm.create(mlm.encrypt(newUser,mlm.getdecryptkey()),userParentid);
+                                }
+                                else{
+                                    System.out.println("Invalid username. The system will return to mainpage.");
+                                }                    
                                 break;
                             case "2":
                                 System.out.print("Enter the username ID: ");
@@ -129,7 +133,9 @@ public class begin {
                                 break;
                             case "8":
                                 System.out.println("The data are saved.");
-                                mlm.save();
+                                //mlm.save();
+                                mlm.saveCompanyInfo();
+                                mlm.saveUserData();
                                 System.out.println();
                                 break;
                             case "9"://change the interface password and key,the change commission got problem
@@ -147,9 +153,10 @@ public class begin {
                                         case "1":
                                             System.out.print("Enter the current password: ");
                                             String z = s.nextLine();
-                                            if(z.equals(password)){
+                                            if(z.equals(mlm.getPassword())){
                                                 System.out.print("Enter the new password: ");
-                                                password = s.nextLine();
+                                                String d = s.nextLine();
+                                                mlm.setPassword(d);
                                             }
                                             else{
                                                 System.out.println("Wrong password. The server will back to homepage.");
