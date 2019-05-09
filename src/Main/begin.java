@@ -168,57 +168,52 @@ public class begin {
                                             }
                                             break;
                                         case "3":
-                                            System.out.print("Enter the generation: ");
+                                            System.out.print("Enter the generation (1-5): ");
                                             int e = s.nextInt();
                                             s.nextLine();
                                             if(e-1<0||e-1>=mlm.getRecruitCommissionSize()){
                                                 System.out.println("Wrong input. The server will back to homepage.");
                                             }
                                             else{
-                                                double temp = 0;
+                                                double temp = 0.8;
                                                 for(int x=0;x<mlm.getRecruitCommissionSize();x++){
-                                                    if(x!=e-1)
-                                                    temp += mlm.getRecruitCommission(x);
+                                                    temp -= mlm.getRecruitCommission(x);
                                                 }
-                                                temp+=temprecruit;
-                                                System.out.print("Enter the new commission in % (The commission cannot exceed "+ Math.round((0.8-temp-temprecruit)*100) + "%!): ");
+                                                temp += mlm.getRecruitCommission(e-1);
+                                                System.out.print("Enter the new commission in % (The commission cannot exceed "+ Math.round((temp)*100) + "%!): ");
                                                 double f = s.nextDouble();
                                                 f/=100;
-                                                double i = 0.8 - mlm.getRecruitCommission(e-1);
                                                 s.nextLine();
-                                                if(i+f>0.8){
-                                                    System.out.println("The total commission are exceed " + (Math.round(0.8-temp-temprecruit)*100) +"%. The server will back to homepage.");
+                                                if(f>temp){
+                                                    System.out.println("The total commission are exceed " + Math.round((temp)*100) +"%. The server will back to homepage.");
                                                 }
                                                 else{
                                                     mlm.setRecruitCommission(e-1, f);
-                                                    temprecruit = Math.round(0.5-temp-f);
                                                 }
                                             }
                                             break;
                                         case "4":
-                                            System.out.print("Enter the generation: ");
+                                            System.out.print("Enter the generation (1-3): ");
                                             int g = s.nextInt();
                                             s.nextLine();
                                             if(g-1<0||g-1>=mlm.getSalesCommissionSize()){
                                                 System.out.println("Wrong input. The server will back to homepage.");
                                             }
                                             else{
-                                                double temp = 0;
+                                                double temp = 0.5;
                                                 for(int x=0;x<mlm.getSalesCommissionSize();x++){
-                                                    if(x!=g-1)
-                                                    temp += mlm.getSalesCommission(x);
+                                                    temp -= mlm.getSalesCommission(x);
                                                 }
-                                                System.out.print("Enter the new commission in % (The commission cannot exceed "+ (Math.round(0.5-temp-tempsales)*100) + "%!): ");
+                                                temp += mlm.getSalesCommission(g-1);
+                                                System.out.print("Enter the new commission in % (The commission cannot exceed "+ Math.round((temp)*100) + "%!): ");
                                                 double f = s.nextDouble();
                                                 f/=100;
-                                                double i = 0.5 - mlm.getSalesCommission(g-1);
                                                 s.nextLine();
-                                                if(i+f>0.5){
-                                                    System.out.println("The total commission are exceed " + (Math.round(0.5-temp-tempsales)*100) + "%. The server will back to homepage.");
+                                                if(f>temp){
+                                                    System.out.println("The total commission are exceed " + Math.round((temp)*100) + "%. The server will back to homepage.");
                                                 }
                                                 else{
                                                     mlm.setSalesCommission(g-1, f);
-                                                    tempsales = Math.round(0.5-temp-f);
                                                 }
                                             }
                                             break;

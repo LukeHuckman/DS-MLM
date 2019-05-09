@@ -249,7 +249,7 @@ public class ClassFile<E> implements MLM<E> {
             b += "Sales revenue: RM " + salesRevenue + "\n";
             b += "Total revenue gained from deleted users: " + TOTALdeletedNodeRevenue + "\n";
             b += "Total revenue: RM " + a + "\n";
-            b += "Total goods sold: RM " + goodssold + "\n";
+            b += "Total goods sold: " + goodssold + "\n";
             b += "Current numbers of registered users: " + usernames.size() + "\n";
             return b;
         }
@@ -260,7 +260,7 @@ public class ClassFile<E> implements MLM<E> {
             a += "Sales revenue: RM " + getNodebyID(root,userid).salesamount + "\n";
             a += "Amount of goods sold: " + getNodebyID(root,userid).goodssell + "\n";
             a += "Company's recruit revenue that gained from this user: RM " + getNodebyID(root,userid).companyrecruitamount + "\n";
-            a += "Company's recruit revenue that gained from this user: RM " + getNodebyID(root,userid).companysalesamount + "\n";
+            a += "Company's sales revenue that gained from this user: RM " + getNodebyID(root,userid).companysalesamount + "\n";
             a += "Encrypted name: " + getNodebyID(root,userid).encrypteddata + "\n";
             a += "Encrypted parent name: " + getNodebyID(root,userid).parent.encrypteddata + "\n";
             a += "Total number of users recruited: " + getNodebyID(root,userid).children.size() + "\n";
@@ -288,12 +288,14 @@ public class ClassFile<E> implements MLM<E> {
         }
     }
     public void sales(String id, int goods, double sales){
-        goodssold += goods;
         if(id.equals("000000")){
             root.salesamount += sales;
+            goodssold += goods;
         }
         else if(getNodebyID(root,id)!=null){
             salesIncome(getNodebyID(root,id), sales);
+            getNodebyID(root,id).goodssell += goods;
+            goodssold += goods;
         }
         else{
             System.out.println("The user is not exist.");
