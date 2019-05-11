@@ -9,6 +9,7 @@ public class begin {
     public static ClassFile mlm = new ClassFile();
     public static void main(String[] args) { 
         mlm.loadCompanyInfo();
+        mlm.loadUserInfo();
         Scanner s = new Scanner(System.in);
         MainGUI GUI = new MainGUI();
         /**GUI NOTICE:
@@ -78,7 +79,7 @@ public class begin {
                             case "2":
                                 System.out.print("Enter the username ID: ");
                                 String userNameid = s.nextLine();
-                                System.out.println(mlm.retrieveAdmin(userNameid));
+                                System.out.println(mlm.retrieveCompany(userNameid));
                                 if(mlm.searchID(mlm.getRoot(), userNameid)&&!userNameid.equals(mlm.getRoot().id)){
                                     System.out.print("Enter password to decrypt both the username and the parent's username: ");
                                     String password = s.nextLine();
@@ -108,11 +109,12 @@ public class begin {
                                 System.out.print("Enter the generation the company gains (Start from 1): ");  
                                 int gen = s.nextInt();
                                 s.nextLine();
-                                if(mlm.getGenerationRevenue(gen,mlm.getRoot(),0.0)==0){
+                                if(mlm.getGenerationRecruitRevenue(gen,mlm.getRoot(),0.0)==0){
                                     System.out.println("Error input.");
                                 }
                                 else{
-                                    System.out.println("Company's revenue for this generation: RM " + mlm.getGenerationRevenue(gen,mlm.getRoot(),0.0));
+                                    System.out.println("Company's recruit revenue for this generation: RM " + mlm.getGenerationRecruitRevenue(gen,mlm.getRoot(),0.0));
+                                    System.out.println("Company's sales revenue for this generation: RM " + mlm.getGenerationSalesRevenue(gen,mlm.getRoot(),0.0));
                                 }
                                 break;
                             case "7":
@@ -135,7 +137,7 @@ public class begin {
                                 System.out.println("The data are saved.");
                                 //mlm.save();
                                 mlm.saveCompanyInfo();
-                                mlm.saveUserData();
+                                mlm.saveUserInfo();
                                 System.out.println();
                                 break;
                             case "9"://change the interface password and key,the change commission got problem

@@ -48,7 +48,7 @@ public class ClassFile<E> implements MLM<E> {
         this.goodssold = 0;
         this.root = new TreeNode<String>(encrypt("DreamCompany",decryptkey),"000000");
         this.usernames = new ArrayList();
-        this.idnumber = 0;
+        this.idnumber = 1;
         this.decryptkey = "0000";
         this.password = "0000";
         graph.addNode("DreamCompany");
@@ -72,7 +72,14 @@ public class ClassFile<E> implements MLM<E> {
             System.out.println();
         //link to its parents
             if(userParentid.equals(root.id)){
-                idnumber++;
+                while(getNodebyID(root,idConverter(idnumber) + idnumber)!=null){
+                    if(getNodebyID(root,idConverter(idnumber) + idnumber)==null){
+                        break;
+                    }
+                    else{
+                        idnumber++;
+                    }
+                }
                 newNode.id = idConverter(idnumber) + idnumber;
                 newNode.generation = 1;
                 //graph.addEdge("Admin->"+newencryptUser, "admin", newencryptUser,true);  
@@ -90,7 +97,14 @@ public class ClassFile<E> implements MLM<E> {
             else{
                 if(searchID(root,userParentid)){
                     String encryptuserParent = (String) getNodebyID(root,userParentid).encrypteddata;
-                    idnumber++;
+                    while(getNodebyID(root,idConverter(idnumber) + idnumber)!=null){
+                        if(getNodebyID(root,idConverter(idnumber) + idnumber)==null){
+                            break;
+                        }
+                        else{
+                            idnumber++;
+                        }
+                    }
                     newNode.id = idConverter(idnumber) + idnumber;
                     newNode.generation = getNodebyID(root,userParentid).generation + 1;
                     //graph.addEdge(encryptuserParent+"->"+newencryptUser, encryptuserParent, newencryptUser,true);
@@ -110,7 +124,7 @@ public class ClassFile<E> implements MLM<E> {
             }
         }
     }
-
+    //convert the number of id into String form
     public String idConverter(int number){
         String a = "";
         int b = 100000;
@@ -120,7 +134,7 @@ public class ClassFile<E> implements MLM<E> {
         }
         return a;
     }
-    
+    //search the node using encrypted username
     public boolean searchDATA(TreeNode<String> current,String newUser){
         if(current.encrypteddata.equals(newUser)){
             return true;
@@ -135,7 +149,7 @@ public class ClassFile<E> implements MLM<E> {
         }
         return false;
     }
-    
+    //search the node using user ID
     public boolean searchID(TreeNode<String> current,String userID){
         if(current.id.equals(userID)){
             return true;
@@ -150,7 +164,7 @@ public class ClassFile<E> implements MLM<E> {
         }
         return false;
     }
-    
+    //return the node using user ID
     public TreeNode getNodebyID(TreeNode<String> current,String userid){//problem
         if(current.id.equals(userid)){
             return current;
@@ -165,7 +179,7 @@ public class ClassFile<E> implements MLM<E> {
         }
         return null;
     }
-    
+    //return the node using encrypted username
     public TreeNode getNodebyencryptUser(TreeNode<String> current,String encryptUser){//problem
         if(current.encrypteddata.equals(encryptUser)){
             return current;
@@ -180,7 +194,7 @@ public class ClassFile<E> implements MLM<E> {
         }
         return null;
     }
-    
+    //insert the node into the tree
     public void insert(TreeNode<String> current,TreeNode<String> newUser,String data){
         for(int a=0;a<current.getChildren().size();a++){
             if(current.getChildren().get(a).encrypteddata.equals(data)){
@@ -190,7 +204,7 @@ public class ClassFile<E> implements MLM<E> {
         }
         current.getChildren().forEach(each -> insert(each,newUser,data));
     }
-    
+    //delete the node from the tree
     public void deleteNode(TreeNode<String> current){
         if(current.parent!=null){
             int index = current.parent.getChildren().indexOf(current);
@@ -230,10 +244,8 @@ public class ClassFile<E> implements MLM<E> {
         else{
             System.out.println("The user is not-exist.");
         }
-        
-        //id.remove(position);
     }
-    
+    //set the generation of each node
     public void setGeneration(TreeNode<String> current){
         if(current.parent==root){
             current.generation = 1;
@@ -246,8 +258,8 @@ public class ClassFile<E> implements MLM<E> {
         }
     }
     
-    @Override//retrieve the revenue of the user only(need what extra??)
-    public String retrieveAdmin(String userid) {
+    @Override
+    public String retrieveCompany(String userid) {
         if(userid.equals(root.id)){
             double a = COMPANY_REVENUE + salesRevenue;
             String b = "Recruit revenue: RM " + COMPANY_REVENUE + "\n";
@@ -276,6 +288,7 @@ public class ClassFile<E> implements MLM<E> {
         }
     }
     
+    @Override
     public String retrieveUser(String userid) {
         if(searchID(root,userid)){
             String a = "ID: " + getNodebyID(root,userid).id + "\n";
@@ -292,6 +305,7 @@ public class ClassFile<E> implements MLM<E> {
             return "The username is not exist.";
         }
     }
+    //obtain the sales data from the interface
     public void sales(String id, int goods, double sales){
         if(id.equals("000000")){
             root.salesamount += sales;
@@ -306,7 +320,7 @@ public class ClassFile<E> implements MLM<E> {
             System.out.println("The user is not exist.");
         }
     }
-    
+    //calculate the sales and its commission from each node involved
     public void salesIncome(TreeNode user, double sales){
         int cnt = 1;
         double money = sales*(salescommission.get(0));
@@ -334,7 +348,7 @@ public class ClassFile<E> implements MLM<E> {
         }
         salesRevenue = root.salesamount;
     }
-    
+    //calculate the recruit commission from each node involved
     public void recruitIncome(TreeNode user){
         double money = 0;
         int cnt = 0;
@@ -363,16 +377,26 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     @Override
-    public double getGenerationRevenue(int indexPlusONE,TreeNode<String> current,double companyrevenue){
+    public double getGenerationRecruitRevenue(int indexPlusONE,TreeNode<String> current,double companyrevenue){
         if(current.generation==indexPlusONE){
-            companyrevenue += current.companyrecruitamount;//recruit only
+            companyrevenue += current.companyrecruitamount;
         }
         for(TreeNode child:current.children){
-            companyrevenue = getGenerationRevenue(indexPlusONE,child,companyrevenue);
+            companyrevenue = getGenerationRecruitRevenue(indexPlusONE,child,companyrevenue);
         }
         return companyrevenue;
     }
-
+    //get company sales revenue from targeted generation
+    public double getGenerationSalesRevenue(int indexPlusONE,TreeNode<String> current,double companyrevenue){
+        if(current.generation==indexPlusONE){
+            companyrevenue += current.companysalesamount;
+        }
+        for(TreeNode child:current.children){
+            companyrevenue = getGenerationSalesRevenue(indexPlusONE,child,companyrevenue);
+        }
+        return companyrevenue;
+    }
+    
     @Override
     public void update(String userid) {
         if(searchID(root,userid)&&!userid.equals(root.id)){
@@ -459,19 +483,18 @@ public class ClassFile<E> implements MLM<E> {
             return "The Key is Incorrect!";
     }
 
-    @Override//2 files
-    //userdata and companypersonal data(password,revenue)
-    public void saveUserData() {
+    @Override
+    public void saveUserInfo() {
         try{
             PrintWriter print = new PrintWriter(new FileOutputStream("userdata.txt"));
-            String a = "ID\tUsername\t\tEncryptedUsername\t\tGeneration\tEncryptedParentName\tRecruitRevenue(RM)\tSalesRevenue(RM)\tCompanyRecruitRevenueInThisNode\tCompanySalesRevenueInThisNode\tGoodsSold";
+            String a = "ID\tUsername\t\tEncryptedUsername\t\tGeneration\tEncryptedParentName\t\tRecruitRevenue(RM)\tSalesRevenue(RM)\tCompanyRecruitRevenueInThisNode\tCompanySalesRevenueInThisNode\tGoodsSold";
             print.write(a);
             print.println();
             String b = "";
             for(int i=0;i<usernames.size();i++){
                 b = getNodebyencryptUser(root,usernames.get(i)).id + "\t" + decrypt((String)getNodebyencryptUser(root,usernames.get(i)).encrypteddata,decryptkey)+ "\t\t" + getNodebyencryptUser(root,usernames.get(i)).encrypteddata + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).generation;
-                b += "\t\t" + getNodebyencryptUser(root,usernames.get(i)).parent.encrypteddata + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).recruitamount + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).salesamount + "\t\t";
-                b += getNodebyencryptUser(root,usernames.get(i)).companyrecruitamount + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).companysalesamount + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).goodssell;
+                b += "\t\t" + getNodebyencryptUser(root,usernames.get(i)).parent.encrypteddata + "\t\t" + getNodebyencryptUser(root,usernames.get(i)).recruitamount + "\t\t\t" + getNodebyencryptUser(root,usernames.get(i)).salesamount + "\t\t\t";
+                b += getNodebyencryptUser(root,usernames.get(i)).companyrecruitamount + "\t\t\t\t" + getNodebyencryptUser(root,usernames.get(i)).companysalesamount + "\t\t\t\t" + getNodebyencryptUser(root,usernames.get(i)).goodssell;
                 print.write(b);
                 print.println();
             }
@@ -481,6 +504,36 @@ public class ClassFile<E> implements MLM<E> {
         }
     }
 
+    @Override
+    public void loadUserInfo(){
+        try{
+            Scanner s = new Scanner(new FileInputStream("userdata.txt"));
+            if(s.hasNext()){
+                s.nextLine();
+            }
+            while(s.hasNext()){
+                String tempid = s.next();
+                s.next();
+                String tempencryptname = s.next();
+                usernames.add(tempencryptname);
+                TreeNode<String> newNode = new TreeNode<String>(tempencryptname);
+                newNode.id = tempid;
+                newNode.generation = s.nextInt();
+                String tempencryptparent = s.next();
+                newNode.parent = getNodebyencryptUser(root,tempencryptparent);
+                getNodebyencryptUser(root,tempencryptparent).addChild(newNode);
+                newNode.recruitamount = s.nextDouble();
+                newNode.salesamount = s.nextDouble();
+                newNode.companyrecruitamount = s.nextDouble();
+                newNode.companysalesamount = s.nextDouble();
+                newNode.goodssell = s.nextInt();
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("File not found.");
+        }
+    }
+    
+    @Override
     public void saveCompanyInfo(){
         try{
             PrintWriter print = new PrintWriter(new FileOutputStream("companydata.txt"));
@@ -496,12 +549,17 @@ public class ClassFile<E> implements MLM<E> {
         }
     }
     
+    @Override
     public void loadCompanyInfo(){
         try{
             Scanner s = new Scanner(new FileInputStream("companydata.txt"));
-            while(s.hasNext()){
+            if(s.hasNext()){
                 s.nextLine();
+            }
+            while(s.hasNext()){
                 this.COMPANY_REVENUE = s.nextDouble();
+                root.recruitamount = COMPANY_REVENUE;
+                root.salesamount = salesRevenue;
                 this.salesRevenue = s.nextDouble();
                 this.TOTALdeletedNodeRevenue = s.nextDouble();
                 this.goodssold = s.nextInt();
@@ -542,7 +600,7 @@ public class ClassFile<E> implements MLM<E> {
             print(root," ");
         }
     }
-
+    //print the tree
     public void print(TreeNode<String> node,String space){
         String space2 = " ";
         String decryptdata = "";
@@ -593,6 +651,7 @@ public class ClassFile<E> implements MLM<E> {
         return salescommission.size();
     }
     
+    @Override
     public void setRecruitCommission(int gen, double newCommission){
         this.recruitcommission.set(gen, newCommission);
     }
