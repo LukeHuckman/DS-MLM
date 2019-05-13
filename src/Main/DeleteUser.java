@@ -5,6 +5,9 @@
  */
 package Main;
 
+import static Main.begin.mlm;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
@@ -37,7 +40,7 @@ public class DeleteUser extends java.awt.Dialog {
             }
         });
 
-        jLabel1.setText("Enter a username to delete:");
+        jLabel1.setText("Enter a user ID to delete:");
 
         jButton1.setText("OK");
         jButton1.setActionCommand("");
@@ -56,7 +59,7 @@ public class DeleteUser extends java.awt.Dialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 94, Short.MAX_VALUE))
+                        .addGap(0, 111, Short.MAX_VALUE))
                     .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -87,8 +90,12 @@ public class DeleteUser extends java.awt.Dialog {
     }//GEN-LAST:event_closeDialog
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        begin.mlm.delete(jTextField1.getText());
-        dispose();
+        if(mlm.searchID(mlm.root,jTextField1.getText())){
+            mlm.delete(jTextField1.getText());
+            dispose();
+        }
+        else
+            JOptionPane.showMessageDialog(this,"User does not exist.","Error",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

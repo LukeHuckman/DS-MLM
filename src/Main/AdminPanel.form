@@ -134,7 +134,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton9">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Change the registration fees"/>
+        <Property name="text" type="java.lang.String" value="Enter the sales"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton10">
@@ -144,7 +144,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Change the password, decrypt key, fee and commissions."/>
+        <Property name="text" type="java.lang.String" value="Change the password, decrypt key, fee and commissions"/>
       </Properties>
     </Component>
   </SubComponents>

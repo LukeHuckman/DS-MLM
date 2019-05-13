@@ -1,5 +1,8 @@
 package Main;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,10 +13,14 @@ import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.swingViewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
 
 public class ClassFile<E> implements MLM<E> {
@@ -52,10 +59,12 @@ public class ClassFile<E> implements MLM<E> {
         this.idnumber = 1;
         this.decryptkey = "0000";
         this.password = "0000";
+        graph.setAttribute("ui.stylesheet", "node{shape:circle;size: 140px; fill-color: green; text-alignment: center; text-size: 11;} edge{size:3px;arrow-shape: arrow; arrow-size: 10px, 10px;}");
         graph.addNode("DreamCompany");
         Node graphnode = graph.getNode("DreamCompany");
-        graphnode.addAttribute("ui.style", "shape:circle;fill-color: red;size: 90px; text-alignment: center;");
-        graphnode.addAttribute("ui.label", "DreamCompany");
+        graphnode.addAttribute("ui.style", "fill-color: red;");
+        graphnode.addAttribute("ui.label", "DreamCompany ("+root.id+")");
+        
     }
     
     @Override
@@ -90,8 +99,7 @@ public class ClassFile<E> implements MLM<E> {
                 //GUI
                 graph.addNode(decrypt(newencryptUser,decryptkey));
                 Node graphnode = graph.getNode(decrypt(newencryptUser,decryptkey));
-                graphnode.addAttribute("ui.style", "shape:circle;fill-color: green;size: 90px; text-alignment: center;");
-                graphnode.addAttribute("ui.label", decrypt(newencryptUser,decryptkey));
+                graphnode.addAttribute("ui.label", decrypt(newencryptUser,decryptkey)+" ("+newNode.id+")");
                 graph.addEdge("DreamCompany->"+decrypt(newencryptUser,decryptkey), "DreamCompany", decrypt(newencryptUser,decryptkey),true);  
             }
             
@@ -115,8 +123,7 @@ public class ClassFile<E> implements MLM<E> {
                     //GUI
                     graph.addNode(decrypt(newencryptUser,decryptkey));
                     Node graphnode = graph.getNode(decrypt(newencryptUser,decryptkey));
-                    graphnode.addAttribute("ui.style", "shape:circle;fill-color: green;size: 90px; text-alignment: center;");
-                    graphnode.addAttribute("ui.label", decrypt(newencryptUser,decryptkey));
+                    graphnode.addAttribute("ui.label", decrypt(newencryptUser,decryptkey)+" ("+newNode.id+")");
                     graph.addEdge(decrypt(encryptuserParent,decryptkey)+"->"+decrypt(newencryptUser,decryptkey), decrypt(encryptuserParent,decryptkey), decrypt(newencryptUser,decryptkey),true);
                 }
                 else{
@@ -600,6 +607,7 @@ public class ClassFile<E> implements MLM<E> {
         else{
             print(root," ");
         }*/
+        
     }
     //print the tree
     public void print(TreeNode<String> node,String space){

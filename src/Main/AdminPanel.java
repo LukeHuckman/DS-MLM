@@ -89,11 +89,11 @@ public class AdminPanel extends java.awt.Frame {
 
         jButton8.setText("Get the revenue of each generations");
 
-        jButton9.setText("Change the registration fees");
+        jButton9.setText("Enter the sales");
 
         jButton10.setText("Save the directory of data");
 
-        jButton1.setText("Change the password, decrypt key, fee and commissions.");
+        jButton1.setText("Change the password, decrypt key, fee and commissions");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

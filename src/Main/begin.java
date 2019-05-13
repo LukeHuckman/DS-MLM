@@ -11,11 +11,11 @@ public class begin {
         mlm.loadCompanyInfo();
         mlm.loadUserInfo();
         Scanner s = new Scanner(System.in);
-//        AdminPanel GUI = new AdminPanel();
-//        GUI.setLocationRelativeTo(null);
-//        GUI.setVisible(true);
+        Intro window = new Intro();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
         //load the data from file
-        String option = " ";
+        /*String option = " ";
         while(!option.equals("user")||!option.equals("admin")||!option.equals("exit")){
             System.out.println("Welcome to main page of DreamCorporation!!!");
             System.out.print("Are you is user or admin? (Enter {'user' / 'admin' / 'exit' to end the program}): ");
@@ -264,6 +264,6 @@ public class begin {
             }
         }
         
-        
+     */   
     }
 }
