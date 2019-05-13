@@ -23,7 +23,7 @@ import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.swingViewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
 
-public class ClassFile<E> implements MLM<E> {
+public class Functions<E> implements MLM<E> {
     private double COMPANY_REVENUE;//recruit revenue
     private double salesRevenue;
     private double TOTALdeletedNodeRevenue;
@@ -38,7 +38,7 @@ public class ClassFile<E> implements MLM<E> {
     private String decryptkey;
     private String password;
 
-    public ClassFile() {
+    public Functions() {
         this.COMPANY_REVENUE = 0;
         this.salesRevenue = 0;
         this.fee = 50.0;

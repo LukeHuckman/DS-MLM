@@ -109,7 +109,6 @@ public class UserEnter extends java.awt.Dialog {
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         if(mlm.searchDATA(mlm.getRoot(), mlm.encrypt(nameField.getText(),mlm.getdecryptkey()))&&!nameField.getText().equalsIgnoreCase("admin")){
-            dispose();
             JOptionPane.showMessageDialog(this, mlm.retrieveUser(mlm.getNodebyencryptUser(mlm.getRoot(), mlm.encrypt(nameField.getText(),mlm.getdecryptkey())).id),"User information",JOptionPane.PLAIN_MESSAGE);
         }
         else

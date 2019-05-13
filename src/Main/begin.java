@@ -6,7 +6,7 @@ public class begin {
     public static String mark = "-1";
     public static double temprecruit = 0.0;
     public static double tempsales = 0.0;
-    public static ClassFile mlm = new ClassFile();
+    public static Functions mlm = new Functions();
     public static void main(String[] args) { 
         mlm.loadCompanyInfo();
         mlm.loadUserInfo();
