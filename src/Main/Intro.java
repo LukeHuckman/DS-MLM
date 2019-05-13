@@ -30,6 +30,7 @@ public class Intro extends java.awt.Frame {
         userButton = new javax.swing.JButton();
         adminButton = new javax.swing.JButton();
 
+        setResizable(false);
         setTitle("DreamCorporation");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -45,8 +46,18 @@ public class Intro extends java.awt.Frame {
         jLabel2.setText("Are you a user or an admin?");
 
         userButton.setText("User");
+        userButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userButtonActionPerformed(evt);
+            }
+        });
 
         adminButton.setText("Admin");
+        adminButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -88,6 +99,22 @@ public class Intro extends java.awt.Frame {
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
         System.exit(0);
     }//GEN-LAST:event_exitForm
+
+    private void adminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtonActionPerformed
+        PasswordPrompt window = new PasswordPrompt(this, true);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+        if(!window.isVisible())
+            dispose();
+    }//GEN-LAST:event_adminButtonActionPerformed
+
+    private void userButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userButtonActionPerformed
+        UserEnter window = new UserEnter(this, true);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+        if(!window.isVisible())
+            dispose();
+    }//GEN-LAST:event_userButtonActionPerformed
 
     /**
      * @param args the command line arguments

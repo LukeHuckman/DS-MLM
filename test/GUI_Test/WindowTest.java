@@ -5,7 +5,7 @@
  */
 package GUI_Test;
 
-import Main.MainGUI;
+import Main.AdminPanel;
 import java.awt.FlowLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -17,7 +17,7 @@ import javax.swing.JFrame;
  */
 public class WindowTest {
     public static void main(String[] args){
-        MainGUI test = new MainGUI();
+        AdminPanel test = new AdminPanel();
         //test.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         test.setLocationRelativeTo(null);
         //test.setSize(300,300);

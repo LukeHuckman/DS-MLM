@@ -29,9 +29,10 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jButton1" max="32767" attributes="0"/>
                   <Component id="jButton9" alignment="0" max="32767" attributes="0"/>
                   <Component id="jButton8" alignment="0" max="32767" attributes="0"/>
                   <Component id="jButton7" alignment="0" max="32767" attributes="0"/>
@@ -41,7 +42,7 @@
                   <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
                   <Component id="jButton10" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,7 +66,9 @@
               <Component id="jButton9" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton10" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="10" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -77,7 +80,7 @@
           <Font name="Dialog" size="14" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Welcome to DreamCorporation!!!"/>
+        <Property name="text" type="java.lang.String" value="DreamCorporation (Admin Panel)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
@@ -134,6 +137,11 @@
     <Component class="javax.swing.JButton" name="jButton10">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save the directory of data"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Change the password, decrypt key, fee and commissions."/>
       </Properties>
     </Component>
   </SubComponents>

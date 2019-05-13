@@ -9,13 +9,13 @@ package Main;
  *
  * @author User
  */
-public class MainGUI extends java.awt.Frame {
+public class AdminPanel extends java.awt.Frame {
 
     /**
      * Creates new form Frame
      */
     //ClassFile mlm = new ClassFile();
-    public MainGUI() {
+    public AdminPanel() {
         initComponents();
     }
 
@@ -35,6 +35,7 @@ public class MainGUI extends java.awt.Frame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setName(""); // NOI18N
         setResizable(false);
@@ -47,7 +48,7 @@ public class MainGUI extends java.awt.Frame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Welcome to DreamCorporation!!!");
+        jLabel1.setText("DreamCorporation (Admin Panel)");
 
         jButton4.setText("Update the data of a user");
         jButton4.setToolTipText("");
@@ -87,14 +88,17 @@ public class MainGUI extends java.awt.Frame {
 
         jButton10.setText("Save the directory of data");
 
+        jButton1.setText("Change the password, decrypt key, fee and commissions.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -103,7 +107,7 @@ public class MainGUI extends java.awt.Frame {
                     .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(50, 50, 50))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +129,9 @@ public class MainGUI extends java.awt.Frame {
                 .addComponent(jButton9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton10)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -135,7 +141,10 @@ public class MainGUI extends java.awt.Frame {
      * Exit the Application
      */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
-        System.exit(0);
+        dispose();
+        Intro window = new Intro();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
     }//GEN-LAST:event_exitForm
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -166,13 +175,14 @@ public class MainGUI extends java.awt.Frame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainGUI().setVisible(true);
+                new AdminPanel().setVisible(true);
             }
         });
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

@@ -11,13 +11,13 @@ public class begin {
         mlm.loadCompanyInfo();
         mlm.loadUserInfo();
         Scanner s = new Scanner(System.in);
-        MainGUI GUI = new MainGUI();
+//        AdminPanel GUI = new AdminPanel();
         /**GUI NOTICE:
          * Only create, delete, and display are working for now.
          * -Luqman
          */
-        GUI.setLocationRelativeTo(null);
-        GUI.setVisible(true);
+//        GUI.setLocationRelativeTo(null);
+//        GUI.setVisible(true);
         //load the data from file
         String option = " ";
         while(!option.equals("user")||!option.equals("admin")||!option.equals("exit")){
