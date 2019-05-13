@@ -10,6 +10,7 @@ import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -23,7 +24,7 @@ public class ClassFile<E> implements MLM<E> {
     private ArrayList<Double> recruitcommission;
     private ArrayList<Double> salescommission;
     private ArrayList<String> usernames;//for reference (save method)
-    private TreeNode<String> root;//check the calculations part
+    public TreeNode<String> root;//check the calculations part
     private int idnumber;
     private int goodssold;
     private Graph graph = new SingleGraph("MLM Graph",false,true);
@@ -156,10 +157,8 @@ public class ClassFile<E> implements MLM<E> {
         }
         else{
             for(TreeNode child:current.children){
-                boolean sub = searchID(child,userID);
-                if(sub==true){
-                    return sub;
-                }
+                if(searchID(child,userID))
+                    return true;
             }
         }
         return false;
@@ -284,7 +283,7 @@ public class ClassFile<E> implements MLM<E> {
             return a;
         }
         else{
-            return "The username is not exist.";
+            return "";
         }
     }
     
@@ -398,59 +397,61 @@ public class ClassFile<E> implements MLM<E> {
     }
     
     @Override
-    public void update(String userid) {
+    public void update(String userid, boolean changeName, String newName, boolean changeParent, String newParent) {
         if(searchID(root,userid)&&!userid.equals(root.id)){
             TreeNode<String> target = getNodebyID(root,userid);
-            Scanner s = new Scanner(System.in);
-            String option1 = "";
-            String option2 = "";
-            while(!option1.equalsIgnoreCase("yes")||!option1.equalsIgnoreCase("no")){
-                System.out.print("Do you wish to change the name of the username? (Yes / No): ");
-                option1 = s.nextLine();
-                if(option1.equalsIgnoreCase("yes")){
-                    System.out.print("Enter new username: ");
-                    String newData = s.nextLine();
-                    if(!searchDATA(root,encrypt(newData,decryptkey))){
-                        usernames.set(usernames.indexOf(target.encrypteddata), encrypt(newData,decryptkey));
-                        target.encrypteddata = encrypt(newData,decryptkey);
+//            Scanner s = new Scanner(System.in);
+//            String option1 = "";
+//            String option2 = "";
+            while(true){
+//                System.out.print("Do you wish to change the name of the username? (Yes / No): ");
+//                option1 = s.nextLine();
+                if(changeName){
+//                    System.out.print("Enter new username: ");
+//                    String newData = s.nextLine();
+                    if(!searchDATA(root,encrypt(newName,decryptkey))){
+                        usernames.set(usernames.indexOf(target.encrypteddata), encrypt(newName,decryptkey));
+                        target.encrypteddata = encrypt(newName,decryptkey);
                     }
                     else{
-                        System.out.println("The user already exist.");
+                        //System.out.println("The user already exist.");
+                        JOptionPane.showMessageDialog(null,"The username already exists.","Error",JOptionPane.ERROR_MESSAGE);
                     }
                     break;
                 }
-                else if(option1.equalsIgnoreCase("no")){
+                else if(!changeName){
                     break;  
                 }
                 else{
-                    System.out.println("Error input.");
+                    JOptionPane.showMessageDialog(null,"An unexpected error has occured.","Error",JOptionPane.ERROR_MESSAGE);
                 }
             }
             
-            while(!option2.equalsIgnoreCase("yes")||!option2.equalsIgnoreCase("no")){
-                System.out.print("Do you wish to change the ID number of the user? (Yes / No) ");
-                option2 = s.nextLine();
-                if(option2.equalsIgnoreCase("yes")){
-                    System.out.print("Enter new ID: ");
-                    String newID = s.nextLine();
-                    if(!searchID(root,newID)&&!newID.equals(root.id)){
-                        target.id = newID;
+            while(true){
+//                System.out.print("Do you wish to change the ID number of the user? (Yes / No) ");
+//                option2 = s.nextLine();
+                if(changeParent){
+//                    System.out.print("Enter new ID: ");
+//                    String newID = s.nextLine();
+                    if(!searchID(root,newParent)&&!newParent.equals(root.id)){
+                        target.id = newParent;
                     }
                     else{
-                        System.out.println("The user already exist.");
+//                        System.out.println("The user already exist.");
+                        JOptionPane.showMessageDialog(null,"The username already exists.","Error",JOptionPane.ERROR_MESSAGE);
                     }
                     break;
                 }
-                else if(option2.equalsIgnoreCase("no")){
+                else if(!changeParent){
                     break;  
                 }
                 else{
-                    System.out.println("Error input.");
+                    JOptionPane.showMessageDialog(null,"An unexpected error has occured.","Error",JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
         else{
-            System.out.println("The admin data cannot be altered.");
+            JOptionPane.showMessageDialog(null,"The Admin information cannot be altered.","Error",JOptionPane.ERROR_MESSAGE);
         } 
     }
     @Override
@@ -587,18 +588,18 @@ public class ClassFile<E> implements MLM<E> {
 
     @Override
     public void display() {
-        Scanner s = new Scanner(System.in);
+        //Scanner s = new Scanner(System.in);
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
         Viewer viewer = graph.display();
         viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY);
-        System.out.print("Enter the decrypt key password: ");
+        /*System.out.print("Enter the decrypt key password: ");
         String password = s.nextLine();
         if(!password.equals(decryptkey)){
             System.out.println("Wrong password, the server will exit to mainpage.");
         }
         else{
             print(root," ");
-        }
+        }*/
     }
     //print the tree
     public void print(TreeNode<String> node,String space){

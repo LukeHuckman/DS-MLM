@@ -5,18 +5,20 @@
  */
 package Main;
 
+import Main.*;
+import static Main.begin.mlm;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
  */
-import static Main.begin.mlm;
-import javax.swing.JOptionPane;
-public class UserEnter extends java.awt.Dialog {
+public class DisplayPassword extends java.awt.Dialog {
 
     /**
-     * Creates new form User
+     * Creates new form PasswordPrompt
      */
-    public UserEnter(java.awt.Frame parent, boolean modal) {
+    public DisplayPassword(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -28,32 +30,34 @@ public class UserEnter extends java.awt.Dialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel = new javax.swing.JLabel();
-        nameField = new javax.swing.JTextField();
-        cancelButton = new javax.swing.JButton();
-        okButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        passwordField = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
+        setResizable(false);
+        setTitle("Verification");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
             }
         });
 
-        jLabel.setText("Enter your username:");
+        jLabel1.setText("Enter the admin password:");
 
-        nameField.setToolTipText("Username");
+        passwordField.setToolTipText("Password");
 
-        cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        okButton.setText("OK");
-        okButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Cancel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okButtonActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -64,28 +68,28 @@ public class UserEnter extends java.awt.Dialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                    .addComponent(passwordField)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameField)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(cancelButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(okButton)))
-                        .addContainerGap())))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 39, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(okButton))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -100,21 +104,23 @@ public class UserEnter extends java.awt.Dialog {
         //dispose();
     }//GEN-LAST:event_closeDialog
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
         Intro window = new Intro();
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-    }//GEN-LAST:event_cancelButtonActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if(mlm.searchDATA(mlm.getRoot(), mlm.encrypt(nameField.getText(),mlm.getdecryptkey()))&&!nameField.getText().equalsIgnoreCase("admin")){
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(passwordField.getText().equals(mlm.getPassword())){
             dispose();
-            JOptionPane.showMessageDialog(this, mlm.retrieveUser(mlm.getNodebyencryptUser(mlm.getRoot(), mlm.encrypt(nameField.getText(),mlm.getdecryptkey())).id),"User information",JOptionPane.PLAIN_MESSAGE);
+            AdminPanel window = new AdminPanel();
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
         }
         else
-        JOptionPane.showMessageDialog(this,"Username is invalid or does not exist.","Error",JOptionPane.ERROR_MESSAGE);
-    }//GEN-LAST:event_okButtonActionPerformed
+            JOptionPane.showMessageDialog(this,"Incorrect password.","Access denied",JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,7 +128,7 @@ public class UserEnter extends java.awt.Dialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                UserEnter dialog = new UserEnter(new java.awt.Frame(), true);
+                DisplayPassword dialog = new DisplayPassword(new java.awt.Frame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -135,9 +141,9 @@ public class UserEnter extends java.awt.Dialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JLabel jLabel;
-    private javax.swing.JTextField nameField;
-    private javax.swing.JButton okButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField passwordField;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,10 +12,6 @@ public class begin {
         mlm.loadUserInfo();
         Scanner s = new Scanner(System.in);
 //        AdminPanel GUI = new AdminPanel();
-        /**GUI NOTICE:
-         * Only create, delete, and display are working for now.
-         * -Luqman
-         */
 //        GUI.setLocationRelativeTo(null);
 //        GUI.setVisible(true);
         //load the data from file
@@ -95,7 +91,7 @@ public class begin {
                             case "3":
                                 System.out.print("Enter the username ID: ");
                                 String usernameID = s.nextLine();
-                                mlm.update(usernameID);
+//                                mlm.update(usernameID);
                                 break;
                             case "4":
                                 System.out.print("Enter the user ID that need to be deleted:");
@@ -103,7 +99,7 @@ public class begin {
                                 mlm.delete(userID);
                                 break;
                             case "5":
-                                mlm.display();
+                                //mlm.display();
                                 break;
                             case "6"://get revenue for each generations method
                                 System.out.print("Enter the generation the company gains (Start from 1): ");  

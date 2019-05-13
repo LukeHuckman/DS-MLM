@@ -9,6 +9,7 @@ package Main;
  *
  * @author User
  */
+import static Main.begin.mlm;
 public class UpdateUser extends java.awt.Dialog {
 
     /**
@@ -158,8 +159,7 @@ public class UpdateUser extends java.awt.Dialog {
     }//GEN-LAST:event_changeParentActionPerformed
 
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
-        TreeNode<String> target = begin.mlm.getNode(ClassFile.root,usernameField.getText());
-        begin.mlm.update(target, changeUsername.isSelected(), newUsernameField.getText(), changeParent.isSelected(), newParentField.getText());
+        mlm.update(usernameField.getText(), changeUsername.isSelected(), newUsernameField.getText(), changeParent.isSelected(), newParentField.getText());
         dispose();
     }//GEN-LAST:event_OKActionPerformed
 

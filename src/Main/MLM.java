@@ -18,7 +18,7 @@ public interface MLM<E> {
     /**update the user information, such as username and id number
      * @param String userid
      */
-    public void update(String userid);
+    public void update(String userid, boolean changeName, String newName, boolean changeParent, String newParent);
     //delete the user information
     /**delete the user, the down line of the user will connected to the company and its generations will change according to the current hierarchy
      * @param String userid
