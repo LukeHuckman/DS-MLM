@@ -231,11 +231,10 @@ public class Functions<E> implements MLM<E> {
         else if(!userid.equals(root.id)){            
             if(searchID(root,userid)){
                 TreeNode<String> target = getNodebyID(root,userid);
-                //GUI not change yet first child node directly connected to root
                 for(int i=0;i<getNodebyID(root,userid).getChildren().size();i++){
-                    graph.addEdge(target.parent.encrypteddata +"->"+ target.getChildren().get(i).encrypteddata, (String) target.parent.encrypteddata , (String) target.getChildren().get(i).encrypteddata, true);
+                    graph.addEdge(decrypt(target.parent.encrypteddata, decryptkey) +"->"+ decrypt(target.getChildren().get(i).encrypteddata, decryptkey), decrypt(target.parent.encrypteddata, decryptkey), decrypt(target.getChildren().get(i).encrypteddata, decryptkey), true);
                 }
-                graph.removeNode(target.encrypteddata);
+                graph.removeNode(decrypt(target.encrypteddata, decryptkey));
                 int position = usernames.indexOf(target.encrypteddata);
                 deleteNode(target);
                 setGeneration(root);
