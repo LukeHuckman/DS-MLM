@@ -128,7 +128,7 @@ public class UserData extends java.awt.Dialog {
         Output.setText(null);
         if(mlm.searchID(mlm.root,userIDField.getText())){
             Output.append(mlm.retrieveCompany(userIDField.getText())+"\n");
-            if(passwordField.getPassword().equals(mlm.getdecryptkey())){
+            if(passwordField.getText().equals(mlm.getdecryptkey())){
                 Output.append("Username: " + mlm.decrypt((String)mlm.getNodebyID(mlm.getRoot(),userIDField.getText()).encrypteddata, passwordField.getText()+"\n"+
                               "Parent name: " + mlm.decrypt((String)mlm.getNodebyID(mlm.getRoot(),userIDField.getText()).parent.encrypteddata, passwordField.getText())));
             }

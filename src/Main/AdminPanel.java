@@ -48,7 +48,7 @@ public class AdminPanel extends java.awt.Frame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("DreamCorporation (Admin Panel)");
+        jLabel1.setText("Admin Panel");
 
         jButton4.setText("Update the data of a user");
         jButton4.setToolTipText("");
@@ -95,6 +95,11 @@ public class AdminPanel extends java.awt.Frame {
         });
 
         jButton9.setText("Enter the sales");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("Save the directory of data");
 
@@ -190,6 +195,12 @@ public class AdminPanel extends java.awt.Frame {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        Sales window = new Sales(this, true);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments

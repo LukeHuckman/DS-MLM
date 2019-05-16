@@ -322,7 +322,7 @@ public class Functions<E> implements MLM<E> {
             goodssold += goods;
         }
         else{
-            System.out.println("The user is not exist.");
+            JOptionPane.showMessageDialog(null,"The user does not exist or invalid ID.","Error",JOptionPane.ERROR_MESSAGE);
         }
     }
     //calculate the sales and its commission from each node involved

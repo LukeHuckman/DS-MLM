@@ -109,7 +109,7 @@ public class PasswordPrompt extends java.awt.Dialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(passwordField.getPassword().equals(mlm.getPassword())){
+        if(passwordField.getText().equals(mlm.getPassword())){
             dispose();
             AdminPanel window = new AdminPanel();
             window.setLocationRelativeTo(null);
