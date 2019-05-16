@@ -5,6 +5,9 @@
  */
 package Main;
 
+import static Main.begin.mlm;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
@@ -102,6 +105,11 @@ public class AdminPanel extends java.awt.Frame {
         });
 
         jButton10.setText("Save the directory of data");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Change the password, decrypt key, fee and commissions");
 
@@ -201,6 +209,12 @@ public class AdminPanel extends java.awt.Frame {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        Save window = new Save(this, true);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments
