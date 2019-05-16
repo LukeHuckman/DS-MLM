@@ -32,11 +32,11 @@ public class UserData extends java.awt.Dialog {
         jLabel1 = new javax.swing.JLabel();
         userIDField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        passwordField = new javax.swing.JTextField();
         retrieveButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Output = new javax.swing.JTextArea();
         closeButton = new javax.swing.JButton();
+        passwordField = new javax.swing.JPasswordField();
 
         setResizable(false);
         setTitle("User information");
@@ -104,8 +104,8 @@ public class UserData extends java.awt.Dialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(retrieveButton))
+                    .addComponent(retrieveButton)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -128,7 +128,7 @@ public class UserData extends java.awt.Dialog {
         Output.setText(null);
         if(mlm.searchID(mlm.root,userIDField.getText())){
             Output.append(mlm.retrieveCompany(userIDField.getText())+"\n");
-            if(passwordField.getText().equals(mlm.getdecryptkey())){
+            if(passwordField.getPassword().equals(mlm.getdecryptkey())){
                 Output.append("Username: " + mlm.decrypt((String)mlm.getNodebyID(mlm.getRoot(),userIDField.getText()).encrypteddata, passwordField.getText()+"\n"+
                               "Parent name: " + mlm.decrypt((String)mlm.getNodebyID(mlm.getRoot(),userIDField.getText()).parent.encrypteddata, passwordField.getText())));
             }
@@ -167,7 +167,7 @@ public class UserData extends java.awt.Dialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField passwordField;
+    private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton retrieveButton;
     private javax.swing.JTextField userIDField;
     // End of variables declaration//GEN-END:variables

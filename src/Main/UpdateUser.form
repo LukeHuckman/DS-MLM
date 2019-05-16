@@ -2,6 +2,7 @@
 
 <Form version="1.2" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.DialogFormInfo">
   <Properties>
+    <Property name="resizable" type="boolean" value="false"/>
     <Property name="title" type="java.lang.String" value="Update user"/>
   </Properties>
   <SyntheticProperties>
@@ -28,22 +29,23 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="changeUsername" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="changeParent" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="Cancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="OK" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="newUsernameField" max="32767" attributes="0"/>
-                      <Component id="Label" alignment="0" max="32767" attributes="0"/>
-                      <Component id="changeUsername" alignment="0" max="32767" attributes="0"/>
-                      <Component id="usernameField" alignment="0" max="32767" attributes="0"/>
-                      <Component id="changeParent" min="-2" max="-2" attributes="0"/>
-                      <Component id="newParentField" alignment="0" pref="251" max="32767" attributes="0"/>
+                  <Component id="newParentField" alignment="0" max="32767" attributes="0"/>
+                  <Component id="newUsernameField" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="Label" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="userIDField" pref="103" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,10 +53,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Label" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="usernameField" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="userIDField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="changeUsername" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="newUsernameField" min="-2" max="-2" attributes="0"/>
@@ -93,10 +96,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="Label">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Enter username to update:"/>
+        <Property name="text" type="java.lang.String" value="Enter user ID to update:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="usernameField">
+    <Component class="javax.swing.JTextField" name="userIDField">
     </Component>
     <Component class="javax.swing.JCheckBox" name="changeParent">
       <Properties>

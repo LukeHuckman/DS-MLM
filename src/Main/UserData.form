@@ -67,8 +67,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="userIDField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="passwordField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="retrieveButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="passwordField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="390" max="32767" attributes="0"/>
@@ -91,8 +91,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Decryption password:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="passwordField">
     </Component>
     <Component class="javax.swing.JButton" name="retrieveButton">
       <Properties>
@@ -125,6 +123,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="closeButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="passwordField">
     </Component>
   </SubComponents>
 </Form>

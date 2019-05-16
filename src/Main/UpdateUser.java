@@ -30,12 +30,13 @@ public class UpdateUser extends java.awt.Dialog {
         changeUsername = new javax.swing.JCheckBox();
         newUsernameField = new javax.swing.JTextField();
         Label = new javax.swing.JLabel();
-        usernameField = new javax.swing.JTextField();
+        userIDField = new javax.swing.JTextField();
         changeParent = new javax.swing.JCheckBox();
         newParentField = new javax.swing.JTextField();
         OK = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
 
+        setResizable(false);
         setTitle("Update user");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -59,7 +60,7 @@ public class UpdateUser extends java.awt.Dialog {
             }
         });
 
-        Label.setText("Enter username to update:");
+        Label.setText("Enter user ID to update:");
 
         changeParent.setText("Change the user's parent");
         changeParent.addActionListener(new java.awt.event.ActionListener() {
@@ -91,29 +92,29 @@ public class UpdateUser extends java.awt.Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(changeUsername)
+                    .addComponent(changeParent)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(Cancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(OK))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(newUsernameField)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(changeUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(usernameField)
-                        .addComponent(changeParent)
-                        .addComponent(newParentField, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(newParentField)
+                    .addComponent(newUsernameField)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userIDField, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Label)
+                    .addComponent(userIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(changeUsername)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(newUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,8 +136,7 @@ public class UpdateUser extends java.awt.Dialog {
      * Closes the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        setVisible(false);
-        dispose();
+
     }//GEN-LAST:event_closeDialog
 
     private void changeUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeUsernameActionPerformed
@@ -159,7 +159,7 @@ public class UpdateUser extends java.awt.Dialog {
     }//GEN-LAST:event_changeParentActionPerformed
 
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
-        mlm.update(usernameField.getText(), changeUsername.isSelected(), newUsernameField.getText(), changeParent.isSelected(), newParentField.getText());
+        mlm.update(userIDField.getText(), changeUsername.isSelected(), newUsernameField.getText(), changeParent.isSelected(), newParentField.getText());
         dispose();
     }//GEN-LAST:event_OKActionPerformed
 
@@ -193,6 +193,6 @@ public class UpdateUser extends java.awt.Dialog {
     private javax.swing.JCheckBox changeUsername;
     private javax.swing.JTextField newParentField;
     private javax.swing.JTextField newUsernameField;
-    private javax.swing.JTextField usernameField;
+    private javax.swing.JTextField userIDField;
     // End of variables declaration//GEN-END:variables
 }

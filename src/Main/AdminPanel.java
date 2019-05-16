@@ -88,6 +88,11 @@ public class AdminPanel extends java.awt.Frame {
         });
 
         jButton8.setText("Get the revenue of each generations");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Enter the sales");
 
@@ -179,6 +184,12 @@ public class AdminPanel extends java.awt.Frame {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        GetRev window = new GetRev(this, true);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
