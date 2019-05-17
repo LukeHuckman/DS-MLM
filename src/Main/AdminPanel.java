@@ -75,7 +75,7 @@ public class AdminPanel extends java.awt.Frame {
             }
         });
 
-        jButton3.setText("Create new user");
+        jButton3.setText("Create a new user");
         jButton3.setPreferredSize(new java.awt.Dimension(121, 32));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,14 +90,14 @@ public class AdminPanel extends java.awt.Frame {
             }
         });
 
-        jButton8.setText("Get the revenue of each generations");
+        jButton8.setText("Get the revenue of a generation");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
             }
         });
 
-        jButton9.setText("Enter the sales");
+        jButton9.setText("Enter the sales of a user");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -111,7 +111,13 @@ public class AdminPanel extends java.awt.Frame {
             }
         });
 
-        jButton1.setText("Change the password, decrypt key, fee and commissions");
+        jButton1.setText("Change the system properties");
+        jButton1.setActionCommand("Change the password, decrypt key, fee, and commissions");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -151,9 +157,9 @@ public class AdminPanel extends java.awt.Frame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton10)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -215,6 +221,12 @@ public class AdminPanel extends java.awt.Frame {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ChangeProps window = new ChangeProps(this, true);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
