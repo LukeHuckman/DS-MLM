@@ -50,10 +50,12 @@ public interface MLM<E> {
      * 
      */
     public void loadCompanyInfo();
+    //<editor-fold defaultstate="collapsed" desc="Discontinued Code">
     /**display the entire tree of user
      * 
      */
-    public void display();
+    //public void display();
+    //</editor-fold>
     /**get the company recruit revenue from selected generation
      * @param int indexPlusONE,TreeNode<String> current,double companyrevenue
      * @return double getGenerationRecruitRevenue

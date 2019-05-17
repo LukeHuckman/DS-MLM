@@ -25,7 +25,7 @@ public class Functions<E> implements MLM<E> {
     public TreeNode<String> root;//check the calculations part
     private int idnumber;
     private int goodssold;
-    private Graph graph = new SingleGraph("MLM Graph",false,true);
+    public Graph graph = new SingleGraph("MLM Graph",false,true);
     private String decryptkey;
     private String password;
 
@@ -632,7 +632,8 @@ public class Functions<E> implements MLM<E> {
         return root;
     }
 
-    @Override
+    //<editor-fold defaultstate="collapsed" desc="Discontinued Code">
+    /*@Override
     public void display() {
         //Scanner s = new Scanner(System.in);
         System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
@@ -645,9 +646,10 @@ public class Functions<E> implements MLM<E> {
         }
         else{
             print(root," ");
-        }*/
+        }
+        //</editor-fold>
         
-    }
+    }*/
     //print the tree
     public void print(TreeNode<String> node,String space){
         String space2 = " ";
