@@ -232,7 +232,9 @@ public class Functions<E> implements MLM<E> {
             if(searchID(root,userid)){
                 TreeNode<String> target = getNodebyID(root,userid);
                 for(int i=0;i<getNodebyID(root,userid).getChildren().size();i++){
-                    graph.addEdge(decrypt(target.parent.encrypteddata, decryptkey) +"->"+ decrypt(target.getChildren().get(i).encrypteddata, decryptkey), decrypt(target.parent.encrypteddata, decryptkey), decrypt(target.getChildren().get(i).encrypteddata, decryptkey), true);
+                    //graph.addEdge(decrypt(target.parent.encrypteddata, decryptkey) +"->"+ decrypt(target.getChildren().get(i).encrypteddata, decryptkey), decrypt(target.parent.encrypteddata, decryptkey), decrypt(target.getChildren().get(i).encrypteddata, decryptkey), true);
+                    graph.addEdge("DreamCompany->"+ decrypt(target.getChildren().get(i).encrypteddata, decryptkey), "DreamCompany", decrypt(target.getChildren().get(i).encrypteddata, decryptkey), true);
+                
                 }
                 graph.removeNode(decrypt(target.encrypteddata, decryptkey));
                 int position = usernames.indexOf(target.encrypteddata);
@@ -406,6 +408,9 @@ public class Functions<E> implements MLM<E> {
     public void update(String userid, boolean changeName, String newName, boolean changeID, String newID) {
         if(searchID(root,userid)&&!userid.equals(root.id)){
             TreeNode<String> target = getNodebyID(root,userid);
+           
+            String oldid = target.id;
+            String newIDnum = "";
 //            Scanner s = new Scanner(System.in);
 //            String option1 = "";
 //            String option2 = "";
@@ -417,8 +422,17 @@ public class Functions<E> implements MLM<E> {
 //                    String newData = s.nextLine();
                     if(newName.length()>=10&&newName.length()<=12&&!newName.contains(" ")){
                         if(!searchDATA(root,encrypt(newName,decryptkey))){
+                            String oldnodename = decrypt(target.getEncrypteddata(),decryptkey);
                             usernames.set(usernames.indexOf(target.encrypteddata), encrypt(newName,decryptkey));
                             target.encrypteddata = encrypt(newName,decryptkey);
+                            graph.addNode(newName);
+                            Node graphnode = graph.getNode(newName);
+                            graphnode.addAttribute("ui.label", newName+" ("+target.id+")");
+                            graph.addEdge(decrypt(target.parent.encrypteddata,decryptkey)+"->"+ newName, decrypt(target.parent.encrypteddata,decryptkey), newName,true);
+                            for(int i=0;i<getNodebyID(root,userid).getChildren().size();i++){
+                                graph.addEdge(newName + decrypt(target.getChildren().get(i).encrypteddata, decryptkey), newName, decrypt(target.getChildren().get(i).encrypteddata, decryptkey), true);    
+                            }
+                            graph.removeNode(oldnodename);
                         }
                         else{
                         //System.out.println("The user already exist.");
@@ -451,16 +465,20 @@ public class Functions<E> implements MLM<E> {
 //                    String newID = s.nextLine();
                     try{
                         int a = Integer.parseInt(newID);
-                        if(!searchID(root,newID)&&!newID.equals(root.id)){
+                        if(!searchID(root,newID)&&!newID.equals(root.id)&&newID.length()==6){
                             target.id = newID;
+                            graph.getNode(decrypt((String)target.getEncrypteddata(),decryptkey)).setAttribute("ui.label", decrypt((String)target.getEncrypteddata(),decryptkey)+" (" + newID + ")");
+                        }
+                        else if(searchID(root,newID)||newID.equals(root.id)){
+//                        System.out.println("The user already exist.");
+                            JOptionPane.showMessageDialog(null,"The ID already occupied.","Error",JOptionPane.ERROR_MESSAGE);
                         }
                         else{
-//                        System.out.println("The user already exist.");
-                            JOptionPane.showMessageDialog(null,"The username already exists.","Error",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null,"Invalid new ID.","Error",JOptionPane.ERROR_MESSAGE);
                         }
                         break;
                     }catch(Exception e){
-                        JOptionPane.showMessageDialog(null,"Invalid ID.","Error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"Invalid new ID.","Error",JOptionPane.ERROR_MESSAGE);
                         break;
                     }
                 }
@@ -470,7 +488,7 @@ public class Functions<E> implements MLM<E> {
                 else{
                     JOptionPane.showMessageDialog(null,"An unexpected error has occured.","Error",JOptionPane.ERROR_MESSAGE);
                 }
-            }
+            } 
         }
         else if(userid.equals(root.id)){
             JOptionPane.showMessageDialog(null,"The Admin information cannot be altered.","Error",JOptionPane.ERROR_MESSAGE);
