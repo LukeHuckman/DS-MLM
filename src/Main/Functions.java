@@ -449,16 +449,20 @@ public class Functions<E> implements MLM<E> {
                 if(changeID){
 //                    System.out.print("Enter new ID: ");
 //                    String newID = s.nextLine();
-                    
-                    
-                    if(!searchID(root,newID)&&!newID.equals(root.id)){
-                        target.id = newID;
-                    }
-                    else{
+                    try{
+                        int a = Integer.parseInt(newID);
+                        if(!searchID(root,newID)&&!newID.equals(root.id)){
+                            target.id = newID;
+                        }
+                        else{
 //                        System.out.println("The user already exist.");
-                        JOptionPane.showMessageDialog(null,"The username already exists.","Error",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null,"The username already exists.","Error",JOptionPane.ERROR_MESSAGE);
+                        }
+                        break;
+                    }catch(Exception e){
+                        JOptionPane.showMessageDialog(null,"Invalid ID.","Error",JOptionPane.ERROR_MESSAGE);
+                        break;
                     }
-                    break;
                 }
                 else if(!changeID){
                     break;  
@@ -468,9 +472,12 @@ public class Functions<E> implements MLM<E> {
                 }
             }
         }
-        else{
+        else if(userid.equals(root.id)){
             JOptionPane.showMessageDialog(null,"The Admin information cannot be altered.","Error",JOptionPane.ERROR_MESSAGE);
         } 
+        else{
+            JOptionPane.showMessageDialog(null,"Invalid ID.","Error",JOptionPane.ERROR_MESSAGE);
+        }
     }
     @Override
     public String encrypt(String name,String key) {

@@ -90,7 +90,7 @@ public class DeleteUser extends java.awt.Dialog {
     }//GEN-LAST:event_closeDialog
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(mlm.searchID(mlm.root,jTextField1.getText())){
+        if(mlm.searchID(mlm.root,jTextField1.getText())&& !jTextField1.getText().equals("000000")){
             mlm.delete(jTextField1.getText());
             dispose();
         }
