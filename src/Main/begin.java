@@ -1,6 +1,5 @@
 package Main;
 
-import java.util.Scanner;
 
 public class begin {
     public static String mark = "-1";
@@ -10,10 +9,24 @@ public class begin {
     public static void main(String[] args) { 
         mlm.loadCompanyInfo();
         mlm.loadUserInfo();
-        Scanner s = new Scanner(System.in);
-        Intro window = new Intro();
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Intro window = new Intro();
+                window.addWindowListener(new java.awt.event.WindowAdapter() {
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                window.setLocationRelativeTo(null);
+                window.setVisible(true);
+            }
+        });
+    }
+}
+//<editor-fold defaultstate="collapsed" desc="Discontinued Code">     
+        //Intro window = new Intro();
+        //window.setLocationRelativeTo(null);
+        //window.setVisible(true);
         //load the data from file
         /*String option = " ";
         while(!option.equals("user")||!option.equals("admin")||!option.equals("exit")){
@@ -264,6 +277,5 @@ public class begin {
             }
         }
         
-     */   
-    }
-}
+     */
+// </editor-fold>    
