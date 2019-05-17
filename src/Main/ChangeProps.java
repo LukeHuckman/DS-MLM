@@ -511,7 +511,7 @@ public class ChangeProps extends java.awt.Dialog {
 
     private void passChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passChangeButtonActionPerformed
         if(oldPassField.getText().equals(mlm.getPassword()) && !newPassField.getText().equals("")){
-            //mlm.setPassword(newPassField.getText());
+            mlm.setPassword(newPassField.getText());
             oldPassField.setText(null);
             newPassField.setText(null);
             passwordChange.setSelected(false);
@@ -548,7 +548,7 @@ public class ChangeProps extends java.awt.Dialog {
 
     private void keyChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keyChangeButtonActionPerformed
         if(oldKeyField.getText().equals(mlm.getdecryptkey()) && !newKeyField.getText().equals("")){
-            //mlm.setdecryptkey(newPassField.getText());
+            mlm.setdecryptkey(newPassField.getText());
             oldKeyField.setText(null);
             newKeyField.setText(null);
             keyChange.setSelected(false);
