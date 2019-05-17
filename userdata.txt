@@ -1,2 +1,0 @@
-ID	Username		EncryptedUsername		Generation	EncryptedParentName		RecruitRevenue(RM)	SalesRevenue(RM)	CompanyRecruitRevenueInThisNode	CompanySalesRevenueInThisNode	GoodsSold
-

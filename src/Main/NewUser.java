@@ -130,11 +130,16 @@ public class NewUser extends java.awt.Dialog {
         for(int i=0;i<textdata.length;i++)
             chars.add(textdata[i]);
         if(usernameField.getText().length()>=10 && usernameField.getText().length()<=12 && !chars.contains(" ")){
-            if(!mlm.searchID(mlm.root,parentIDField.getText()))
-                JOptionPane.showMessageDialog(this,"User with ID "+parentIDField.getText()+" does not exist.","Error",JOptionPane.ERROR_MESSAGE);
+            if(mlm.getNodebyencryptUser(mlm.root, mlm.encrypt(usernameField.getText(), mlm.getdecryptkey()))!=null){
+                JOptionPane.showMessageDialog(this,"The username already exist.","Error",JOptionPane.ERROR_MESSAGE);
+            }
             else{
-                mlm.create(mlm.encrypt(usernameField.getText(),mlm.getdecryptkey()),parentIDField.getText());
-                dispose();
+                if(!mlm.searchID(mlm.root,parentIDField.getText()))
+                    JOptionPane.showMessageDialog(this,"User with ID "+parentIDField.getText()+" does not exist.","Error",JOptionPane.ERROR_MESSAGE);
+                else{
+                    mlm.create(mlm.encrypt(usernameField.getText(),mlm.getdecryptkey()),parentIDField.getText());
+                    dispose();
+                }
             }
         }
         else if(usernameField.getText().length()<10 || usernameField.getText().length()>12)

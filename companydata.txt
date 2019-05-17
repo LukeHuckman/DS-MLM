@@ -1,2 +1,0 @@
-RecruitRevenue	SalesRevenue	TotalDeletedNodeRevenue	GoodsSold	Password	DecryptKey	Fee	Recruit1stGenCommission	Recruit2ndGenCommission	Recruit3rdGenCommission	Recruit4thGenCommission	Recruit5thGenCommission	Sales1stGenCommission	Sales2ndGenCommission	Sales3rdGenCommission
-
