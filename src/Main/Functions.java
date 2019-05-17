@@ -403,7 +403,7 @@ public class Functions<E> implements MLM<E> {
     }
     
     @Override
-    public void update(String userid, boolean changeName, String newName, boolean changeParent, String newParent) {
+    public void update(String userid, boolean changeName, String newName, boolean changeID, String newID) {
         if(searchID(root,userid)&&!userid.equals(root.id)){
             TreeNode<String> target = getNodebyID(root,userid);
 //            Scanner s = new Scanner(System.in);
@@ -415,15 +415,25 @@ public class Functions<E> implements MLM<E> {
                 if(changeName){
 //                    System.out.print("Enter new username: ");
 //                    String newData = s.nextLine();
-                    if(!searchDATA(root,encrypt(newName,decryptkey))){
-                        usernames.set(usernames.indexOf(target.encrypteddata), encrypt(newName,decryptkey));
-                        target.encrypteddata = encrypt(newName,decryptkey);
+                    if(newName.length()>=10&&newName.length()<=12&&!newName.contains(" ")){
+                        if(!searchDATA(root,encrypt(newName,decryptkey))){
+                            usernames.set(usernames.indexOf(target.encrypteddata), encrypt(newName,decryptkey));
+                            target.encrypteddata = encrypt(newName,decryptkey);
+                        }
+                        else{
+                        //System.out.println("The user already exist.");
+                            JOptionPane.showMessageDialog(null,"The username already exists.","Error",JOptionPane.ERROR_MESSAGE);
+                        }
+                        break;
+                    }
+                    else if(newName.contains(" ")){
+                        JOptionPane.showMessageDialog(null,"The usernames cannot contain spaces.","Error",JOptionPane.ERROR_MESSAGE);
+                        break;
                     }
                     else{
-                        //System.out.println("The user already exist.");
-                        JOptionPane.showMessageDialog(null,"The username already exists.","Error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"The username length is invalid.","Error",JOptionPane.ERROR_MESSAGE);
+                        break;
                     }
-                    break;
                 }
                 else if(!changeName){
                     break;  
@@ -436,11 +446,13 @@ public class Functions<E> implements MLM<E> {
             while(true){
 //                System.out.print("Do you wish to change the ID number of the user? (Yes / No) ");
 //                option2 = s.nextLine();
-                if(changeParent){
+                if(changeID){
 //                    System.out.print("Enter new ID: ");
 //                    String newID = s.nextLine();
-                    if(!searchID(root,newParent)&&!newParent.equals(root.id)){
-                        target.id = newParent;
+                    
+                    
+                    if(!searchID(root,newID)&&!newID.equals(root.id)){
+                        target.id = newID;
                     }
                     else{
 //                        System.out.println("The user already exist.");
@@ -448,7 +460,7 @@ public class Functions<E> implements MLM<E> {
                     }
                     break;
                 }
-                else if(!changeParent){
+                else if(!changeID){
                     break;  
                 }
                 else{
@@ -528,6 +540,18 @@ public class Functions<E> implements MLM<E> {
                 newNode.generation = s.nextInt();
                 String tempencryptparent = s.next();
                 newNode.parent = getNodebyencryptUser(root,tempencryptparent);
+                if(decrypt(tempencryptparent,decryptkey).equals("DreamCompany")){
+                    graph.addNode(decrypt(tempencryptname,decryptkey));
+                    Node graphnode = graph.getNode(decrypt(tempencryptname,decryptkey));
+                    graphnode.addAttribute("ui.label", decrypt(tempencryptname,decryptkey)+" ("+newNode.id+")");
+                    graph.addEdge("DreamCompany->"+decrypt(tempencryptname,decryptkey), "DreamCompany", decrypt(tempencryptname,decryptkey),true);  
+                }
+                else{
+                    graph.addNode(decrypt(tempencryptname,decryptkey));
+                    Node graphnode = graph.getNode(decrypt(tempencryptname,decryptkey));
+                    graphnode.addAttribute("ui.label", decrypt(tempencryptname,decryptkey)+" ("+newNode.id+")");
+                    graph.addEdge(decrypt(tempencryptparent,decryptkey)+"->"+decrypt(tempencryptname,decryptkey), decrypt(tempencryptparent,decryptkey), decrypt(tempencryptname,decryptkey),true);
+                }  
                 getNodebyencryptUser(root,tempencryptparent).addChild(newNode);
                 newNode.recruitamount = s.nextDouble();
                 newNode.salesamount = s.nextDouble();
