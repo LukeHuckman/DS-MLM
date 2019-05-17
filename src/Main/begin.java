@@ -1,16 +1,16 @@
 package Main;
-
-
 public class begin {
-    public static String mark = "-1";
-    public static double temprecruit = 0.0;
-    public static double tempsales = 0.0;
+    //<editor-fold defaultstate="collapsed" desc="Discontinued Code">
+    //public static String mark = "-1";
+    //public static double temprecruit = 0.0;
+    //public static double tempsales = 0.0;
+    //</editor-fold>
     public static Functions mlm = new Functions();
-    public static void main(String[] args) { 
-        mlm.loadCompanyInfo();
-        mlm.loadUserInfo();
+    public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                mlm.loadCompanyInfo();
+                mlm.loadUserInfo();
                 Intro window = new Intro();
                 window.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {

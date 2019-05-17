@@ -18,7 +18,7 @@ public class EncryptDecrypt {
    return tmp.toString();
 }
     
-   public String Decrypte(String secret ,int password) {        //password:  only company know the password (1234)
+   public String Decrypte(String secret ,int password) {
        
    if (password == 1234){
     StringBuilder tmp = new StringBuilder();

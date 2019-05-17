@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Main;
 
-/**
- *
- * @author User
- */
 import static Main.begin.mlm;
 import javax.swing.JOptionPane;
 public class UserEnter extends java.awt.Dialog {
@@ -96,8 +87,7 @@ public class UserEnter extends java.awt.Dialog {
      * Closes the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        //setVisible(false);
-        //dispose();
+        
     }//GEN-LAST:event_closeDialog
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
