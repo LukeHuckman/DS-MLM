@@ -33,6 +33,7 @@ public class Sales extends java.awt.Dialog {
 
         jLabel3.setText("jLabel3");
 
+        setResizable(false);
         setTitle("Sales");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

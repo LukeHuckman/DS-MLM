@@ -35,6 +35,7 @@ public class GraphDisplay extends java.awt.Dialog {
         OKButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
+        setResizable(false);
         setTitle("Verification");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

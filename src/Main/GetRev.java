@@ -30,6 +30,7 @@ public class GetRev extends java.awt.Dialog {
         saleRevOut = new javax.swing.JTextField();
         closeButton = new javax.swing.JButton();
 
+        setResizable(false);
         setTitle("Get revenue");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

@@ -24,6 +24,7 @@ public class Save extends java.awt.Dialog {
         YesButton = new javax.swing.JButton();
         NoButton = new javax.swing.JButton();
 
+        setResizable(false);
         setTitle("Save");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

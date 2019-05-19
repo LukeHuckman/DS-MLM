@@ -24,6 +24,7 @@ public class UserEnter extends java.awt.Dialog {
         cancelButton = new javax.swing.JButton();
         okButton = new javax.swing.JButton();
 
+        setResizable(false);
         setTitle("User");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
