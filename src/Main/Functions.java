@@ -596,6 +596,20 @@ public class Functions<E> implements MLM<E> {
         }
     }
     
+    public void clearData(){
+        try{
+            PrintWriter print1 = new PrintWriter(new FileOutputStream("companydata.txt"));
+            print1.write("");
+            print1.close();
+            PrintWriter print2 = new PrintWriter(new FileOutputStream("userdata.txt"));
+            print2.write("");
+            print2.close();
+
+        }catch(IOException e){
+            System.out.println("File output Error");
+        }
+    }
+    
     @Override
     public void loadCompanyInfo(){
         try{
