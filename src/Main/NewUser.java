@@ -28,6 +28,7 @@ public class NewUser extends java.awt.Dialog {
         parentIDField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        cancelButton = new javax.swing.JButton();
 
         setLocationRelativeTo(null);
         setResizable(false);
@@ -59,6 +60,13 @@ public class NewUser extends java.awt.Dialog {
 
         jLabel4.setText("(10 to 12 characters and no spacing)");
 
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,8 +79,10 @@ public class NewUser extends java.awt.Dialog {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(42, 42, 42)
+                        .addComponent(cancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(OKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(OKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -95,7 +105,9 @@ public class NewUser extends java.awt.Dialog {
                 .addComponent(parentIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(OKButton)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(OKButton)
+                        .addComponent(cancelButton))
                     .addComponent(jLabel3))
                 .addContainerGap())
         );
@@ -107,8 +119,7 @@ public class NewUser extends java.awt.Dialog {
      * Closes the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        setVisible(false);
-        dispose();
+        
     }//GEN-LAST:event_closeDialog
 
     private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
@@ -139,6 +150,10 @@ public class NewUser extends java.awt.Dialog {
             JOptionPane.showMessageDialog(this,"The username cannot contain spaces.","Error",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_OKButtonActionPerformed
 
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        dispose();
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -159,6 +174,7 @@ public class NewUser extends java.awt.Dialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton OKButton;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

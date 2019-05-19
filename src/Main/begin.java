@@ -11,6 +11,14 @@ public class begin {
             public void run() {
                 mlm.loadCompanyInfo();
                 mlm.loadUserInfo();
+                try {
+                    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                        if ("Windows".equals(info.getName())) {
+                            javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                            break;
+                        }
+                    }
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {}
                 Intro window = new Intro();
                 window.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {

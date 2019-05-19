@@ -111,8 +111,7 @@ public class UserData extends java.awt.Dialog {
      * Closes the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        setVisible(false);
-        dispose();
+        
     }//GEN-LAST:event_closeDialog
 
     private void retrieveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrieveButtonActionPerformed

@@ -1,5 +1,7 @@
 package Main;
 
+import java.awt.Toolkit;
+
 public class Intro extends java.awt.Frame {
 
     /**
@@ -20,7 +22,9 @@ public class Intro extends java.awt.Frame {
         jLabel2 = new javax.swing.JLabel();
         userButton = new javax.swing.JButton();
         adminButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("Logo.png")).getImage());
         setResizable(false);
         setTitle("DreamCorporation");
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -50,15 +54,17 @@ public class Intro extends java.awt.Frame {
             }
         });
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/Logo.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addComponent(userButton, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addComponent(userButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(adminButton, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                .addComponent(adminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(72, 72, 72))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -66,11 +72,17 @@ public class Intro extends java.awt.Frame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -78,7 +90,7 @@ public class Intro extends java.awt.Frame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userButton)
                     .addComponent(adminButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -123,6 +135,7 @@ public class Intro extends java.awt.Frame {
     private javax.swing.JButton adminButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton userButton;
     // End of variables declaration//GEN-END:variables
 }

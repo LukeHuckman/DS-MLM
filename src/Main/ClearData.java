@@ -1,14 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Main;
 
 import static Main.begin.mlm;
 import javax.swing.JOptionPane;
 
-public class DeleteUser extends java.awt.Dialog {
+/**
+ *
+ * @author User
+ */
+public class ClearData extends java.awt.Dialog {
 
     /**
-     * Creates new form DeleteUser
+     * Creates new form ClearData
      */
-    public DeleteUser(java.awt.Frame parent, boolean modal) {
+    public ClearData(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -21,31 +30,31 @@ public class DeleteUser extends java.awt.Dialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        passwordField = new javax.swing.JPasswordField();
         cancelButton = new javax.swing.JButton();
+        OKButton = new javax.swing.JButton();
 
-        setTitle("Delete User");
+        setResizable(false);
+        setTitle("Verification");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
             }
         });
 
-        jLabel1.setText("Enter a user ID to delete:");
-
-        jButton1.setText("OK");
-        jButton1.setActionCommand("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Enter the admin password:");
 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
+            }
+        });
+
+        OKButton.setText("OK");
+        OKButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OKButtonActionPerformed(evt);
             }
         });
 
@@ -58,13 +67,13 @@ public class DeleteUser extends java.awt.Dialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 111, Short.MAX_VALUE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(0, 86, Short.MAX_VALUE))
+                    .addComponent(passwordField)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(cancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(OKButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -73,10 +82,10 @@ public class DeleteUser extends java.awt.Dialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(OKButton)
                     .addComponent(cancelButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -91,18 +100,20 @@ public class DeleteUser extends java.awt.Dialog {
         
     }//GEN-LAST:event_closeDialog
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(mlm.searchID(mlm.root,jTextField1.getText())&& !jTextField1.getText().equals("000000")){
-            mlm.delete(jTextField1.getText());
-            dispose();
-        }
-        else
-            JOptionPane.showMessageDialog(this,"User does not exist.","Error",JOptionPane.ERROR_MESSAGE);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
+        if(passwordField.getText().equals(mlm.getPassword())){
+            dispose();
+            ClearConfirm window = new ClearConfirm(null, true);
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+        }
+        else
+        JOptionPane.showMessageDialog(this,"Incorrect password.","Error",JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_OKButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -110,7 +121,7 @@ public class DeleteUser extends java.awt.Dialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DeleteUser dialog = new DeleteUser(new java.awt.Frame(), true);
+                ClearData dialog = new ClearData(new java.awt.Frame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -123,9 +134,9 @@ public class DeleteUser extends java.awt.Dialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton OKButton;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
 }
