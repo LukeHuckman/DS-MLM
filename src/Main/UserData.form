@@ -40,7 +40,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="passwordField" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="keyField" min="-2" pref="200" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="retrieveButton" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -68,7 +68,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="userIDField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="retrieveButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="passwordField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="keyField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="390" max="32767" attributes="0"/>
@@ -89,7 +89,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Decryption password:"/>
+        <Property name="text" type="java.lang.String" value="Decryption key:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="retrieveButton">
@@ -124,7 +124,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="closeButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="passwordField">
+    <Component class="javax.swing.JPasswordField" name="keyField">
     </Component>
   </SubComponents>
 </Form>

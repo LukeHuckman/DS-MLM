@@ -22,8 +22,8 @@ public class UpdateUser extends java.awt.Dialog {
         newUsernameField = new javax.swing.JTextField();
         Label = new javax.swing.JLabel();
         userIDField = new javax.swing.JTextField();
-        changeParent = new javax.swing.JCheckBox();
-        newParentField = new javax.swing.JTextField();
+        changeID = new javax.swing.JCheckBox();
+        newIDField = new javax.swing.JTextField();
         OK = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
 
@@ -53,15 +53,16 @@ public class UpdateUser extends java.awt.Dialog {
 
         Label.setText("Enter user ID to update:");
 
-        changeParent.setText("Change the user's parent");
-        changeParent.addActionListener(new java.awt.event.ActionListener() {
+        changeID.setText("Change the user's ID");
+        changeID.setToolTipText("");
+        changeID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeParentActionPerformed(evt);
+                changeIDActionPerformed(evt);
             }
         });
 
-        newParentField.setEditable(false);
-        newParentField.setToolTipText("New parent");
+        newIDField.setEditable(false);
+        newIDField.setToolTipText("New parent");
 
         OK.setText("OK");
         OK.addActionListener(new java.awt.event.ActionListener() {
@@ -85,12 +86,12 @@ public class UpdateUser extends java.awt.Dialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(changeUsername)
-                    .addComponent(changeParent)
+                    .addComponent(changeID)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(Cancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(OK))
-                    .addComponent(newParentField)
+                    .addComponent(newIDField)
                     .addComponent(newUsernameField)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Label)
@@ -110,9 +111,9 @@ public class UpdateUser extends java.awt.Dialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(newUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(changeParent)
+                .addComponent(changeID)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(newParentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(newIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OK)
@@ -131,26 +132,29 @@ public class UpdateUser extends java.awt.Dialog {
     }//GEN-LAST:event_closeDialog
 
     private void changeUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeUsernameActionPerformed
-
-            if(changeUsername.isSelected())
-                newUsernameField.setEditable(true);
-            else
-                newUsernameField.setEditable(false);
+        if(changeUsername.isSelected())
+            newUsernameField.setEditable(true);
+        else{
+            newUsernameField.setEditable(false);
+            newUsernameField.setText(null);
+        }
     }//GEN-LAST:event_changeUsernameActionPerformed
 
     private void newUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUsernameFieldActionPerformed
         
     }//GEN-LAST:event_newUsernameFieldActionPerformed
 
-    private void changeParentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeParentActionPerformed
-        if(changeParent.isSelected())
-                newParentField.setEditable(true);
-            else
-                newParentField.setEditable(false);
-    }//GEN-LAST:event_changeParentActionPerformed
+    private void changeIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeIDActionPerformed
+        if(changeID.isSelected())
+            newIDField.setEditable(true);
+        else{
+            newIDField.setEditable(false);
+            newIDField.setText(null);
+        }
+    }//GEN-LAST:event_changeIDActionPerformed
 
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
-        mlm.update(userIDField.getText(), changeUsername.isSelected(), newUsernameField.getText(), changeParent.isSelected(), newParentField.getText());
+        mlm.update(userIDField.getText(), changeUsername.isSelected(), newUsernameField.getText(), changeID.isSelected(), newIDField.getText());
         dispose();
     }//GEN-LAST:event_OKActionPerformed
 
@@ -180,9 +184,9 @@ public class UpdateUser extends java.awt.Dialog {
     private javax.swing.JButton Cancel;
     private javax.swing.JLabel Label;
     private javax.swing.JButton OK;
-    private javax.swing.JCheckBox changeParent;
+    private javax.swing.JCheckBox changeID;
     private javax.swing.JCheckBox changeUsername;
-    private javax.swing.JTextField newParentField;
+    private javax.swing.JTextField newIDField;
     private javax.swing.JTextField newUsernameField;
     private javax.swing.JTextField userIDField;
     // End of variables declaration//GEN-END:variables

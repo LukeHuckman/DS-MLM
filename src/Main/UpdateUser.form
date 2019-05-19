@@ -31,13 +31,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="changeUsername" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="changeParent" min="-2" max="-2" attributes="0"/>
+                  <Component id="changeID" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="Cancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="OK" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="newParentField" alignment="0" max="32767" attributes="0"/>
+                  <Component id="newIDField" alignment="0" max="32767" attributes="0"/>
                   <Component id="newUsernameField" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="Label" min="-2" max="-2" attributes="0"/>
@@ -62,9 +62,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="newUsernameField" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="changeParent" min="-2" max="-2" attributes="0"/>
+              <Component id="changeID" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="newParentField" min="-2" max="-2" attributes="0"/>
+              <Component id="newIDField" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="OK" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -101,15 +101,16 @@
     </Component>
     <Component class="javax.swing.JTextField" name="userIDField">
     </Component>
-    <Component class="javax.swing.JCheckBox" name="changeParent">
+    <Component class="javax.swing.JCheckBox" name="changeID">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Change the user&apos;s parent"/>
+        <Property name="text" type="java.lang.String" value="Change the user&apos;s ID"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changeParentActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changeIDActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="newParentField">
+    <Component class="javax.swing.JTextField" name="newIDField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="toolTipText" type="java.lang.String" value="New parent"/>
