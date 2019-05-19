@@ -35,7 +35,7 @@ public class AdminPanel extends java.awt.Frame {
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("Logo.png")).getImage());
         setName(""); // NOI18N
         setResizable(false);
-        setTitle("Dream Corporation");
+        setTitle("DreamCorporation");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
