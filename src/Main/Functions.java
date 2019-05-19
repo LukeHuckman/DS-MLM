@@ -274,8 +274,8 @@ public class Functions<E> implements MLM<E> {
             a += "Recruit revenue: RM " + getNodebyID(root,userid).recruitamount + "\n";
             a += "Sales revenue: RM " + getNodebyID(root,userid).salesamount + "\n";
             a += "Amount of goods sold: " + getNodebyID(root,userid).goodssell + "\n";
-            a += "Company's recruit revenue that gained from this user: RM " + getNodebyID(root,userid).companyrecruitamount + "\n";
-            a += "Company's sales revenue that gained from this user: RM " + getNodebyID(root,userid).companysalesamount + "\n";
+            a += "Company's recruit revenue gained from this user: RM " + getNodebyID(root,userid).companyrecruitamount + "\n";
+            a += "Company's sales revenue gained from this user: RM " + getNodebyID(root,userid).companysalesamount + "\n";
             a += "Encrypted name: " + getNodebyID(root,userid).encrypteddata + "\n";
             a += "Encrypted parent name: " + getNodebyID(root,userid).parent.encrypteddata + "\n";
             a += "Total number of users recruited: " + getNodebyID(root,userid).children.size() + "\n";
