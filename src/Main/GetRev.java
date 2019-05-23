@@ -40,7 +40,7 @@ public class GetRev extends java.awt.Dialog {
 
         jLabel1.setText("Company revenue gained from generation");
 
-        genCounter.setModel(new javax.swing.SpinnerNumberModel(1, 1, 5, 1));
+        genCounter.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         checkButton.setText("Check");
         checkButton.addActionListener(new java.awt.event.ActionListener() {
