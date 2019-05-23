@@ -72,7 +72,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="nameField">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Username"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="cancelButton">

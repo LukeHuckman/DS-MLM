@@ -34,7 +34,7 @@ public class UserEnter extends java.awt.Dialog {
 
         jLabel.setText("Enter your username:");
 
-        nameField.setToolTipText("Username");
+        nameField.setToolTipText("");
 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
