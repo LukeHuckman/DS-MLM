@@ -399,9 +399,8 @@ public class Functions<E> implements MLM<E> {
     public void update(String userid, boolean changeName, String newName, boolean changeID, String newID) {
         if(searchID(root,userid)&&!userid.equals(root.id)){
             TreeNode<String> target = getNodebyID(root,userid);
-           
-            String oldid = target.id;
-            String newIDnum = "";
+            boolean username = false;
+            boolean id = false;
 //            Scanner s = new Scanner(System.in);
 //            String option1 = "";
 //            String option2 = "";
@@ -424,6 +423,7 @@ public class Functions<E> implements MLM<E> {
                                 graph.addEdge(newName + decrypt(target.getChildren().get(i).encrypteddata, decryptkey), newName, decrypt(target.getChildren().get(i).encrypteddata, decryptkey), true);    
                             }
                             graph.removeNode(oldnodename);
+                            username = true;
                         }
                         else{
                         //System.out.println("The user already exist.");
@@ -459,6 +459,7 @@ public class Functions<E> implements MLM<E> {
                         if(!searchID(root,newID)&&!newID.equals(root.id)&&newID.length()==6){
                             target.id = newID;
                             graph.getNode(decrypt((String)target.getEncrypteddata(),decryptkey)).setAttribute("ui.label", decrypt((String)target.getEncrypteddata(),decryptkey)+" (" + newID + ")");
+                            id = true;
                         }
                         else if(searchID(root,newID)||newID.equals(root.id)){
 //                        System.out.println("The user already exist.");
@@ -480,6 +481,15 @@ public class Functions<E> implements MLM<E> {
                     JOptionPane.showMessageDialog(null,"An unexpected error has occured.","Error",JOptionPane.ERROR_MESSAGE);
                 }
             } 
+            if(username==true&&id==false){
+                JOptionPane.showMessageDialog(null,"The username has changed while user ID remained the same.","Username changed.",JOptionPane.WARNING_MESSAGE);
+            }
+            else if(username==false&&id==true){
+                JOptionPane.showMessageDialog(null,"The user ID has changed while username remained the same.","User ID changed.",JOptionPane.WARNING_MESSAGE);
+            }
+            else if(username==true&&id==true){
+                JOptionPane.showMessageDialog(null,"Both the username and user ID has changed.","Username and ID changed.",JOptionPane.WARNING_MESSAGE);
+            }
         }
         else if(userid.equals(root.id)){
             JOptionPane.showMessageDialog(null,"The Admin information cannot be altered.","Error",JOptionPane.ERROR_MESSAGE);
