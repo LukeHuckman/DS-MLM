@@ -1,4 +1,7 @@
 ID	Username		EncryptedUsername		Generation	EncryptedParentName		RecruitRevenue(RM)	SalesRevenue(RM)	CompanyRecruitRevenueInThisNode	CompanySalesRevenueInThisNode	GoodsSold
-000001	qwertyuiop		AAEgzp[h9Vrgph\g		1		99[]{56fH5[]pNLV		31.0			0.0			50.0				0.0				0
-000002	qwertyasdfgh		shq^oR\]9Vrgph\g		2		AAEgzp[h9Vrgph\g		25.0			0.0			25.0				0.0				0
-000003	qwertyasdzxc		nlrioR\]9Vrgph\g		3		shq^oR\]9Vrgph\g		0.0			0.0			19.0				0.0				0
+000001	numberones		AA{gp96f}Zq]xZrf		1		99[]{56fH5[]pNLV		40.0			0.0			50.0				0.0				0
+000002	numbertwos		AA{gzhLh}Zq]xZrf		2		AA{gp96f}Zq]xZrf		41.5			0.0			25.0				0.0				0
+000009	numbernine		AAU^ypqf}Zq]xZrf		1		99[]{56fH5[]pNLV		40.0			15.0			14.5				0.0				0
+000005	numberfive		AAU^6pq^}Zq]xZrf		2		AAU^ypqf}Zq]xZrf		37.0			30.0			11.5				50.0				1
+000007	numberseven		A8[^6Z6g}Zq]xZrf		1		99[]{56fH5[]pNLV		0.0			0.0			10.0				0.0				0
+000008	numbereight		AULerp[^}Zq]xZrf		1		99[]{56fH5[]pNLV		0.0			0.0			10.0				0.0				0

@@ -126,6 +126,10 @@ public class UserData extends java.awt.Dialog {
                 JOptionPane.showMessageDialog(this,"Incorrect password.","Error",JOptionPane.ERROR_MESSAGE);
             else
                 Output.append("Username: " + mlm.decrypt((String)mlm.getNodebyID(mlm.getRoot(),userIDField.getText()).encrypteddata, keyField.getText()));
+                Output.append("\nNew user fees: RM" + mlm.getFee());
+                Output.append("\nRecruit commissions in % (from generation 1 to 5): " + mlm.getRecruitCommission(0)*100 + "," + mlm.getRecruitCommission(1)*100 + "," + mlm.getRecruitCommission(2)*100 + "," + mlm.getRecruitCommission(3)*100 + "," + mlm.getRecruitCommission(4)*100);
+                Output.append("\nSales commissions in % (from generation 1 to 3): " + mlm.getSalesCommission(0)*100 + "," + mlm.getSalesCommission(1)*100 + "," + mlm.getSalesCommission(2)*100);
+
         }
         else
             JOptionPane.showMessageDialog(this,"The user does not exist or invalid ID.","Error",JOptionPane.ERROR_MESSAGE);
