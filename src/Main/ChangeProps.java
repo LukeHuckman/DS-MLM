@@ -609,18 +609,14 @@ public class ChangeProps extends java.awt.Dialog {
     }//GEN-LAST:event_changeRecCommActionPerformed
 
     private void recCommOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recCommOKButtonActionPerformed
-        if(mlm.getGenerationRecruitRevenue((int)recCommValue.getValue(),mlm.getRoot(),0.0)==0)
-            JOptionPane.showMessageDialog(this,"Generation does not exist.","Error",JOptionPane.ERROR_MESSAGE);
-        else{
-            recCommVal = 0.8;
-            recNewCommField.setEditable(true);
-            recCommChangeButton.setEnabled(true);
-            for(int x=0;x<mlm.getRecruitCommissionSize();x++){
-                recCommVal -= mlm.getRecruitCommission(x);
-            }
-            recCommVal += mlm.getRecruitCommission((int)recCommValue.getValue()-1);
-            recCommLimitField.setText(Long.toString(Math.round((recCommVal)*100)));
+        recCommVal = 0.8;
+        recNewCommField.setEditable(true);
+        recCommChangeButton.setEnabled(true);
+        for(int x=0;x<mlm.getRecruitCommissionSize();x++){
+            recCommVal -= mlm.getRecruitCommission(x);
         }
+        recCommVal += mlm.getRecruitCommission((int)recCommValue.getValue()-1);
+        recCommLimitField.setText(Long.toString(Math.round((recCommVal)*100)));
     }//GEN-LAST:event_recCommOKButtonActionPerformed
 
     private void recCommChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recCommChangeButtonActionPerformed
@@ -661,18 +657,14 @@ public class ChangeProps extends java.awt.Dialog {
     }//GEN-LAST:event_changeSellCommActionPerformed
 
     private void sellCommOKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellCommOKButtonActionPerformed
-        if(mlm.getGenerationRecruitRevenue((int)sellCommValue.getValue(),mlm.getRoot(),0.0)==0)
-            JOptionPane.showMessageDialog(this,"Generation does not exist.","Error",JOptionPane.ERROR_MESSAGE);
-        else{
-            sellCommVal = 0.5;
-            sellNewCommField.setEditable(true);
-            sellCommChangeButton.setEnabled(true);
-            for(int x=0;x<mlm.getSalesCommissionSize();x++){
-                sellCommVal -= mlm.getSalesCommission(x);
-            }
-            sellCommVal += mlm.getSalesCommission((int)sellCommValue.getValue()-1);
-            sellCommLimitField.setText(Long.toString(Math.round((sellCommVal)*100)));
+        sellCommVal = 0.5;
+        sellNewCommField.setEditable(true);
+        sellCommChangeButton.setEnabled(true);
+        for(int x=0;x<mlm.getSalesCommissionSize();x++){
+            sellCommVal -= mlm.getSalesCommission(x);
         }
+        sellCommVal += mlm.getSalesCommission((int)sellCommValue.getValue()-1);
+        sellCommLimitField.setText(Long.toString(Math.round((sellCommVal)*100)));
     }//GEN-LAST:event_sellCommOKButtonActionPerformed
 
     private void sellCommChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellCommChangeButtonActionPerformed
