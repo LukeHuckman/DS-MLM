@@ -43,7 +43,7 @@ public class UpdateUser extends java.awt.Dialog {
         });
 
         newUsernameField.setEditable(false);
-        newUsernameField.setToolTipText("New username");
+        newUsernameField.setToolTipText("");
         newUsernameField.setName(""); // NOI18N
         newUsernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +62,7 @@ public class UpdateUser extends java.awt.Dialog {
         });
 
         newIDField.setEditable(false);
-        newIDField.setToolTipText("New parent");
+        newIDField.setToolTipText("");
 
         OK.setText("OK");
         OK.addActionListener(new java.awt.event.ActionListener() {

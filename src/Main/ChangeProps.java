@@ -132,7 +132,7 @@ public class ChangeProps extends java.awt.Dialog {
 
         jLabel6.setText("Change for generation");
 
-        recCommValue.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        recCommValue.setModel(new javax.swing.SpinnerNumberModel(1, 1, 5, 1));
         recCommValue.setEnabled(false);
 
         commPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -296,7 +296,7 @@ public class ChangeProps extends java.awt.Dialog {
             }
         });
 
-        sellCommValue.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sellCommValue.setModel(new javax.swing.SpinnerNumberModel(1, 1, 5, 1));
         sellCommValue.setEnabled(false);
 
         changeFee.setText("Change the recruit fee");

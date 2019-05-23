@@ -87,7 +87,7 @@
     <Component class="javax.swing.JTextField" name="newUsernameField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="toolTipText" type="java.lang.String" value="New username"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
       </Properties>
       <Events>
@@ -113,7 +113,7 @@
     <Component class="javax.swing.JTextField" name="newIDField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="toolTipText" type="java.lang.String" value="New parent"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="OK">
