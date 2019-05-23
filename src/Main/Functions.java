@@ -683,6 +683,10 @@ public class Functions<E> implements MLM<E> {
         this.fee = fee;
     }
 
+    public double getFee() {
+        return fee;
+    }
+    
     public String getPassword() {
         return password;
     }
