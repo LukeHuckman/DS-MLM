@@ -629,9 +629,9 @@ public class Functions<E> implements MLM<E> {
             }
             while(s.hasNext()){
                 this.COMPANY_REVENUE = s.nextDouble();
+                this.salesRevenue = s.nextDouble();
                 root.recruitamount = COMPANY_REVENUE;
                 root.salesamount = salesRevenue;
-                this.salesRevenue = s.nextDouble();
                 this.TOTALdeletedNodeRevenue = s.nextDouble();
                 this.goodssold = s.nextInt();
                 this.password = s.next();
